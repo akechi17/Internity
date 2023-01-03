@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <form action="{{ route('login') }}" method="POST">
+    <form action="{{ route('login') }}" method="POST" class="w-80">
         @csrf
         <div class="form-group
         @error('email')

@@ -75,7 +75,24 @@
                     <p>Not registered yet? <a href="#">Create an account</a></p>
                 </div>
             </form>
+            
         </div>
+        {{-- <x-latihan.select clas='select'>
+            <x-slot name='options'>
+                <option value="1">SIJA</option>
+                <option value="2">TKJ</option>
+            </x-slot>
+        </x-latihan.select>
+        <x-latihan.select class='select'>
+            <x-slot name='options'>
+                <option value="1">11</option>
+                <option value="2">12</option>
+                <option value="3">13</option>
+            </x-slot>
+        </x-latihan.select class='select'>
+            <x-latihan.checkbox id='1' for='2' label='satu' />
+            <x-latihan.checkbox id='3' for='4' label='dua' />
+            <x-latihan.radios radio='30hz' fm='80' nama='FM' /> --}}
     </div>
 </div>
 @endsection

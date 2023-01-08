@@ -25,11 +25,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'avatar',
         'bio',
-        'location',
         'address',
         'phone',
         'date_of_birth',
         'status',
+        'password_by_admin'
     ];
 
     /**
@@ -50,4 +50,19 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function schools()
+    {
+        return $this->belongsToMany(School::class, 'school_user', 'user_id', 'school_id');
+    }
+
+    public function departments()
+    {
+        return $this->belongsToMany(Department::class, 'department_user', 'user_id', 'department_id');
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_user', 'user_id', 'course_id');
+    }
 }

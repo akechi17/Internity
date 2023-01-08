@@ -21,15 +21,15 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'password' => bcrypt('123qweasd'), // password
+            'remember_token' => str()->random(10),
             'avatar' => fake()->imageUrl(640, 480, 'people'),
-            'bio' => fake()->paragraph(),
-            'location' => fake()->city(),
+            'bio' => fake()->text(),
             'address' => fake()->address(),
             'phone' => fake()->phoneNumber(),
-            'date_of_birth' => fake()->dateTimeBetween('-50 years', '-18 years')->format('Y-m-d'),
+            'date_of_birth' => fake()->dateTimeBetween('-18 years', '-16 years')->format('Y-m-d'),
             'status' => 1,
+            'password_by_admin' => 1,
         ];
     }
 

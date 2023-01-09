@@ -70,6 +70,12 @@ class FortifyServiceProvider extends ServiceProvider
                             'email' => ['Your account is not active.'],
                         ]);
                     } else {
+                        $user->update([
+                            'last_login' => now(),
+                            'last_login_ip' => $request->ip()
+                        ]);
+                        $user->save();
+
                         return $user;
                     }
                 }

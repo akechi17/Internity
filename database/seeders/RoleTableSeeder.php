@@ -24,25 +24,69 @@ class RoleTableSeeder extends Seeder
         $role = Role::create([
             'name' => 'admin',
         ]);
-        $permissions = Permission::pluck('id', 'id')->all();
+        $permissions = Permission::where('name', 'not like', '%role%')
+            ->pluck('id', 'id');
+        $role->syncPermissions($permissions);
+
+        $role = Role::create([
+            'name' => 'manager',
+        ]);
+        $permissions = Permission::where('name', 'like', '%user%')
+            ->orWhere('name', 'like', '%company%')
+            ->orWhere('name', 'like', '%department%')
+            ->orWhere('name', 'like', '%vacancy%')
+            ->orWhere('name', 'like', '%course%')
+            ->orWhere('name', 'like', '%room%')
+            ->orWhere('name', 'like', '%score%')
+            ->orWhere('name', 'like', '%news%')
+            ->orWhere('name', 'like', '%presence%')
+            ->pluck('id', 'id');
         $role->syncPermissions($permissions);
 
         $role = Role::create([
             'name' => 'teacher',
         ]);
-        $permissions = Permission::pluck('id', 'id')->all();
+        $permissions = Permission::where('name', 'department-edit')
+            ->orWhere('name', 'like', '%vacancy%')
+            ->orWhere('name', 'like', '%course%')
+            ->orWhere('name', 'like', '%room%')
+            ->orWhere('name', 'like', '%company%')
+            ->orWhere('name', 'score-list')
+            ->orWhere('name', 'like', '%news%')
+            ->orWhere('name', 'presence-list')
+            ->orWhere('name', 'score-predicate-list')
+            ->pluck('id', 'id');
         $role->syncPermissions($permissions);
 
         $role = Role::create([
             'name' => 'mentor',
         ]);
-        $permissions = Permission::pluck('id', 'id')->all();
+        $permissions = Permission::where('name', 'like', '%vacancy%')
+            ->orWhere('name', 'room-list')
+            ->orWhere('name', 'room-edit')
+            ->orWhere('name', 'like', '%score%')
+            ->orWhere('name', 'score-predicate-list')
+            ->orWhere('name', 'presence-list')
+            ->orWhere('name', 'company-list')
+            ->orWhere('name', 'company-edit')
+            ->pluck('id', 'id');
         $role->syncPermissions($permissions);
 
         $role = Role::create([
             'name' => 'student',
         ]);
-        $permissions = Permission::pluck('id', 'id')->all();
+        $permissions = Permission::where('name', 'school-list')
+            ->orWhere('name', 'company-list')
+            ->orWhere('name', 'department-list')
+            ->orWhere('name', 'vacancy-list')
+            ->orWhere('name', 'course-list')
+            ->orWhere('name', 'room-list')
+            ->orWhere('name', 'score-list')
+            ->orWhere('name', 'score-predicate-list')
+            ->orWhere('name', 'presence-list')
+            ->orWhere('name', 'presence-create')
+            ->orWhere('name', 'news-list')
+            ->pluck('id', 'id');
         $role->syncPermissions($permissions);
     }
 }

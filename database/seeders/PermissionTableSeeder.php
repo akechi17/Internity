@@ -18,6 +18,7 @@ class PermissionTableSeeder extends Seeder
             'role-list',
             'role-create',
             'role-edit',
+            'role-delete',
 
             'permission-list',
             'permission-create',
@@ -26,7 +27,57 @@ class PermissionTableSeeder extends Seeder
             'user-list',
             'user-create',
             'user-edit',
-            'user-import',
+            'user-delete',
+
+            'school-list',
+            'school-create',
+            'school-edit',
+            'school-delete',
+
+            'company-list',
+            'company-create',
+            'company-edit',
+            'company-delete',
+
+            'department-list',
+            'department-create',
+            'department-edit',
+            'department-delete',
+
+            'vacancy-list',
+            'vacancy-create',
+            'vacancy-edit',
+            'vacancy-delete',
+
+            'course-list',
+            'course-create',
+            'course-edit',
+            'course-delete',
+
+            'room-list',
+            'room-create',
+            'room-edit',
+            'room-delete',
+
+            'score-predicate-list',
+            'score-predicate-create',
+            'score-predicate-edit',
+            'score-predicate-delete',
+
+            'score-list',
+            'score-create',
+            'score-edit',
+            'score-delete',
+
+            'news-list',
+            'news-create',
+            'news-edit',
+            'news-delete',
+
+            'presence-list',
+            'presence-create',
+            'presence-edit',
+            'presence-delete',
         ];
 
         foreach ($permissions as $permission) {

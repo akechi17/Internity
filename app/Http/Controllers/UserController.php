@@ -96,7 +96,7 @@ class UserController extends Controller
     {
         $context = $this->getData();
 
-        return view('user.index', $context);
+        return view('users.index', $context);
     }
 
     public function search(Request $request)
@@ -136,7 +136,7 @@ class UserController extends Controller
             $courses = Course::all();
         }
 
-        return view('user.create', compact('schools', 'departments', 'courses'));
+        return view('users.create', compact('schools', 'departments', 'courses'));
     }
 
     /**
@@ -176,10 +176,10 @@ class UserController extends Controller
                 $user->courses()->attach($request->course_id);
             }
 
-            return redirect()->route('user.index')
+            return redirect()->route('users.index')
                 ->with('success', 'User created successfully');
         } catch (\Exception $e) {
-            return redirect()->route('user.index')
+            return redirect()->route('users.index')
                 ->with('error', 'User created failed');
         }
     }
@@ -197,7 +197,7 @@ class UserController extends Controller
             $user = User::find($id);
             return view('user.show', compact('user'));
         } catch (\Exception $e) {
-            return redirect()->route('user.index')
+            return redirect()->route('users.index')
                 ->with('error', 'User not found');
         }
     }
@@ -230,7 +230,7 @@ class UserController extends Controller
 
             return view('user.edit', compact('user', 'schools', 'departments', 'courses'));
         } catch (\Exception $e) {
-            return redirect()->route('user.index')
+            return redirect()->route('users.index')
                 ->with('error', 'User not found');
         }
     }
@@ -275,10 +275,10 @@ class UserController extends Controller
                 $user->courses()->sync($request->course_id);
             }
 
-            return redirect()->route('user.index')
+            return redirect()->route('users.index')
                 ->with('success', 'User updated successfully');
         } catch (\Exception $e) {
-            return redirect()->route('user.index')
+            return redirect()->route('users.index')
                 ->with('error', 'User updated failed');
         }
     }
@@ -295,10 +295,10 @@ class UserController extends Controller
         try {
             $user = User::find($id);
             $user->delete();
-            return redirect()->route('user.index')
+            return redirect()->route('users.index')
                 ->with('success', 'User deleted successfully');
         } catch (\Exception $e) {
-            return redirect()->route('user.index')
+            return redirect()->route('users.index')
                 ->with('error', 'User deleted failed');
         }
     }

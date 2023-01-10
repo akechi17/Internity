@@ -34,6 +34,7 @@
                     name="email"
                     required
                     autocomplete="off"
+                    name="email"
                     />
                     {{-- <x-form.input type='text' id='text-input1'>
                         <x-slot name='label'>
@@ -76,7 +77,7 @@
                     <p>Not registered yet? <a href="#">Create an account</a></p>
                 </div>
             </form>
-            
+
         </div>
     </div>
 </div>

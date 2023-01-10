@@ -46,6 +46,14 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.register');
         });
 
+        Fortify::requestPasswordResetLinkView(function () {
+            return view('auth.forgot-password');
+        });
+
+        Fortify::resetPasswordView(function ($request) {
+            return view('auth.reset-password', ['request' => $request]);
+        });
+
         Fortify::authenticateUsing(function (Request $request) {
             $user = \App\Models\User::where('email', $request->email)->first();
 
@@ -62,6 +70,12 @@ class FortifyServiceProvider extends ServiceProvider
                             'email' => ['Your account is not active.'],
                         ]);
                     } else {
+                        $user->update([
+                            'last_login' => now(),
+                            'last_login_ip' => $request->ip()
+                        ]);
+                        $user->save();
+
                         return $user;
                     }
                 }

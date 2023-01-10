@@ -1,5 +1,6 @@
 <?php
 
+use Faker\Provider\Base;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -186,6 +187,8 @@ return [
          * Package Service Providers...
          */
         Spatie\Permission\PermissionServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        OwenIt\Auditing\AuditingServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -210,7 +213,8 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Permission' => Spatie\Permission\Facade::class,
     ])->toArray(),
 
 ];

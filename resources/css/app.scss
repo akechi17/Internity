@@ -3,4 +3,5 @@
 // Import custom css
 @use "form/input";
 @use "auth/signin";
+@use "auth/forgot-password";
 @import "~bootstrap/scss/bootstrap";

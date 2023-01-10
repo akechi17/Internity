@@ -2,7 +2,7 @@
 
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid" id="login-page">
     <div class="row">
         <div
             class="col-md-6 d-flex flex-column align-items-center justify-content-center text-center side-left"
@@ -31,6 +31,7 @@
                     type="email"
                     class="input"
                     id="email"
+                    name="email"
                     required
                     autocomplete="off"
                     />
@@ -77,6 +78,11 @@
             </form>
             
         </div>
+    </div>
+</div>
+@endsection
+
+<script src="js/login/showpass.js"></script>
         {{-- <x-latihan.select clas='select'>
             <x-slot name='options'>
                 <option value="1">SIJA</option>
@@ -93,6 +99,3 @@
             <x-latihan.checkbox id='1' for='2' label='satu' />
             <x-latihan.checkbox id='3' for='4' label='dua' />
             <x-latihan.radios radio='30hz' fm='80' nama='FM' /> --}}
-    </div>
-</div>
-@endsection

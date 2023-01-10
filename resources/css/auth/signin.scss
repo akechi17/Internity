@@ -55,11 +55,11 @@
     color: white;
 }
 
-#email {
+#login-page #email {
     margin-bottom: 50px;
 }
 
-#password {
+#login-page #password {
     margin-bottom: 30px;
 }
 
@@ -88,7 +88,7 @@
     display: none;
 }
 
-.submit {
+#login-page .submit {
     border: none;
     outline: none;
     height: 45px;
@@ -100,7 +100,7 @@
     font-weight: 700;
 }
 
-.submit:hover {
+#login-page .submit:hover {
     background: #0144A7;
     color: white;
 }

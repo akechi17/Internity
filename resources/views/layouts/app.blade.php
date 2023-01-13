@@ -7,7 +7,6 @@
     <meta name="csrf_token" content="{{ csrf_token() }}" />
 
     @vite(['resources/js/app.js'])
-
     {{-- Internal Javascript --}}
     @stack('scripts')
 

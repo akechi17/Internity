@@ -63,11 +63,19 @@
                     ">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="mb-4 form-check remember">
+
+                <x-latihan.checkbox class='form-check remember' id='remember'>
+                    <x-slot name='label'>
+                        <label class="form-check-label" for="remember">Remember Me</label>
+                        <a href="{{ route('password.request') }}">Forgot Your Password?</a>
+                    </x-slot>
+                </x-latihan.checkbox>
+
+                {{-- <div class="mb-4 form-check remember">
                     <input type="checkbox" class="form-check-input" id="remember" />
                     <label class="form-check-label" for="remember">Remember Me</label>
                     <a href="{{ route('password.request') }}">Forgot Your Password?</a>
-                </div>
+                </div> --}}
 
                 <div class="input-field">
                     <button type="submit" class="submit">Login</button>
@@ -83,20 +91,22 @@
 </div>
 @endsection
 
-<script src="js/login/showpass.js"></script>
-        {{-- <x-latihan.select clas='select'>
-            <x-slot name='options'>
-                <option value="1">SIJA</option>
-                <option value="2">TKJ</option>
-            </x-slot>
-        </x-latihan.select>
-        <x-latihan.select class='select'>
-            <x-slot name='options'>
-                <option value="1">11</option>
-                <option value="2">12</option>
-                <option value="3">13</option>
-            </x-slot>
-        </x-latihan.select class='select'>
-            <x-latihan.checkbox id='1' for='2' label='satu' />
-            <x-latihan.checkbox id='3' for='4' label='dua' />
-            <x-latihan.radios radio='30hz' fm='80' nama='FM' /> --}}
+{{-- <script src="js/login/showpass.js"></script> --}}
+        
+{{-- Latihan
+    <x-latihan.select class='select'>
+    <x-slot name='options'>
+        <option value="1">SIJA</option>
+        <option value="2">TKJ</option>
+    </x-slot>
+</x-latihan.select>
+<x-latihan.select class='select'>
+    <x-slot name='options'>
+        <option value="1">11</option>
+        <option value="2">12</option>
+        <option value="3">13</option>
+    </x-slot>
+</x-latihan.select class='select'>
+    <x-latihan.checkbox id='1' for='2' label='satu' />
+    <x-latihan.checkbox id='3' for='4' label='dua' />
+    <x-latihan.radios radio='30hz' fm='80' nama='FM' /> --}}

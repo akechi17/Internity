@@ -19,6 +19,10 @@ class School extends Model
         'status',
     ];
 
+    protected $orderBy = [
+        'updated_at' => 'desc',
+    ];
+
     public function departments()
     {
         return $this->hasMany(Department::class);
@@ -42,5 +46,29 @@ class School extends Model
     public function code()
     {
         return $this->morphOne(Code::class, 'codeable');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('status', 0);
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'like', "%$search%")
+            ->orWhere('address', 'like', "%$search%")
+            ->orWhere('phone', 'like', "%$search%")
+            ->orWhere('email', 'like', "%$search%")
+            ->orWhere('website', 'like', "%$search%");
+    }
+
+    public function scopeNotAdmin($query, $school_id)
+    {
+        return $query->where('id', $school_id);
     }
 }

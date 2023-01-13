@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\VerificationController;
 
 /*
@@ -35,4 +37,8 @@ Route::middleware(['verified.email', 'auth'])->group( function () {
 
     Route::put('users/{id}/updateStatus', [UserController::class, 'updateStatus'])->name('users.updateStatus');
     Route::resource('/users', UserController::class);
+
+    Route::resource('/schools', SchoolController::class);
+
+    Route::resource('/departments', DepartmentController::class);
 });

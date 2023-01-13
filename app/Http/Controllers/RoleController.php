@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -19,26 +20,24 @@ class RoleController extends Controller
 
     public function getData($search=null, $status=null, $sort=null)
     {
-        if ($sort) {
-            if ($sort[0] == '-') {
-                $sort = substr($sort, 1);
-                $sortType = 'desc';
-            } else {
-                $sortType = 'asc';
-            }
-        }
-
         $roles = Role::when($search, function ($query, $search) {
-                return $query->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('description', 'like', '%' . $search . '%');
+                return $query->search($search);
             })
             ->when($status, function ($query, $status) {
                 return $query->where('status', $status);
             })
-            ->when($sort, function ($query, $sort) use ($sortType) {
+            ->when($sort, function ($query, $sort) {
+                if ($sort[0] == '-') {
+                    $sort = substr($sort, 1);
+                    $sortType = 'desc';
+                } else {
+                    $sortType = 'asc';
+                }
                 return $query->orderBy($sort, $sortType);
             })
             ->paginate(10);
+
+        $roles->withPath('/roles')->withQueryString();
 
         if ($roles->count() > 0) {
             $context = [
@@ -73,7 +72,10 @@ class RoleController extends Controller
     public function index()
     {
         $context = $this->getData();
-        return view('role.index', $context);
+
+        return $context['status']
+        ? view('role.index', $context)
+        : view('role.index', $context)->with('error', $context['message']);
     }
 
     public function search(Request $request)
@@ -86,7 +88,7 @@ class RoleController extends Controller
 
         return $context['status']
         ? response()->json($context)
-        : response()->json($context, 404);
+        : response()->json($context, 204);
     }
 
     /**
@@ -216,11 +218,19 @@ class RoleController extends Controller
             $role->status = 1;
             $state = 'diaktifkan';
         }
-
         $role->save();
 
+        $users = User::whereHas('roles', function ($query) use ($role) {
+            $query->where('name', $role->name);
+        })->get();
+
+        foreach ($users as $user) {
+            $user->status = $role->status;
+            $user->save();
+        }
+
         return $role
-        ? redirect()->route('role.index')->with('success', "Role $role->name $state")
-        : redirect()->route('role.index')->with('error', 'Status role gagal diubah');
+            ? redirect()->route('role.index')->with('success', "Role $role->name $state")
+            : redirect()->route('role.index')->with('error', 'Status role gagal diubah');
     }
 }

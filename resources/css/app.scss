@@ -1,9 +1,9 @@
-// app.scss
-// Import Bootstrap css
-// Import custom css
+// Aliases bootstrap ( check vite.config.js )
+@use "~bootstrap/scss/bootstrap";
+@use "~bootstrap-icons/bootstrap-icons.css";
+
+// import all scss files
 @use "form/input";
 @use "auth/signin";
 @use "auth/forgot-password";
 @use "global";
-@import "~bootstrap/scss/bootstrap";
-@import "~bootstrap-icons/font/bootstrap-icons";

@@ -3,6 +3,12 @@ import laravel from "laravel-vite-plugin";
 import path from "path";
 
 export default defineConfig({
+    server: {
+        host: true,
+        hmr: {
+            host: "localhost",
+        },
+    },
     plugins: [
         laravel({
             input: ["resources/css/apps.scss", "resources/js/app.js"],
@@ -13,6 +19,10 @@ export default defineConfig({
     resolve: {
         alias: {
             "~bootstrap": path.resolve(__dirname, "node_modules/bootstrap"),
+            "~bootstrap-icons": path.resolve(
+                __dirname,
+                "node_modules/bootstrap-icons/font"
+            ),
         },
     },
 });

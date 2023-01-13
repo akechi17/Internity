@@ -11,12 +11,14 @@ class checkbox extends Component
      *
      * @return void
      */
-    public $id, $for, $label;
-    public function __construct($id, $for, $label)
+    public $class;
+    public $id;
+    public function __construct($class, $id)
     {
+        $this->class = $class;
         $this->id = $id;
-        $this->for = $for;
-        $this->label = $label;
+        // $this->for = $for;
+        // $this->label = $label;
         //
     }
 

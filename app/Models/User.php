@@ -67,4 +67,27 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Course::class, 'course_user', 'user_id', 'course_id');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('status', 0);
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'like', "%$search%")
+                    ->where('email', 'like', "%$search%");
+    }
+
+    public function scopeNotAdmin($query, $school_id)
+    {
+        return $query->whereHas('schools', function ($query) use ($school_id) {
+            $query->where('school_id', $school_id);
+        });
+    }
 }

@@ -48,6 +48,7 @@ class UserTableSeeder extends Seeder
             'password' => bcrypt('123qweasd'),
         ]);
         $user->assignRole('teacher');
+        $user->schools()->attach($school->id);
         $user->departments()->attach($department->id);
 
         $user = User::create([
@@ -64,17 +65,22 @@ class UserTableSeeder extends Seeder
             'password' => bcrypt('123qweasd'),
         ]);
         $user->assignRole('student');
+        $user->schools()->attach($school->id);
+        $user->departments()->attach($department->id);
         $user->courses()->attach($course->id);
 
         $courses = Course::all();
         foreach ($courses as $course) {
             User::factory()->count(5)->create()->each(function ($user) use ($course) {
                 $user->assignRole('student');
+                $user->schools()->attach($course->department->school_id);
+                $user->departments()->attach($course->department_id);
                 $user->courses()->attach($course->id);
             });
 
             User::factory()->count(3)->create()->each(function ($user) use ($course) {
                 $user->assignRole('teacher');
+                $user->schools()->attach($course->department->school_id);
                 $user->departments()->attach($course->department->id);
             });
         }
@@ -82,7 +88,7 @@ class UserTableSeeder extends Seeder
         $schools = School::all();
         foreach ($schools as $school) {
             User::factory()->count(1)->create()->each(function ($user) use ($school) {
-                $user->assignRole('admin');
+                $user->assignRole('manager');
                 $user->schools()->attach($school->id);
             });
         }

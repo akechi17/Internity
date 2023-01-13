@@ -4,4 +4,6 @@
 @use "form/input";
 @use "auth/signin";
 @use "auth/forgot-password";
+@use "global";
 @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons";

@@ -32,6 +32,8 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             VacancySeeder::class,
             ScorePredicateSeeder::class,
+            PresenceStatusSeeder::class,
+            MenuSeeder::class,
             UserTableSeeder::class,
             NewsSeeder::class,
         ]);

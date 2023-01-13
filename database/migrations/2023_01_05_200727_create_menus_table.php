@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('status')->default(1);
             $table->integer('order')->default(0);
             $table->foreignId('parent_id')->nullable()->constrained('menus')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('permission_id')->nullable()->constrained('permissions')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

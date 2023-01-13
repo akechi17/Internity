@@ -9,4 +9,19 @@ use Spatie\Permission\Models\Role as RoleModel;
 class Role extends RoleModel implements RoleContract
 {
     use HasFactory;
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'like', "%$search%");
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('status', 0);
+    }
 }

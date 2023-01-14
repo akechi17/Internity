@@ -1,7 +1,7 @@
 <div id="resetpass-page">
     <div class="card d-flex align-items-center">
         <div class="card-body">
-            <form action="{{ route('reset-password') }}" method="POST">
+            <form action="{{ route('password.update') }}" method="POST">
                 @csrf
                 <img src="img/logo-internity.png" alt="Internity" />
                 <p>Reset Password</p>

@@ -19,7 +19,7 @@
 
     h1 {
         color: #0161a7;
-        font-weight: 800;
+        font-weight: 700;
     }
 
     p {
@@ -63,7 +63,7 @@
     margin-bottom: 10px;
     a {
         float: right;
-        font-weight: 900;
+        font-weight: 600;
         color: white;
         text-decoration: none;
     }
@@ -111,7 +111,7 @@
     }
 
     a {
-        font-weight: 900;
+        font-weight: 600;
         color: #005796;
         text-decoration: none;
     }
@@ -120,3 +120,80 @@
         color: white;
     }
 }
+
+// @media screen and (max-width: 450px) {
+//     .side-left { 
+//         h1 {
+//             font-size: 26px;
+//         }
+    
+//         p { 
+//             font-size: 13px;
+//         }
+//     }
+// }
+
+// @media screen and (max-width: 550px) {
+//     .side-left {
+//         height: 30vh;
+//         margin-top: 10px;
+
+//         img {
+//             margin-bottom: 10px;
+//             width: 100px;
+//         }
+
+//         h1 {
+//             font-size: 28px;
+//         }
+
+//         p { 
+//             font-size: 14px;
+//         }
+//     }
+
+//     .side-right {
+//         height: 70vh;
+
+//         h1 {
+//             margin-bottom: 40px;
+//         }
+//     }
+
+//     .input-field {
+//         width: 350px;
+//         font-size: medium;
+//     }
+
+//     #login-page #email {
+//         margin-bottom: 30px;
+//     }
+    
+//     #login-page #password {
+//         margin-bottom: 15px;
+//     }
+// }
+
+// @media screen and (max-width: 767px){
+//     .side-left {
+//         height: 30vh;
+
+//         img {
+//             margin-bottom: 10px;
+//             width: 100px;
+//         }
+//     }
+
+//     .side-right {
+//         height: 70vh;
+
+//         h1 {
+//             margin-bottom: 40px;
+//         }
+//     }
+
+//     .input-field {
+//         width: 500px;
+//     }
+
+// }

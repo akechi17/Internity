@@ -1,8 +1,6 @@
-@extends('app')
+@extends('layouts.app')
 
 <div>
-    <sidebar />
-
     {{-- dashboard content --}}
-    @yield('dashboad-content')
+    @yield('dashboard-content')
 </div>

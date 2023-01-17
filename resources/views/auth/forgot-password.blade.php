@@ -13,7 +13,7 @@
                     {{-- <label for="email">Email</label> --}}
                     <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Send Password Reset Link</button>
+                <button type="submit" class="btn bg-gradient-info">Send Password Reset Link</button>
             </form>
         </div>
     </div>

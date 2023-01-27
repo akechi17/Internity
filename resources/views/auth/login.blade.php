@@ -17,28 +17,27 @@
                 <form action="{{ route('login') }}" method="POST" class="w-80">
                     @csrf
                     <h1 class="text-center">Sign In</h1>
-                    <div
-                        class="form-group input-field
-                @error('email')
-                    has-error
-                @enderror
-            ">
+                    
+                    <div class="form-group input-field
+                        @error('email')
+                            has-error
+                        @enderror
+                    ">
                         <label for="email">Email</label>
                         <input type="email" class="input" id="email" name="email" required autocomplete="off"
                             name="email" />
                         {{-- <x-form.input type='text' id='text-input1'>
                         <x-slot name='label'>
-
-                        </x-slot>
-                    </x-form.input> --}}
+                            </x-slot>
+                        </x-form.input> --}}
 
                     </div>
                     <div
                         class="form-group input-field
-                @error('password')
-                    has-error
-                @enderror
-            ">
+                        @error('password')
+                            has-error
+                        @enderror
+                    ">
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password" class="input" required>
                         <span class="eye" onclick="myFunction()">
@@ -47,11 +46,11 @@
                         </span>
                         @error('password')
                             <span
-                                class="help-block
-                        @error('email')
-                            help-block-email
-                        @enderror
-                    ">{{ $message }}</span>
+                                class="alert-danger help-block
+                                @error('email')
+                                    help-block-email
+                                @enderror
+                            ">{{ $message }}</span>
                         @enderror
                     </div>
 
@@ -72,9 +71,9 @@
                         <button type="submit" class="submit">Login</button>
                     </div>
 
-                    <div class="signup">
+                    {{-- <div class="signup">
                         <p>Not registered yet? <a href="#">Create an account</a></p>
-                    </div>
+                    </div> --}}
                 </form>
 
             </div>
@@ -82,6 +81,23 @@
     </div>
 @endsection
 
+<script>
+    function myFunction() {
+        var passField = document.getElementById("password");
+        var showPass = document.getElementById("show");
+        var hidePass = document.getElementById("hide");
+
+        if (passField.type === "password") {
+            passField.type = "text";
+            showPass.style.display = "block";
+            hidePass.style.display = "none";
+        } else {
+            passField.type = "password";
+            showPass.style.display = "none";
+            hidePass.style.display = "block";
+        }
+    }
+</script>
 {{-- <script src="js/login/showpass.js"></script> --}}
 
 {{-- Latihan

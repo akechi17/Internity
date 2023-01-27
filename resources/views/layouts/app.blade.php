@@ -12,7 +12,7 @@
     {{-- Internal Javascript --}}
     @stack('scripts')
 
-    <title>Laravel</title>
+    <title>Internity</title>
 </head>
 
 <body class="antialiased">

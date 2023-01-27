@@ -15,10 +15,20 @@ class ScorePredicate extends Model
         'color',
         'min',
         'max',
+        'school_id',
     ];
 
-    public function score()
+    public function school()
     {
-        return $this->hasMany(Score::class);
+        return $this->belongsTo(School::class);
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'like', "%$search%")
+            ->orWhere('description', 'like', "%$search%")
+            ->orWhere('color', 'like', "%$search%")
+            ->orWhere('min', 'like', "%$search%")
+            ->orWhere('max', 'like', "%$search%");
     }
 }

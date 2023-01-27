@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('score_predicates', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('school_id')->constrained('schools')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
             $table->string('description');
             $table->string('color');

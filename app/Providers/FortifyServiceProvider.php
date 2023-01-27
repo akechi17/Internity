@@ -60,14 +60,14 @@ class FortifyServiceProvider extends ServiceProvider
             if ($user &&
                 Hash::check($request->password, $user->password)) {
                 # Check user role
-                if ($user->role == 'student') {
+                if ($user->hasRole('student')) {
                     throw ValidationException::withMessages([
-                        'email' => ['Account student is only exist in mobile app.'],
+                        'email' => ['Akun siswa hanya bisa login melalui aplikasi mobile.'],
                     ]);
                 } else {
                     if (! $user->status) {
                         throw ValidationException::withMessages([
-                            'email' => ['Your account is not active.'],
+                            'email' => ['Akun Anda tidak aktif, silakan hubungi admin.'],
                         ]);
                     } else {
                         $user->update([
@@ -79,6 +79,10 @@ class FortifyServiceProvider extends ServiceProvider
                         return $user;
                     }
                 }
+            } else {
+                throw ValidationException::withMessages([
+                    'email' => ['Email atau password salah.'],
+                ]);
             }
         });
 

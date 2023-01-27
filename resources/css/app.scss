@@ -6,4 +6,6 @@
 @use "form/input";
 @use "auth/signin";
 @use "auth/forgot-password";
+@use "auth/verify";
+@use "auth/reset-password";
 @use "global";

@@ -17,11 +17,11 @@
                     @csrf
                     <h1 class="text-center">Sign In</h1>
                     
-                    <div class="form-group input-field
+                    <div class="form-group input-field"
                         @error('email')
                             has-error
                         @enderror
-                    ">
+                    >
                         <label for="email">Email</label>
                         <input type="email" class="input" id="email" name="email" required autocomplete="off"
                             name="email" />
@@ -32,11 +32,12 @@
 
                     </div>
                     <div
-                        class="form-group input-field
+                        class="form-group input-field"
                         @error('password')
                             has-error
                         @enderror
-                    ">
+                    >
+                    
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password" class="input" required>
                         <span class="eye" onclick="myFunction()">
@@ -45,7 +46,7 @@
                         </span>
                         @error('password')
                             <span
-                                class="alert-danger help-block
+                                class="alert alert-danger help-block
                                 @error('email')
                                     help-block-email
                                 @enderror

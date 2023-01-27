@@ -10,14 +10,11 @@ use App\Http\Requests\UpdateDepartmentRequest;
 
 class DepartmentController extends Controller
 {
-    public function getData($schoolId, $search=null, $status=null, $sort=null)
+    public function getData($schoolId=null, $search=null, $status=null, $sort=null)
     {
         $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
-        $departments = Department::whereHas('school', function ($query) use ($schoolId, $isAdmin) {
-            return $isAdmin
-            ? $query->where('id', $schoolId)
-            : $query->where('id', auth()->user()->schools()->first()->id);
-            })
+        $schoolId ??= auth()->user()->schools()->first()->id;
+        $departments = Department::where('school_id', $schoolId)
             ->when($search, function ($query, $search) {
                 return $query->search($search);
             })
@@ -37,6 +34,10 @@ class DepartmentController extends Controller
 
         $departments->withPath('/departments')->withQueryString();
 
+        $schools = $isAdmin
+            ? School::pluck('name', 'id')
+            : School::where('id', $schoolId)->pluck('name', 'id');
+
         if ($departments->count() > 0) {
             $context = [
                 'status' => true,
@@ -46,6 +47,8 @@ class DepartmentController extends Controller
                 'search' => $search,
                 'statusData' => $status,
                 'sort' => $sort,
+                'schools' => $schools,
+                'selectedSchool' => $schoolId,
             ];
         } else {
             $context = [
@@ -56,6 +59,8 @@ class DepartmentController extends Controller
                 'search' => $search,
                 'statusData' => $status,
                 'sort' => $sort,
+                'schools' => $schools,
+                'selectedSchool' => $schoolId,
             ];
         }
 
@@ -67,15 +72,27 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $schoolId = decrypt($request->query('school'));
-
-        $context = $this->getData($schoolId);
+        $context = $this->getData();
 
         return $context['status']
             ? view('departments.index', $context)
             : view('departments.index', $context)->with('error', $context['message']);
+    }
+
+    public function search(Request $request)
+    {
+        $schoolId = decrypt($request->query('school_id'));
+        $search = $request->query('search');
+        $status = $request->query('status');
+        $sort = $request->query('sort');
+
+        $context = $this->getData($schoolId, $search, $status, $sort);
+
+        return $context['status']
+            ? response()->json($context)
+            : response()->json($context, 204);
     }
 
     /**
@@ -85,7 +102,11 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('departments.create');
+        $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
+        $schools = $isAdmin
+            ? School::pluck('name', 'id')
+            : School::where('id', auth()->user()->schools()->first()->id)->pluck('name', 'id');
+        return view('departments.create', compact('schools'));
     }
 
     /**
@@ -122,9 +143,9 @@ class DepartmentController extends Controller
                     ]);
                 }
 
-                return redirect()->route('departments.index', ['school' => encrypt($request->school_id)])->with('success', 'Data jurusan berhasil ditambahkan');
+                return redirect()->route('departments.index', ['school_id' => encrypt($request->school_id)])->with('success', 'Data jurusan berhasil ditambahkan');
             } catch (\Exception $e) {
-                return redirect()->route('departments.index', ['school' => encrypt($request->school_id)])->with('error', 'Data jurusan gagal ditambahkan');
+                return redirect()->route('departments.index', ['school_id' => encrypt($request->school_id)])->with('error', 'Data jurusan gagal ditambahkan');
             }
     }
 
@@ -157,8 +178,12 @@ class DepartmentController extends Controller
         $id = decrypt($id);
         try {
             $department = Department::find($id);
+            $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
+            $schools = $isAdmin
+                ? School::pluck('name', 'id')
+                : School::where('id', auth()->user()->schools()->first()->id)->pluck('name', 'id');
 
-            return view('departments.edit', compact('department'));
+            return view('departments.edit', compact('department', 'schools'));
         } catch (\Exception $e) {
             return back()->with('error', 'Data jurusan tidak ditemukan');
         }
@@ -200,9 +225,9 @@ class DepartmentController extends Controller
                 ]);
             }
 
-            return redirect()->route('departments.index', ['school' => encrypt($request->school_id)])->with('success', 'Data jurusan berhasil diubah');
+            return redirect()->route('departments.index', ['school_id' => encrypt($request->school_id)])->with('success', 'Data jurusan berhasil diubah');
         } catch (\Exception $e) {
-            return redirect()->route('departments.index', ['school' => encrypt($request->school_id)])->with('error', 'Data jurusan gagal diubah');
+            return redirect()->route('departments.index', ['school_id' => encrypt($request->school_id)])->with('error', 'Data jurusan gagal diubah');
         }
     }
 

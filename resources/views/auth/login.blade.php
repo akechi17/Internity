@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
     <div class="container-fluid" id="login-page">
         <div class="row">

@@ -74,8 +74,8 @@ class RoleController extends Controller
         $context = $this->getData();
 
         return $context['status']
-        ? view('role.index', $context)
-        : view('role.index', $context)->with('error', $context['message']);
+        ? view('roles.index', $context)
+        : view('roles.index', $context)->with('error', $context['message']);
     }
 
     public function search(Request $request)
@@ -99,7 +99,7 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all();
-        return view('role.create', compact('permissions'));
+        return view('roles.create', compact('permissions'));
     }
 
     /**
@@ -124,8 +124,8 @@ class RoleController extends Controller
         $role->syncPermissions($request->permissions);
 
         return $role
-        ? redirect()->route('role.index')->with('success', "Role $role->name berhasil dibuat")
-        : redirect()->route('role.index')->with('error', 'Role gagal dibuat');
+        ? redirect()->route('roles.index')->with('success', "Role $role->name berhasil dibuat")
+        : redirect()->route('roles.index')->with('error', 'Role gagal dibuat');
     }
 
     /**
@@ -140,8 +140,8 @@ class RoleController extends Controller
         $role = Role::find($id);
 
         return $role
-        ? view('role.show', compact('role'))
-        : redirect()->route('role.index')->with('error', 'Role tidak ditemukan');
+        ? view('roles.show', compact('role'))
+        : redirect()->route('roles.index')->with('error', 'Role tidak ditemukan');
     }
 
     /**
@@ -157,8 +157,8 @@ class RoleController extends Controller
         $permissions = Permission::all();
 
         return $role
-        ? view('role.edit', compact('role', 'permissions'))
-        : redirect()->route('role.index')->with('error', 'Role tidak ditemukan');
+        ? view('roles.edit', compact('role', 'permissions'))
+        : redirect()->route('roles.index')->with('error', 'Role tidak ditemukan');
     }
 
     /**
@@ -186,8 +186,8 @@ class RoleController extends Controller
         $role->syncPermissions($request->permissions);
 
         return $role
-        ? redirect()->route('role.index')->with('success', "Data role $role->name berhasil diubah")
-        : redirect()->route('role.index')->with('error', 'Data role gagal diubah');
+        ? redirect()->route('roles.index')->with('success', "Data role $role->name berhasil diubah")
+        : redirect()->route('roles.index')->with('error', 'Data role gagal diubah');
     }
 
     /**
@@ -202,8 +202,8 @@ class RoleController extends Controller
         $role = Role::find($id);
 
         return $role->delete()
-        ? redirect()->route('role.index')->with('success', "Data role $role->name berhasil dihapus")
-        : redirect()->route('role.index')->with('error', 'Data role gagal dihapus');
+        ? redirect()->route('roles.index')->with('success', "Data role $role->name berhasil dihapus")
+        : redirect()->route('roles.index')->with('error', 'Data role gagal dihapus');
     }
 
     public function updateStatus($id)
@@ -230,7 +230,7 @@ class RoleController extends Controller
         }
 
         return $role
-            ? redirect()->route('role.index')->with('success', "Role $role->name $state")
-            : redirect()->route('role.index')->with('error', 'Status role gagal diubah');
+            ? redirect()->route('roles.index')->with('success', "Role $role->name $state")
+            : redirect()->route('roles.index')->with('error', 'Status role gagal diubah');
     }
 }

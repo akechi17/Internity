@@ -1,10 +1,20 @@
-{{-- @php
+@php
     dd($users);
-@endphp --}}
+@endphp
 
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
+    {{-- search bar --}}
+    <form action="{{ route('users.index') }}" method="GET">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search" name="search" value="{{ request()->search }}">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+
     {{-- button add --}}
     <a href="{{ route('users.create') }}" class="btn btn-primary">Tambah</a>
 

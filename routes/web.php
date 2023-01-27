@@ -35,6 +35,7 @@ Route::middleware(['verified.email', 'auth'])->group( function () {
     Route::put('roles/{id}/updateStatus', [RoleController::class, 'updateStatus'])->name('roles.updateStatus');
     Route::resource('/roles', RoleController::class);
 
+    Route::get('users/search', [UserController::class, 'search'])->name('users.search');
     Route::put('users/{id}/updateStatus', [UserController::class, 'updateStatus'])->name('users.updateStatus');
     Route::resource('/users', UserController::class);
 

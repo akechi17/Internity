@@ -41,7 +41,7 @@
 
                     {{-- Login Validation Start --}}
                     @error('email')
-                        <div class="alert alert-danger help-block">{{ $message }}</div>
+                        <div class="alert alert-dark help-block">{{ $message }}</div>
                     @enderror
                     {{-- Login Validation End --}}
 
@@ -55,10 +55,6 @@
                     <div class="input-field">
                         <button type="submit" class="submit">Login</button>
                     </div>
-
-                    {{-- <div class="signup">
-                        <p>Not registered yet? <a href="#">Create an account</a></p>
-                    </div> --}}
                 </form>
             </div>
         </div>

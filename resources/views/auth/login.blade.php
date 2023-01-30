@@ -2,60 +2,62 @@
 
 
 @section('content')
-    <div class="container-fluid" id="login-page">
-        <div class="row">
-            <div class="col-md-6 d-flex flex-column align-items-center justify-content-center text-center side-left">
-                <img src="{{ asset('/img/logo-internity.png') }}" alt="Internity" />
-                <h1>Welcome to Internity!</h1>
-                <p>
-                    Kontrol dan pantau kegiatan
-                    <span>Magang</span> dengan mudah.
-                </p>
-            </div>
+    <div id="login-page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 d-flex flex-column align-items-center justify-content-center text-center side-left">
+                    <img src="{{ asset('/img/logo-internity.png') }}" alt="Internity" />
+                    <h1>Welcome to Internity!</h1>
+                    <p>
+                        Kontrol dan pantau kegiatan
+                        <span>Magang</span> dengan mudah.
+                    </p>
+                </div>
 
-            <div class="col-md-6 text-white d-flex align-items-center justify-content-center side-right input-box">
-                <form action="{{ route('login') }}" method="POST" class="w-80">
-                    @csrf
-                    @method('POST')
+                <div class="col-md-6 text-white d-flex align-items-center justify-content-center side-right input-box">
+                    <form action="{{ route('login') }}" method="POST">
+                        @csrf
+                        @method('POST')
 
-                    <h1 class="text-center">Sign In</h1>
+                        <h1 class="text-center">Sign In</h1>
 
-                    {{-- Input Email Start --}}
-                    <div class="form-group input-field">
-                        <label for="email">Email</label>
-                        <input type="email" class="input" id="email" name="email" required autocomplete="off"
-                            name="email" />
-                    </div>
-                    {{-- Input Email End --}}
+                        {{-- Input Email Start --}}
+                        <div class="form-group input-field">
+                            <label for="email">Email</label>
+                            <input type="email" class="input" id="email" name="email" required autocomplete="off"
+                                name="email" />
+                        </div>
+                        {{-- Input Email End --}}
 
-                    {{-- Input Password Start --}}
-                    <div class="form-group input-field">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password" class="input" required>
-                        <span class="eye" onclick="myFunction()">
-                            <i id="show" class="bi bi-eye-fill"></i>
-                            <i id="hide" class="bi bi-eye-slash-fill"></i>
-                        </span>
-                    </div>
-                    {{-- Input Password End --}}
+                        {{-- Input Password Start --}}
+                        <div class="form-group input-field">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="input" required>
+                            <span class="eye" onclick="myFunction()">
+                                <i id="show" class="bi bi-eye-fill"></i>
+                                <i id="hide" class="bi bi-eye-slash-fill"></i>
+                            </span>
+                        </div>
+                        {{-- Input Password End --}}
 
-                    {{-- Login Validation Start --}}
-                    @error('email')
-                        <div class="alert alert-dark help-block">{{ $message }}</div>
-                    @enderror
-                    {{-- Login Validation End --}}
+                        {{-- Login Validation Start --}}
+                        @error('email')
+                            <div class="alert alert-dark help-block">{{ $message }}</div>
+                        @enderror
+                        {{-- Login Validation End --}}
 
-                    <x-latihan.checkbox class='form-check remember' id='remember'>
-                        <x-slot name='label'>
-                            <label class="form-check-label" for="remember">Remember Me</label>
-                            <a href="{{ route('password.request') }}">Forgot Your Password?</a>
-                        </x-slot>
-                    </x-latihan.checkbox>
+                        <x-latihan.checkbox class='form-check remember' id='remember'>
+                            <x-slot name='label'>
+                                <label class="form-check-label" for="remember">Remember Me</label>
+                                <a href="{{ route('password.request') }}">Forgot Your Password?</a>
+                            </x-slot>
+                        </x-latihan.checkbox>
 
-                    <div class="input-field">
-                        <button type="submit" class="submit">Login</button>
-                    </div>
-                </form>
+                        <div class="input-field">
+                            <button type="submit" class="submit">Login</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

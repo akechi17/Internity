@@ -309,7 +309,7 @@
     background-color: $white;
 
     .icon {
-      @include gradient-directional(nth($primary, 1) 0%, nth($primary, -1) 100%, $deg: 310deg);
+      @include gradient-directional(nth($info-gradient, 1) 0%, nth($info-gradient-state, -1) 100%, $deg: 310deg);
 
       svg {
         .color-background,

@@ -94,9 +94,7 @@
                                         </p>
                                         <h5 class="font-weight-bolder mb-0">
                                             300
-                                            <!-- <span class="text-success text-sm font-weight-bolder"
-                              >+55%</span
-                            > -->
+                                            <!-- <span class="text-success text-sm font-weight-bolder">+55%</span> -->
                                         </h5>
                                     </div>
                                 </div>
@@ -120,9 +118,7 @@
                                         </p>
                                         <h5 class="font-weight-bolder mb-0">
                                             70
-                                            <!-- <span class="text-success text-sm font-weight-bolder"
-                              >+3%</span
-                            > -->
+                                            <!-- <span class="text-success text-sm font-weight-bolder">+3%</span> -->
                                         </h5>
                                     </div>
                                 </div>
@@ -146,9 +142,7 @@
                                         </p>
                                         <h5 class="font-weight-bolder mb-0">
                                             700
-                                            <!-- <span class="text-danger text-sm font-weight-bolder"
-                              >-2%</span
-                            > -->
+                                            <!-- <span class="text-danger text-sm font-weight-bolder">-2%</span> -->
                                         </h5>
                                     </div>
                                 </div>
@@ -172,9 +166,7 @@
                                         </p>
                                         <h5 class="font-weight-bolder mb-0">
                                             300
-                                            <!-- <span class="text-success text-sm font-weight-bolder"
-                              >+5%</span
-                            > -->
+                                            <!-- <span class="text-success text-sm font-weight-bolder">+5%</span> -->
                                         </h5>
                                     </div>
                                 </div>
@@ -195,7 +187,7 @@
                         <script>
                             document.write(new Date().getFullYear());
                         </script>
-                        , made with <i class="fa fa-heart"></i> by
+                        , made with <i class="bi bi-heart-fill"></i> by
                         <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Internity Tim</a>
                         for a better web.
                     </div>

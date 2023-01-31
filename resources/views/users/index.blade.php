@@ -1,6 +1,6 @@
-@php
+{{-- @php
     dd($users);
-@endphp
+@endphp --}}
 
 @extends('layouts.dashboard')
 

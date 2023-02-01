@@ -23,6 +23,7 @@ export default defineConfig({
                 __dirname,
                 "node_modules/bootstrap-icons/font"
             ),
+            "~trix": path.resolve(__dirname, "node_modules/trix"),
         },
     },
 });

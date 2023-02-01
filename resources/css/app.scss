@@ -1,12 +1,11 @@
-// Aliases bootstrap ( check vite.config.js )
-@use "~bootstrap/scss/bootstrap";
-@use "~bootstrap-icons/bootstrap-icons.css";
-
-// import all scss files 
+// import all scss files
 @use "form/input";
 @use "auth/signin";
 @use "auth/forgot-password";
 @use "auth/verify";
 @use "auth/reset-password";
 @use "global";
-@use "soft-ui-dashboard";
+
+// Aliases bootstrap ( check vite.config.js )
+@import "soft-ui-dashboard";
+@import "~trix/dist/trix";

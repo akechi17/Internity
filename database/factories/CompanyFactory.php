@@ -18,7 +18,7 @@ class CompanyFactory extends Factory
     {
         return [
             'name' => fake()->company(),
-            'category' => fake()->randomElement(['IT', 'Education', 'Health', 'Banking', 'Insurance', 'Telecommunication', 'Media', 'Transportation', 'Food', 'Retail', 'Manufacturing', 'Energy', 'Real Estate', 'Construction', 'Agriculture', 'Mining', 'Tourism', 'Entertainment', 'Other']),
+            'category' => fake()->randomElement(['IT', 'Education', 'Health', 'Banking', 'Insurance', 'Telecommunication', 'Media', 'Transportation', 'Retail', 'Manufacturing', 'Energy', 'Real Estate', 'Construction', 'Entertainment', 'Automotive']),
             'city' => fake()->city(),
             'state' => fake()->state(),
             'country' => fake()->country(),

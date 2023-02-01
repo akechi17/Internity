@@ -15,7 +15,7 @@
     <hr class="horizontal dark mt-0" />
 
     <!-- Sidenav Main Start -->
-    <div class="navbar-collapse w-auto" id="sidenav-collapse-main">
+    <div class="navbar-collapse w-auto h-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <!-- Nav-Dashboard Start-->
             @foreach ($menus as $item)

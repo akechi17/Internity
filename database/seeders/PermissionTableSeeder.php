@@ -78,6 +78,14 @@ class PermissionTableSeeder extends Seeder
             'presence-create',
             'presence-edit',
             'presence-delete',
+
+            'student-list',
+
+            'journal-list',
+            'journal-create',
+            'journal-edit',
+            'journal-delete',
+
         ];
 
         foreach ($permissions as $permission) {

@@ -23,7 +23,7 @@ class CompanyController extends Controller
             : $department;
 
         $companies = Company::query()
-            ->school($school)
+            // ->school($school)
             ->when($department, function ($query, $department) {
                 return $query->department($department);
             })

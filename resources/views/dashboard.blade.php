@@ -186,23 +186,6 @@
                 </div>
                 {{-- Dashboard Data End --}}
             </div>
-
-            <div>
-                <footer class="footer fixed-bottom d-flex justify-content-end mb-2">
-                    <div class="container-fluid">
-                        <div class="copyright text-sm text-muted text-lg-center">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            , made with <i class="bi bi-heart-fill"></i> by
-                            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Internity
-                                Tim</a>
-                            for a better web.
-                        </div>
-                    </div>
-                </footer>
-            </div>
         </div>
         <!-- Content End -->
     </main>

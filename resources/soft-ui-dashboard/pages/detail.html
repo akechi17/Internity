@@ -1,0 +1,288 @@
+<!--
+=========================================================
+* Soft UI Dashboard - v1.0.7
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard
+* Copyright 2022 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" type="image/png" href="../assets/img/logo-internity.png" />
+    <title>Internity</title>
+    <!-- Fonts and icons -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+      rel="stylesheet"
+    />
+
+    <!-- Nucleo Icons -->
+    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+
+    <!-- Font Awesome Icons -->
+    <script
+      src="https://kit.fontawesome.com/42d5adcbca.js"
+      crossorigin="anonymous"
+    ></script>
+    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+
+    <!-- CSS Files -->
+    <link
+      id="pagestyle"
+      href="../assets/css/soft-ui-dashboard.css?v=1.0.7"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+
+    <!-- Trix Editor -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/trix@2.0.0/dist/trix.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"
+    ></script>
+
+    <!-- SweetAlert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </head>
+
+  <body class="g-sidenav-show bg-gray-100">
+    <main
+      class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
+    >
+      <!-- Start Content -->
+      <div
+        class="container-fluid d-flex flex-column justify-content-between py-4"
+        style="height: 100vh"
+      >
+        <div>
+          <!-- Navbar -->
+          <nav
+            class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
+            id="navbarBlur"
+            navbar-scroll="true"
+          >
+            <div class="container-fluid py-1 px-0">
+              <nav aria-label="breadcrumb">
+                <ol
+                  class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5"
+                >
+                  <li class="breadcrumb-item text-sm">
+                    <a class="opacity-5 text-dark" href="javascript:;">Pages</a>
+                  </li>
+                  <li
+                    class="breadcrumb-item text-sm text-dark active"
+                    aria-current="page"
+                  >
+                    Jurnal Magang Siswa
+                  </li>
+                </ol>
+                <h6 class="font-weight-bolder mb-0">Jurnal Magang Siswa</h6>
+              </nav>
+              <div
+                class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
+                id="navbar"
+              >
+                <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                  <div
+                    class="justify-content-end pe-2 d-flex align-items-center"
+                  >
+                    <a
+                      href="journal.html"
+                      class="nav-link text-body font-weight-bold px-0"
+                      id="#"
+                    >
+                      <i
+                        class="bi bi-arrow-left-circle-fill w-25"
+                        style="font-size: xx-large"
+                      ></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+          <!-- End Navbar -->
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-4">
+                <div class="card-header pb-0">
+                  <h5 class="text-center">JURNAL MAGANG SISWA</h5>
+                  <p>Nama Lengkap :</p>
+                  <p>Nama DU/DI :</p>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                  <div class="table-responsive p-0">
+                    <table
+                      id="table-data"
+                      class="table align-items-center mb-0"
+                    >
+                      <thead>
+                        <tr>
+                          <th
+                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5"
+                          >
+                            No.
+                          </th>
+                          <th
+                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20"
+                          >
+                            Bidang Pekerjaan
+                          </th>
+                          <th
+                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20"
+                          >
+                            Uraian Pekerjaan
+                          </th>
+                          <th
+                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10"
+                          >
+                            Hari/Tanggal Pelaksanaan
+                          </th>
+                          <th
+                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5"
+                          >
+                            #
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <p
+                              class="text-center text-xs font-weight-bold mb-0"
+                            >
+                              1
+                            </p>
+                          </td>
+                          <td>
+                            <p class="text-xs font-weight-bold mb-0">
+                              Lorem ipsum, dolor sit amet consectetur
+                              adipisicing elit. Obcaecati, repudiandae.
+                            </p>
+                          </td>
+                          <td>
+                            <p class="text-xs font-weight-bold mb-0">
+                              Lorem ipsum dolor, sit amet consectetur
+                              adipisicing elit. Nostrum distinctio blanditiis
+                              labore earum minus facilis, expedita dignissimos
+                              commodi aut temporibus.
+                            </p>
+                          </td>
+                          <td>
+                            <p
+                              class="text-center text-xs font-weight-bold mb-0"
+                            >
+                              1 Februari 2023
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <ul
+                      class="pagination pagination-info justify-content-center"
+                    >
+                      <li class="page-item">
+                        <a class="page-link" href="#link" aria-label="Previous">
+                          <span aria-hidden="true"
+                            ><i class="ni ni-bold-left" aria-hidden="true"></i
+                          ></span>
+                        </a>
+                      </li>
+                      <li class="page-item active">
+                        <a class="page-link" href="#link">1</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="#link">2</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="#link">3</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="#link">4</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="#link">5</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="#link" aria-label="Next">
+                          <span aria-hidden="true"
+                            ><i class="ni ni-bold-right" aria-hidden="true"></i
+                          ></span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <footer class="footer">
+            <div class="container-fluid">
+              <div class="copyright text-sm text-muted text-center">
+                ©
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                , made with <i class="fa fa-heart"></i> by
+                <a
+                  href="https://www.creative-tim.com"
+                  class="font-weight-bold"
+                  target="_blank"
+                  >Internity Tim</a
+                >
+                for a better web.
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <!-- End Content -->
+    </main>
+
+    <!--   Core JS Files   -->
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script>
+      var win = navigator.platform.indexOf("Win") > -1;
+      if (win && document.querySelector("#sidenav-scrollbar")) {
+        var options = {
+          damping: "0.5",
+        };
+        Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
+      }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
+  </body>
+</html>

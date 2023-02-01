@@ -2,12 +2,91 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use App\Models\Company;
+use App\Models\Department;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 
 class CompanyController extends Controller
 {
+    public function getData($school=null, $department=null, $search=null, $status=null, $sort=null)
+    {
+        $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
+        $isManager = auth()->user()->hasRole('manager');
+        $isTeacher = auth()->user()->hasRole('teacher');
+
+        $school ??= auth()->user()->schools()->first()->id;
+        $department = $isTeacher
+            ? auth()->user()->departments()->first()->id
+            : $department;
+
+        $companies = Company::query()
+            ->school($school)
+            ->when($department, function ($query, $department) {
+                return $query->department($department);
+            })
+            ->when($search, function ($query, $search) {
+                return $query->search($search);
+            })
+            ->when($status, function ($query, $status) {
+                return $query->where('status', $status);
+            })
+            ->when($sort, function ($query, $sort) {
+                if ($sort[0] == '-') {
+                    $sort = substr($sort, 1);
+                    $sortType = 'desc';
+                } else {
+                    $sortType = 'asc';
+                }
+                return $query->orderBy($sort, $sortType);
+            })
+            ->paginate(10);
+
+        $companies->withPath('/companies')->withQueryString();
+
+        $schools = $isAdmin
+            ? School::pluck('name', 'id')
+            : School::where('id', $school)->pluck('name', 'id');
+
+        $departments = $isAdmin
+            ? Department::pluck('name', 'id')
+            : Department::where('school_id', $school)->pluck('name', 'id');
+
+        if ($companies->count() > 0) {
+            $context = [
+                'status' => true,
+                'message' => 'Data perusahaan ditemukan',
+                'companies' => $companies,
+                'pagination' => $companies->links()->render(),
+                'search' => $search,
+                'statusData' => $status,
+                'sort' => $sort,
+                'schools' => $schools,
+                'selectedSchool' => $school,
+                'departments' => $departments,
+                'selectedDepartment' => $department,
+            ];
+        } else {
+            $context = [
+                'status' => false,
+                'message' => 'Data perusahaan tidak ditemukan',
+                'companies' => [],
+                'pagination' => $companies->links()->render(),
+                'search' => $search,
+                'statusData' => $status,
+                'sort' => $sort,
+                'schools' => $schools,
+                'selectedSchool' => $school,
+                'departments' => $departments,
+                'selectedDepartment' => $department,
+            ];
+        }
+
+        return $context;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +94,22 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $context = $this->getData();
+
+        return view('companies.index', $context);
+    }
+
+    public function search(Request $request)
+    {
+        $school = $request->query('school');
+        $department = $request->query('department');
+        $search = $request->query('search');
+        $status = $request->query('status');
+        $sort = $request->query('sort');
+
+        $context = $this->getData($school, $department, $search, $status, $sort);
+
+        return view('companies.index', $context);
     }
 
     /**
@@ -25,62 +119,118 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::pluck('name', 'id');
+
+        return view('companies.create', compact('departments'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCompanyRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCompanyRequest $request)
+    public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'category' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'departments' => 'required',
+        ]);
+
+        $company = Company::create([
+            'name' => $request->name,
+            'category' => $request->category,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'school_id' => auth()->user()->schools()->first()->id,
+        ]);
+
+        $company->departments()->attach($request->departments);
+
+        return redirect()->route('companies.index')->with('success', 'Data perusahaan berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show($id)
     {
-        //
+        $id = decrypt($id);
+        $company = Company::findOrFail($id);
+
+        return view('companies.show', compact('company'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit($id)
     {
-        //
+        $id = decrypt($id);
+        $company = Company::findOrFail($id);
+        $departments = Department::pluck('name', 'id');
+
+        return view('companies.edit', compact('company', 'departments'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCompanyRequest  $request
-     * @param  \App\Models\Company  $company
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCompanyRequest $request, Company $company)
+    public function update(Request $request, $id)
     {
-        //
+        $id = decrypt($id);
+        $company = Company::findOrFail($id);
+
+        $this->validate($request, [
+            'name' => 'required',
+            'category' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'departments' => 'required',
+        ]);
+
+        $company->update([
+            'name' => $request->name,
+            'category' => $request->category,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'email' => $request->email,
+        ]);
+
+        $company->departments()->sync($request->departments);
+
+        return redirect()->route('companies.index')->with('success', 'Data perusahaan berhasil diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Company  $company
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy($id)
     {
-        //
+        $id = decrypt($id);
+        $company = Company::findOrFail($id);
+
+        $company->delete();
+
+        return redirect()->route('companies.index')->with('success', 'Data perusahaan berhasil dihapus');
     }
 }

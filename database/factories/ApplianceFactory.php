@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Room>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Appliance>
  */
-class RoomFactory extends Factory
+class ApplianceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class RoomFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->jobTitle(),
-            'description' => fake()->paragraph(),
-            'status' => 1,
+            //
         ];
     }
 }

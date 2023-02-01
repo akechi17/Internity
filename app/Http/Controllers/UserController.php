@@ -22,7 +22,8 @@ class UserController extends Controller
 
     public function getData($search=null, $status=null, $school=null, $department=null, $sort=null)
     {
-        $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
+        $isManager = auth()->user()->hasRole('manager');
+        $isTeacher = auth()->user()->hasRole('teacher');
 
         $users = User::when($search, function ($query, $search) {
                 return $query->where('name', 'like', '%' . $search . '%')
@@ -41,8 +42,11 @@ class UserController extends Controller
                     $query->where('department_id', $department);
                 });
             })
-            ->when($isAdmin == false, function ($query) {
-                return $query->notAdmin(auth()->user()->schools()->first()->id);
+            ->when($isManager, function ($query) {
+                return $query->manager(auth()->user()->schools()->first()->id);
+            })
+            ->when($isTeacher, function ($query) {
+                return $query->teacher(auth()->user()->departments()->first()->id);
             })
             ->when($sort, function ($query, $sort) {
                 if ($sort[0] == '-') {
@@ -90,18 +94,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $context = $this->getData();
-
-        return $context['status']
-        ? view('users.index', $context)
-        : view('users.index', $context)->with('error', $context['message']);
-    }
-
-    public function search(Request $request)
+    public function index(Request $request)
     {
         $search = $request->query('search');
+        $role = $request->query('role');
         $status = $request->query('status');
         $school = $request->query('school');
         $department = $request->query('department');
@@ -110,9 +106,10 @@ class UserController extends Controller
         $context = $this->getData($search, $status, $school, $department, $sort);
 
         return $context['status']
-            ? response()->json($context)
-            : response()->json($context, 204);
+        ? view('users.index', $context)
+        : view('users.index', $context)->with('error', $context['message']);
     }
+
 
     /**
      * Show the form for creating a new resource.

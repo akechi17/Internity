@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Room;
+use App\Models\Appliance;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RoomPolicy
+class AppliancePolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class RoomPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Appliance  $appliance
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Room $room)
+    public function view(User $user, Appliance $appliance)
     {
         //
     }
@@ -48,10 +48,10 @@ class RoomPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Appliance  $appliance
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Room $room)
+    public function update(User $user, Appliance $appliance)
     {
         //
     }
@@ -60,10 +60,10 @@ class RoomPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Appliance  $appliance
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Room $room)
+    public function delete(User $user, Appliance $appliance)
     {
         //
     }
@@ -72,10 +72,10 @@ class RoomPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Appliance  $appliance
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Room $room)
+    public function restore(User $user, Appliance $appliance)
     {
         //
     }
@@ -84,10 +84,10 @@ class RoomPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Appliance  $appliance
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Room $room)
+    public function forceDelete(User $user, Appliance $appliance)
     {
         //
     }

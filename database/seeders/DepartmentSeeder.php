@@ -69,74 +69,74 @@ class DepartmentSeeder extends Seeder
             ]);
         }
 
-        $school = School::where('name', 'SMKN 1 Bojonggede')->first();
+        // $school = School::where('name', 'SMKN 1 Bojonggede')->first();
 
-        $departments = [
-            [
-                'name' => 'AKL',
-                'description' => 'Akuntansi dan Keuangan Lembaga',
-            ],
-            [
-                'name' => 'MM',
-                'description' => 'Multimedia',
-            ],
-            [
-                'name' => 'PH',
-                'description' => 'Perhotelan',
-            ],
-            [
-                'name' => 'TB',
-                'description' => 'Tata Boga',
-            ],
-            [
-                'name' => 'UPW',
-                'description' => 'Usaha Perjalanan Wisata',
-            ]
-        ];
+        // $departments = [
+        //     [
+        //         'name' => 'AKL',
+        //         'description' => 'Akuntansi dan Keuangan Lembaga',
+        //     ],
+        //     [
+        //         'name' => 'MM',
+        //         'description' => 'Multimedia',
+        //     ],
+        //     [
+        //         'name' => 'PH',
+        //         'description' => 'Perhotelan',
+        //     ],
+        //     [
+        //         'name' => 'TB',
+        //         'description' => 'Tata Boga',
+        //     ],
+        //     [
+        //         'name' => 'UPW',
+        //         'description' => 'Usaha Perjalanan Wisata',
+        //     ]
+        // ];
 
-        foreach ($departments as $department) {
-            Department::create([
-                'name' => $department['name'],
-                'description' => $department['description'],
-                'school_id' => $school->id,
-            ]);
-        }
+        // foreach ($departments as $department) {
+        //     Department::create([
+        //         'name' => $department['name'],
+        //         'description' => $department['description'],
+        //         'school_id' => $school->id,
+        //     ]);
+        // }
 
-        $school = School::where('name', 'SMKN 1 Depok')->first();
+        // $school = School::where('name', 'SMKN 1 Depok')->first();
 
-        $departments = [
-            [
-                'name' => 'TBSM',
-                'description' => 'Teknik Bisnis Sepeda Motor',
-            ],
-            [
-                'name' => 'APH',
-                'description' => 'Akomodasi Perhotelan',
-            ],
-            [
-                'name' => 'TKRO',
-                'description' => 'Teknik Kendaraan Ringan Otomotif',
-            ],
-            [
-                'name' => 'AKL',
-                'description' => 'Akuntansi dan Keuangan Lembaga',
-            ],
-            [
-                'name' => 'MM',
-                'description' => 'Multimedia',
-            ],
-            [
-                'name' => 'RPL',
-                'description' => 'Rekayasa Perangkat Lunak',
-            ]
-        ];
+        // $departments = [
+        //     [
+        //         'name' => 'TBSM',
+        //         'description' => 'Teknik Bisnis Sepeda Motor',
+        //     ],
+        //     [
+        //         'name' => 'APH',
+        //         'description' => 'Akomodasi Perhotelan',
+        //     ],
+        //     [
+        //         'name' => 'TKRO',
+        //         'description' => 'Teknik Kendaraan Ringan Otomotif',
+        //     ],
+        //     [
+        //         'name' => 'AKL',
+        //         'description' => 'Akuntansi dan Keuangan Lembaga',
+        //     ],
+        //     [
+        //         'name' => 'MM',
+        //         'description' => 'Multimedia',
+        //     ],
+        //     [
+        //         'name' => 'RPL',
+        //         'description' => 'Rekayasa Perangkat Lunak',
+        //     ]
+        // ];
 
-        foreach ($departments as $department) {
-            Department::create([
-                'name' => $department['name'],
-                'description' => $department['description'],
-                'school_id' => $school->id,
-            ]);
-        }
+        // foreach ($departments as $department) {
+        //     Department::create([
+        //         'name' => $department['name'],
+        //         'description' => $department['description'],
+        //         'school_id' => $school->id,
+        //     ]);
+        // }
     }
 }

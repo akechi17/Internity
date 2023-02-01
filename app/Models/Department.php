@@ -42,6 +42,11 @@ class Department extends Model
         return $this->belongsToMany(Vacancy::class, 'department_vacancy', 'department_id', 'vacancy_id');
     }
 
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class, 'company_department', 'department_id', 'company_id');
+    }
+
     public function scopeActive()
     {
         return $this->where('status', 1);

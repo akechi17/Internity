@@ -42,4 +42,6 @@ Route::middleware(['verified.email', 'auth'])->group( function () {
     Route::resource('/schools', SchoolController::class);
 
     Route::resource('/departments', DepartmentController::class);
+
+    Route::resource('/companies', CompanyController::class);
 });

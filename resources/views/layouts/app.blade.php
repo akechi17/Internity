@@ -14,7 +14,7 @@
     <title>Internity</title>
 </head>
 
-<body class="antialiased">
+<body class="antialiased g-sidenav-show">
     <div class="content">
         @yield('content')
     </div>

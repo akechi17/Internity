@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\School;
 use App\Models\Company;
+use App\Models\Department;
 use Illuminate\Database\Seeder;
 
 class CompanySeeder extends Seeder
@@ -17,9 +18,14 @@ class CompanySeeder extends Seeder
     {
         $schools = School::all();
         foreach ($schools as $school) {
-            Company::factory()->count(25)->create([
-                'school_id' => $school->id,
-            ]);
+            $departments = Department::where('school_id', $school->id)->get();
+            foreach ($departments as $department) {
+                Company::factory()->count(10)->create([
+                    'school_id' => $school->id,
+                ])->each(function ($company) use ($department) {
+                    $company->departments()->attach($department->id);
+                });
+            }
         }
     }
 }

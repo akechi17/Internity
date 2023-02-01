@@ -83,12 +83,12 @@ class DepartmentController extends Controller
 
     public function search(Request $request)
     {
-        $schoolId = decrypt($request->query('school_id'));
+        // $schoolId = decrypt($request->query('school_id'));
         $search = $request->query('search');
         $status = $request->query('status');
         $sort = $request->query('sort');
 
-        $context = $this->getData($schoolId, $search, $status, $sort);
+        $context = $this->getData($search, $status, $sort);
 
         return $context['status']
             ? response()->json($context)

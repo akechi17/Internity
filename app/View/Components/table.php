@@ -6,13 +6,13 @@ use Illuminate\View\Component;
 
 class table extends Component
 {
-    public $targetTambah, $idTambah, $labelTambah, $targetEdit, $idEdit, $labelEdit;
+    public $targetTambah, $idTambah, $labelTambah, $targetEdit, $idEdit, $labelEdit, $pageName, $pagination;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($targetTambah, $idTambah, $labelTambah, $targetEdit, $idEdit, $labelEdit)
+    public function __construct($targetTambah, $idTambah, $labelTambah, $targetEdit, $idEdit, $labelEdit, $pageName, $pagination)
     {
         //
         $this->targetTambah = $targetTambah;
@@ -21,6 +21,8 @@ class table extends Component
         $this->targetEdit = $targetEdit;
         $this->idEdit = $idEdit;
         $this->labelEdit = $labelEdit;
+        $this->pageName = $pageName;
+        $this->pagination = $pagination;
     }
 
     /**

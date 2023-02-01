@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Room;
-use App\Http\Requests\StoreRoomRequest;
-use App\Http\Requests\UpdateRoomRequest;
+use App\Models\Appliance;
+use App\Http\Requests\StoreApplianceRequest;
+use App\Http\Requests\UpdateApplianceRequest;
 
-class RoomController extends Controller
+class ApplianceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class RoomController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreRoomRequest  $request
+     * @param  \App\Http\Requests\StoreApplianceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRoomRequest $request)
+    public function store(StoreApplianceRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class RoomController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Appliance  $appliance
      * @return \Illuminate\Http\Response
      */
-    public function show(Room $room)
+    public function show(Appliance $appliance)
     {
         //
     }
@@ -53,10 +53,10 @@ class RoomController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Appliance  $appliance
      * @return \Illuminate\Http\Response
      */
-    public function edit(Room $room)
+    public function edit(Appliance $appliance)
     {
         //
     }
@@ -64,11 +64,11 @@ class RoomController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateRoomRequest  $request
-     * @param  \App\Models\Room  $room
+     * @param  \App\Http\Requests\UpdateApplianceRequest  $request
+     * @param  \App\Models\Appliance  $appliance
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRoomRequest $request, Room $room)
+    public function update(UpdateApplianceRequest $request, Appliance $appliance)
     {
         //
     }
@@ -76,10 +76,10 @@ class RoomController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Appliance  $appliance
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Room $room)
+    public function destroy(Appliance $appliance)
     {
         //
     }

@@ -1,2 +1,2 @@
-import './bootstrap';
-import './template/soft-ui-dashboard';
+import "./bootstrap";
+import "./template/soft-ui-dashboard";

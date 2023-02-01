@@ -42,6 +42,6 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        Paginator::useBootstrapFive();
+        Paginator::defaultView('vendor.pagination.custom');
     }
 }

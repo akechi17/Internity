@@ -2,12 +2,13 @@
 
 @section('dashboard-content')
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-        
+
         <!-- Content Start -->
         <div class="container-fluidd-flex flex-column justify-content-between py-4" style="height: 100vh">
             <div>
                 <!-- Navbar Start -->
-                <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+                <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+                    navbar-scroll="true">
                     <div class="container-fluid py-1 px-3">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -33,12 +34,13 @@
                             </div>
                             <ul class="navbar-nav justify-content-end">
                                 <li class="justify-content-end dropdown pe-2 d-flex align-items-center">
-                                    <a href="javascript:;" class="nav-link text-body font-weight-bold px-0" id="dropdownMenuButton"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a href="javascript:;" class="nav-link text-body font-weight-bold px-0"
+                                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-person-fill me-sm-1"></i>
                                         <span class="d-sm-inline d-none">User</span>
                                     </a>
-                                    <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                                    <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
+                                        aria-labelledby="dropdownMenuButton">
                                         <li class="mb-2">
                                             <a class="dropdown-item border-radius-md" href="profile.html">
                                                 <div class="d-flex py-1">
@@ -52,7 +54,7 @@
                                         </li>
                                         <li class="mb-2">
                                             <a class="dropdown-item border-radius-md" href="#">
-                                            {{-- <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
+                                                {{-- <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> --}}
                                                 <div class="d-flex py-1">
                                                     <div class="d-flex flex-column justify-content-center">
@@ -83,6 +85,7 @@
                 </nav>
                 <!-- Navbar End -->
 
+                {{-- Dashboard Data Start --}}
                 <div class="row">
                     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                         <div class="card">
@@ -181,8 +184,9 @@
                         </div>
                     </div>
                 </div>
+                {{-- Dashboard Data End --}}
             </div>
-            
+
             <div>
                 <footer class="footer fixed-bottom d-flex justify-content-end mb-2">
                     <div class="container-fluid">
@@ -192,7 +196,8 @@
                                 document.write(new Date().getFullYear());
                             </script>
                             , made with <i class="bi bi-heart-fill"></i> by
-                            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Internity Tim</a>
+                            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Internity
+                                Tim</a>
                             for a better web.
                         </div>
                     </div>

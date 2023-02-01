@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Room;
 use App\Models\Company;
 use App\Models\Vacancy;
 use Illuminate\Database\Seeder;
@@ -19,17 +18,15 @@ class VacancySeeder extends Seeder
     {
         $companies = Company::all();
         foreach ($companies as $company) {
-            $room = Room::factory()->count(2)->create([
+            $jobTitle = fake()->jobTitle;
+            Vacancy::create([
+                'name' => $jobTitle,
+                'category' => fake()->randomElement(['IT', 'Marketing', 'Finance', 'Human Resources']),
+                'description' => fake()->sentence,
+                'slots' => fake()->numberBetween(1, 5),
+                'status' => 1,
                 'company_id' => $company->id,
-            ])->each(function ($room) use ($company) {
-                Vacancy::create([
-                    'name' => $room->name . ' - ' . $company->name,
-                    'description' => fake()->sentence,
-                    'slots' => fake()->numberBetween(1, 5),
-                    'status' => 1,
-                    'room_id' => $room->id,
-                ]);
-            });
+            ]);
         }
     }
 }

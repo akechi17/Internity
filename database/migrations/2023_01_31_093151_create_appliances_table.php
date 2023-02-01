@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vacancies', function (Blueprint $table) {
+        Schema::create('appliances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('name');
-            $table->string('category');
-            $table->text('description')->nullable()->fulltext();
-            $table->integer('slots')->default(1);
-            $table->boolean('status')->default(1);
+            $table->foreignId('user_id');
+            $table->foreignId('vacancy_id');
+            $table->enum('status', ['pending', 'accepted', 'rejected']);
+            $table->string('message')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vacancies');
+        Schema::dropIfExists('appliances');
     }
 };

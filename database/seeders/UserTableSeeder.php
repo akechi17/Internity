@@ -18,21 +18,23 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        $school = School::where('name', 'SMKN 1 Cibinong')->first();
         $user = User::create([
             'name' => 'Superadmin',
             'email' => 'superadmin@test.dev',
             'password' => bcrypt('123qweasd'),
         ]);
         $user->assignRole('super-admin');
+        $user->schools()->attach($school->id);
 
-        $user = User::create([
-            'name' => 'Admin',
-            'email' => 'admin@test.dev',
-            'password' => bcrypt('123qweasd'),
-        ]);
-        $user->assignRole('admin');
+        // $user = User::create([
+        //     'name' => 'Admin',
+        //     'email' => 'admin@test.dev',
+        //     'password' => bcrypt('123qweasd'),
+        // ]);
+        // $user->assignRole('admin');
 
-        $school = School::where('name', 'SMKN 1 Cibinong')->first();
+
         $user = User::create([
             'name' => 'Manager',
             'email' => 'manager@test.dev',

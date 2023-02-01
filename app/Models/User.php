@@ -84,10 +84,18 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->where('email', 'like', "%$search%");
     }
 
-    public function scopeNotAdmin($query, $school_id)
+    public function scopeManager($query, $school_id)
     {
         return $query->whereHas('schools', function ($query) use ($school_id) {
             $query->where('school_id', $school_id);
         });
+    }
+
+    public function scopeTeacher($query, $department_id)
+    {
+        return $query->whereRelation('departments', 'id', $department_id)
+                    ->whereHas('roles', function ($query) {
+                        $query->where('name', 'student');
+                    });
     }
 }

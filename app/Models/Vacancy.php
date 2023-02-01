@@ -31,4 +31,9 @@ class Vacancy extends Model
     {
         return $this->belongsToMany(Department::class, 'department_vacancy', 'vacancy_id', 'department_id');
     }
+
+    public function scopeCompany($query, $company)
+    {
+        return $query->where('company_id', $company);
+    }
 }

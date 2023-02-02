@@ -62,6 +62,7 @@ class RoleTableSeeder extends Seeder
             ->orWhere('name', 'score-predicate-list')
             ->orWhere('name', 'journal-list')
             ->orWhere('name', 'student-list')
+            ->orWhere('name', 'like', '%news%')
             ->pluck('id', 'id');
         $role->syncPermissions($permissions);
 

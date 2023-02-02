@@ -201,7 +201,7 @@ class UserController extends Controller
         $id = decrypt($id);
         try {
             $user = User::find($id);
-            return view('user.show', compact('user'));
+            return view('users.show', compact('user'));
         } catch (\Exception $e) {
             return redirect()->route('users.index')
                 ->with('error', 'User tidak ditemukan');
@@ -240,7 +240,7 @@ class UserController extends Controller
                 $courses = Course::pluck('name', 'id');
             }
 
-            return view('user.edit', compact('user', 'schools', 'departments', 'courses'));
+            return view('users.edit', compact('user', 'schools', 'departments', 'courses'));
         } catch (\Exception $e) {
             return redirect()->route('users.index')
                 ->with('error', 'User tidak ditemukan');

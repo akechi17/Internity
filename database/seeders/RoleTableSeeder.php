@@ -40,6 +40,10 @@ class RoleTableSeeder extends Seeder
             ->orWhere('name', 'like', '%score%')
             ->orWhere('name', 'like', '%news%')
             ->orWhere('name', 'like', '%presence%')
+            ->orWhere('name', 'like', '%score-predicate%')
+            ->orWhere('name', 'school-list')
+            ->orWhere('name', 'like', '%journal%')
+            ->orWhere('name', 'like', '%student%')
             ->pluck('id', 'id');
         $role->syncPermissions($permissions);
 
@@ -47,6 +51,7 @@ class RoleTableSeeder extends Seeder
             'name' => 'teacher',
         ]);
         $permissions = Permission::where('name', 'department-edit')
+            ->orWhere('name', 'department-list')
             ->orWhere('name', 'like', '%vacancy%')
             ->orWhere('name', 'like', '%course%')
             ->orWhere('name', 'like', '%room%')
@@ -55,6 +60,8 @@ class RoleTableSeeder extends Seeder
             ->orWhere('name', 'like', '%news%')
             ->orWhere('name', 'presence-list')
             ->orWhere('name', 'score-predicate-list')
+            ->orWhere('name', 'journal-list')
+            ->orWhere('name', 'student-list')
             ->pluck('id', 'id');
         $role->syncPermissions($permissions);
 
@@ -67,8 +74,12 @@ class RoleTableSeeder extends Seeder
             ->orWhere('name', 'like', '%score%')
             ->orWhere('name', 'score-predicate-list')
             ->orWhere('name', 'presence-list')
+            ->orWhere('name', 'presence-edit')
             ->orWhere('name', 'company-list')
             ->orWhere('name', 'company-edit')
+            ->orWhere('name', 'journal-list')
+            ->orWhere('name', 'journal-edit')
+            ->orWhere('name', 'student-list')
             ->pluck('id', 'id');
         $role->syncPermissions($permissions);
 

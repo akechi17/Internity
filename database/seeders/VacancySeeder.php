@@ -18,13 +18,7 @@ class VacancySeeder extends Seeder
     {
         $companies = Company::all();
         foreach ($companies as $company) {
-            $jobTitle = fake()->jobTitle;
-            Vacancy::create([
-                'name' => $jobTitle,
-                'category' => fake()->randomElement(['IT', 'Marketing', 'Finance', 'Human Resources']),
-                'description' => fake()->sentence,
-                'slots' => fake()->numberBetween(1, 5),
-                'status' => 1,
+            Vacancy::factory()->count(5)->create([
                 'company_id' => $company->id,
             ]);
         }

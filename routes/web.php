@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\VerificationController;
 
@@ -46,6 +47,8 @@ Route::middleware(['verified.email', 'auth'])->group( function () {
     Route::resource('/departments', DepartmentController::class);
 
     Route::resource('/companies', CompanyController::class);
+
+    Route::resource('/vacancies', VacancyController::class);
 
     Route::get('students', [StudentController::class, 'index'])->name('students.index');
 });

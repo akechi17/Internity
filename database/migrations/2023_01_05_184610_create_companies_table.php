@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('website')->nullable();
             $table->string('logo')->nullable();
+            $table->string('contact_person')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

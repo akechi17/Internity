@@ -8,16 +8,16 @@
     <x-table pageName="Perusahaan" :pagination="$companies">
 
         <x-slot:thead>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                 Kelola
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Nama
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                 Kategori
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Alamat
             </th>
         </x-slot:thead>

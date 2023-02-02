@@ -30,7 +30,8 @@ Route::get('email/verify', [VerificationController::class, 'notice'])->middlewar
 Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['auth', 'signed', 'throttle:6,1'])->name('verification.verify');
 Route::post('email/resend', [VerificationController::class, 'resend'])->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 
-Route::middleware(['verified.email', 'auth'])->group( function () {
+// Route::middleware(['verified.email', 'auth'])->group( function () {
+Route::middleware(['auth'])->group( function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');

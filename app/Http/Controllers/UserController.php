@@ -201,7 +201,7 @@ class UserController extends Controller
         $id = decrypt($id);
         try {
             $user = User::find($id);
-            return view('user.show', compact('user'));
+            return view('users.show', compact('user'));
         } catch (\Exception $e) {
             return redirect()->route('users.index')
                 ->with('error', 'User tidak ditemukan');

@@ -18,6 +18,7 @@ class VacancyFactory extends Factory
     {
         return [
             'name' => fake()->jobTitle(),
+            'category' => fake()->randomElement(['IT', 'Marketing', 'Finance', 'Human Resources', 'Autmototive', 'Construction', 'Education', 'Engineering', 'Healthcare', 'Hospitality', 'Manufacturing', 'Media', 'Retail', 'Technology', 'Telecommunications', 'Transportation']),
             'description' => fake()->paragraph(),
             'slots' => fake()->numberBetween(1, 5),
             'status' => 1,

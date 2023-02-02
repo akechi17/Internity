@@ -28,6 +28,7 @@
                     <td>
                         <a href="{{ route('companies.edit', encrypt($data->id)) }}" class="btn btn-primary text-xs">Edit</a>
                         <a href="{{ route('companies.edit', encrypt($data->id)) }}" class="btn btn-primary text-xs">Delete</a>
+                        <a href="{{ route('vacancies.index', ['company' => encrypt($data->id)]) }}" class="btn btn-primary text-xs">Lowongan</a>
                     </td>
                     <td class="text-sm">{{ $data->name }}</td>
                     <td class="text-sm">{{ $data->category }}</td>

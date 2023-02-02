@@ -1,0 +1,3 @@
+@php
+    dd($vacancies);
+@endphp

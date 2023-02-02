@@ -27,6 +27,7 @@ class CompanyFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'website' => fake()->url(),
             'logo' => fake()->imageUrl(640, 480, 'business'),
+            'contact_person' => fake()->name(),
         ];
     }
 }

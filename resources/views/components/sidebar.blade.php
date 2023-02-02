@@ -22,8 +22,8 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="/{{ $item->url }}">
                         <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="bi bi-speedometer"></i>
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center text-white">
+                            <iconify-icon icon="{{ $item->icon }}"></iconify-icon>
                         </div>
                         <span class="nav-link-text ms-1">{{ $item->name }}</span>
                     </a>

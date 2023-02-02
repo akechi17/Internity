@@ -40,7 +40,7 @@ Route::middleware(['verified.email', 'auth'])->group( function () {
 
     Route::get('users/search', [UserController::class, 'search'])->name('users.search');
     Route::put('users/{id}/updateStatus', [UserController::class, 'updateStatus'])->name('users.updateStatus');
-    Route::resource('/users', UserController::class);
+    // Route::resource('/users', UserController::class);
 
     Route::resource('/schools', SchoolController::class);
 
@@ -52,3 +52,5 @@ Route::middleware(['verified.email', 'auth'])->group( function () {
 
     Route::get('students', [StudentController::class, 'index'])->name('students.index');
 });
+
+Route::resource('/users', UserController::class)->middleware('guest');

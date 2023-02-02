@@ -1,3 +1,8 @@
-<form action="{{ route('users.store') }}" method="POST">
+@extends('layouts.dashboard')
 
-</form>
+
+@section('dashboard-content')
+    <form action="">
+        <input type="text" name="" id="">
+    </form>
+@endsection

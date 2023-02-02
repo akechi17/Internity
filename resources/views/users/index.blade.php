@@ -30,7 +30,11 @@
                 <tr>
                     <td>
                         <a href="{{ route('users.edit', encrypt($user->id)) }}" class="btn btn-primary text-xs">Edit</a>
-                        <a href="{{ route('users.edit', encrypt($user->id)) }}" class="btn btn-primary text-xs">Delete</a>
+                        <form action="{{ route('users.destroy', encrypt($user->id)) }}" method="DELETE">
+                            @method('DELETE')
+                            <p>{{ route('users.destroy', encrypt($user->id)) }}</p>
+                            <button class="btn btn-primary text-xs" type="submit">Delete</button>
+                        </form>
                     </td>
                     <td class="text-sm">{{ $user->name }}</td>
                     <td class="text-sm">{{ $user->email }}</td>

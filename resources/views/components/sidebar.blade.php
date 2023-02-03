@@ -29,6 +29,20 @@
                     </a>
                 </li>
             @endforeach
+
+            <li class="nav-item">
+                <form action="{{ route('logout') }}" method="POST">
+                    @method('POST')
+                    @csrf
+                    <button type="submit" class="nav-link active border border-0">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center text-white">
+                            <iconify-icon icon="bi:box-arrow-right"></iconify-icon>
+                        </div>
+                        <span class="nav-link-text ms-1">Logout</span>
+                    </button>
+                </form>
+            </li>
             <!-- Nav-Dashboard End-->
         </ul>
     </div>

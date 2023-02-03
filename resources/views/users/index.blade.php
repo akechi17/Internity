@@ -29,7 +29,8 @@
                         <form action="{{ route('users.destroy', encrypt($user->id)) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button class="button-submit btn btn-primary text-xs" type="button">Delete</button>
+                            <button id="button-{{ $user->id }}" class="button-delete btn btn-primary text-xs"
+                                type="button">Delete</button>
                         </form>
                     </td>
                     <td class="text-sm">{{ $user->name }}</td>
@@ -45,33 +46,12 @@
 @once
     @push('scripts')
         <script type="module">
-            $('.button-submit').on('click', function(){
-                window.swal({
-                    title: 'Apakah anda yakin?',
-                    text: "Data yang sudah dihapus tidak dapat dikembalikan!",
-                    icon: 'warning',
-                    buttons: {
-                        cancel: {
-                            text: "Batal",
-                            value: null,
-                            visible: true,
-                            className: "btn btn-primary",
-                            closeModal: true,
-                        },
-                        confirm: {
-                            text: "Hapus",
-                            value: true,
-                            visible: true,
-                            className: "btn btn-danger",
-                            closeModal: true
-                        }
-                    }
-                }).then((value) => {
-                    if (value) {
-                        $(this).closest('form').submit();
-                    }
-                });
-            })
+            // Delete Data Function
+            $('.button-delete').on('click', function(){
+                const buttonId = $(this).attr('id');
+
+                utils.useDeleteButton({buttonId: buttonId});
+            });
         </script>
     @endpush
 @endonce

@@ -15,6 +15,9 @@ import Trix from "trix";
 import swal from "sweetalert";
 window.swal = swal;
 
+import utils from "./utils";
+window.utils = utils;
+
 import $ from "jquery";
 window.$ = $;
 

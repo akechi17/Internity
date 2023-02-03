@@ -309,7 +309,6 @@ class UserController extends Controller
             return redirect()->route('users.index')
                 ->with('success', 'User berhasil diubah');
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->route('users.index')
                 ->with('error', 'User gagal diubah');
         }
@@ -324,7 +323,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         $id = decrypt($id);
-
         try {
             $user = User::find($id);
             $user->delete();

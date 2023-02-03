@@ -30,10 +30,10 @@
                 <tr>
                     <td>
                         <a href="{{ route('users.edit', encrypt($user->id)) }}" class="btn btn-primary text-xs">Edit</a>
-                        <form action="{{ route('users.destroy', encrypt($user->id)) }}" method="DELETE">
+                        <form action="{{ route('users.destroy', encrypt($user->id)) }}" method="POST">
+                            @csrf
                             @method('DELETE')
-                            <p>{{ route('users.destroy', encrypt($user->id)) }}</p>
-                            <button class="btn btn-primary text-xs" type="submit">Delete</button>
+                            <button class="button-submit btn btn-primary text-xs" type="button">Delete</button>
                         </form>
                     </td>
                     <td class="text-sm">{{ $user->name }}</td>
@@ -45,3 +45,37 @@
         </x-slot:tbody>
     </x-table>
 @endsection
+
+@once
+    @push('scripts')
+        <script type="module">
+            $('.button-submit').on('click', function(){
+                window.swal({
+                    title: 'Apakah anda yakin?',
+                    text: "Data yang sudah dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    buttons: {
+                        cancel: {
+                            text: "Batal",
+                            value: null,
+                            visible: true,
+                            className: "btn btn-primary",
+                            closeModal: true,
+                        },
+                        confirm: {
+                            text: "Hapus",
+                            value: true,
+                            visible: true,
+                            className: "btn btn-danger",
+                            closeModal: true
+                        }
+                    }
+                }).then((value) => {
+                    if (value) {
+                        $(this).closest('form').submit();
+                    }
+                });
+            })
+        </script>
+    @endpush
+@endonce

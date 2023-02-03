@@ -30,7 +30,12 @@ class StudentController extends Controller
                 });
             })
             ->when($isManager, function ($query) {
-                return $query->manager(auth()->user()->schools()->first()->id);
+                return $query->whereHas('schools', function($query) {
+                    $query->where('school_id', auth()->user()->schools()->first()->id);
+                })
+                ->whereHas('roles', function($query) {
+                    $query->where('name', 'student');
+                });
             })
             ->when($isTeacher, function ($query) {
                 return $query->teacher(auth()->user()->departments()->first()->id);
@@ -50,7 +55,7 @@ class StudentController extends Controller
         if ($users->count() > 0) {
             $context = [
                 'status' => true,
-                'message' => 'Data user ditemukan',
+                'message' => 'Data siswa ditemukan',
                 'students' => $users,
                 'pagination' => $users->links()->render(),
                 'search' => $search,
@@ -62,7 +67,7 @@ class StudentController extends Controller
         } else {
             $context = [
                 'status' => false,
-                'message' => 'Data user tidak ditemukan',
+                'message' => 'Data siswa tidak ditemukan',
                 'students' => [],
                 'pagination' => $users->links()->render(),
                 'search' => $search,

@@ -42,7 +42,7 @@
 
                         {{-- Login Validation Start --}}
                         @error('email')
-                            <div class="alert alert-dark help-block">{{ $message }}</div>
+                            <div class="alert alert-dark text-white help-block">{{ $message }}</div>
                         @enderror
                         {{-- Login Validation End --}}
 

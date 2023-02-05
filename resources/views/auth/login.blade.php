@@ -46,12 +46,10 @@
                         @enderror
                         {{-- Login Validation End --}}
 
-                        <x-latihan.checkbox class='form-check remember' id='remember'>
-                            <x-slot name='label'>
-                                <label class="form-check-label" for="remember">Remember Me</label>
-                                <a href="{{ route('password.request') }}">Forgot Your Password?</a>
-                            </x-slot>
-                        </x-latihan.checkbox>
+                        <div class="remember">
+                            <x-form.checkbox id="input-checkbox-1" label="Remember Me" value="1" />
+                            <a href="{{ route('password.request') }}">Forgot Your Password?</a>
+                        </div>
 
                         <div class="input-field">
                             <button type="submit" class="submit">Login</button>

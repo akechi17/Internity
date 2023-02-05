@@ -4,22 +4,24 @@ namespace App\View\Components\form;
 
 use Illuminate\View\Component;
 
-class input extends Component
+class InputPassword extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-
-    public $type; 
-
     public $id;
+    public $label;
+    public $value;
+    public $name;
 
-    public function __construct($type, $id)
+    public function __construct($id, $label, $name, $value = null)
     {
-        $this->type = $type;
         $this->id = $id;
+        $this->label = $label;
+        $this->value = $value;
+        $this->name = $name;
     }
 
     /**
@@ -29,6 +31,6 @@ class input extends Component
      */
     public function render()
     {
-        return view('components.form.input');
+        return view('components.form.input-password');
     }
 }

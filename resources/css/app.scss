@@ -1,15 +1,19 @@
-// import all scss files
+// External SCSS Libs
 @use "~bootstrap/scss/bootstrap";
 @use "~bootstrap-icons/bootstrap-icons.css";
+@use "~trix/dist/trix";
 
-@use "form/input";
+@use "global";
+
+// Soft UI template
+@use "soft-ui-dashboard";
+
+// Form Component
+@use "form/checkbox";
+@use "form/input-password.scss";
+
+// Pages
 @use "auth/signin";
 @use "auth/forgot-password";
 @use "auth/verify";
 @use "auth/reset-password";
-@use "global";
-
-// Aliases bootstrap ( check vite.config.js )
-
-@import "soft-ui-dashboard";
-@import "~trix/dist/trix";

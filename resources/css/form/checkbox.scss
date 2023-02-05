@@ -1,0 +1,13 @@
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+
+    .form-check-input {
+        margin-top: 0 !important;
+    }
+
+    .form-check-label {
+        margin-bottom: 0;
+    }
+}

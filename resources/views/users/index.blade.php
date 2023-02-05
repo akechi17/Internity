@@ -25,12 +25,16 @@
             @foreach ($users as $user)
                 <tr>
                     <td>
-                        <a href="{{ route('users.edit', encrypt($user->id)) }}" class="btn btn-primary text-xs">Edit</a>
+                        <a href="{{ route('users.edit', encrypt($user->id)) }}" class="btn btn-info text-xs"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
+                                class="bi bi-pencil-square"></i></a>
+
                         <form action="{{ route('users.destroy', encrypt($user->id)) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button id="button-{{ $user->id }}" class="button-delete btn btn-primary text-xs"
-                                type="button">Delete</button>
+                            <button id="button-{{ $user->id }}" class="button-delete btn btn-info text-xs"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
+                                    class="bi bi-trash"></i></button>
                         </form>
                     </td>
                     <td class="text-sm">{{ $user->name }}</td>

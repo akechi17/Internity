@@ -1,4 +1,8 @@
-<div class="{{ $attributes }} form-group">
-    <label for="input-data">{{ $inputLabel }}</label>
-    <input type="{{ $inputType }}" class="form-control" id="{{ $inputId }}" />
+<div class="form-group has-validation">
+    <label for="input-data">{{ $label }}</label>
+    <input type="{{ $type }}" class="form-control" id="{{ $id }}" name="{{ $name }}" />
+
+    @error($name)
+        <x-alert type="alert-danger" :message="$message" />
+    @enderror
 </div>

@@ -1,4 +1,4 @@
-<div class="input-password">
+<div class="input-password form-group">
     <div class="input-label">
         <label class="form-label" for="{{ $name }}">{{ $label }}</label>
     </div>

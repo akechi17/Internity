@@ -10,5 +10,10 @@
         <div class="row">
             {{ $formBody }}
         </div>
+
+        <div class="footer">
+            <a href="{{ url()->previous() }}" class="btn form-button btn-secondary">Kembali</a>
+            <button type="submit" class="btn btn-primary">Kirim</button>
+        </div>
     </form>
 </div>

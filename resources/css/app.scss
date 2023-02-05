@@ -9,8 +9,10 @@
 @use "soft-ui-dashboard";
 
 // Form Component
+@use "form/form";
 @use "form/checkbox";
-@use "form/input-password.scss";
+@use "form/input-password";
+@use "form/radio";
 
 // Pages
 @use "auth/signin";

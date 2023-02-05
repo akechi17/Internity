@@ -4,29 +4,23 @@ namespace App\View\Components\form;
 
 use Illuminate\View\Component;
 
-class InputBase extends Component
+class Select extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-
-    public $type; 
-
-    public $id;
+    public $name;
 
     public $label;
 
-    public $name;
-
-    public function __construct($type, $id, $label, $name)
+    public function __construct($name, $label)
     {
-        $this->type = $type;
-        $this->id = $id;
-        $this->label = $label;
         $this->name = $name;
+        $this->label = $label;
     }
+
 
     /**
      * Get the view / contents that represent the component.
@@ -35,6 +29,6 @@ class InputBase extends Component
      */
     public function render()
     {
-        return view('components.form.input-base');
+        return view('components.form.select');
     }
 }

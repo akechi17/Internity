@@ -139,7 +139,7 @@ class UserController extends Controller
             $courses = Course::pluck('name', 'id');
         }
 
-        return view('users.create', compact('schools', 'departments', 'courses'));
+        return view('users.create', compact('schools', 'departments', 'courses', 'roles'));
     }
 
     /**
@@ -150,6 +150,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users',

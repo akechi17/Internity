@@ -4,4 +4,8 @@
         <option selected hidden>Pilih</option>
         {{ $options }}
     </select>
+
+    @error($name)
+        <x-validation :message="$message" />
+    @enderror
 </div>

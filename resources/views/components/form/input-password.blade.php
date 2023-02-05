@@ -9,6 +9,10 @@
             <iconify-icon icon="mdi:eye-off" class="icon"></iconify-icon>
         </div>
     </div>
+
+    @error($name)
+        <x-validation :message="$message" />
+    @enderror
 </div>
 
 

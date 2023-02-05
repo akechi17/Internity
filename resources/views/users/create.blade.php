@@ -48,7 +48,7 @@
                 </x-slot:options>
             </x-form.select>
 
-            <x-form.radio label="Status">
+            <x-form.radio label="Status" name="status">
                 <x-slot:checkboxItem>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" value="1" id="input-status-1" name="status">

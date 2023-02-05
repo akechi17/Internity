@@ -3,6 +3,6 @@
     <input type="{{ $type }}" class="form-control" id="{{ $id }}" name="{{ $name }}" />
 
     @error($name)
-        <x-alert type="alert-danger" :message="$message" />
+        <x-validation :message="$message" />
     @enderror
 </div>

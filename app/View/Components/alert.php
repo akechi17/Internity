@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\form;
+namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Radio extends Component
+class alert extends Component
 {
     /**
      * Create a new component instance.
@@ -12,13 +12,13 @@ class Radio extends Component
      * @return void
      */
 
+    public $type;
+    public $message;
 
-    public $label;
-    public $name;
-    public function __construct($label, $name)
+    public function __construct($type, $message)
     {
-        $this->label = $label;
-        $this->name = $name;
+        $this->type = $type;
+        $this->message = $message;
     }
 
     /**
@@ -28,6 +28,6 @@ class Radio extends Component
      */
     public function render()
     {
-        return view('components.form.radio');
+        return view('components.alert');
     }
 }

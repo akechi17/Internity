@@ -4,4 +4,8 @@
     <label class="form-check-label" for="{{ $id }}">
         {{ $label }}
     </label>
+
+    @error($name)
+        <x-validation :message="$message" />
+    @enderror
 </div>

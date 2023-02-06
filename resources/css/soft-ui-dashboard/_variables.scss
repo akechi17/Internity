@@ -1040,12 +1040,12 @@ $form-check-input-focus-box-shadow: none !default;
 $form-check-input-checked-color: $white !default;
 $form-check-input-checked-bg-color: transparent !default;
 $form-check-input-checked-border-color: $form-check-input-checked-bg-color !default;
-$form-check-input-checked-bg-image: linear-gradient(
-    310deg,
-    $dark-gradient 0%,
-    $dark-gradient-state 100%
-) !default;
-$form-check-radio-checked-bg-image: $form-check-input-checked-bg-image !default;
+// $form-check-input-checked-bg-image: linear-gradient(
+//     310deg,
+//     $dark-gradient 0%,
+//     $dark-gradient-state 100%
+// ) !default;
+// $form-check-radio-checked-bg-image: $form-check-input-checked-bg-image !default;
 $form-check-radio-after-width: 0.5rem !default;
 
 $form-check-input-indeterminate-color: $component-active-color !default;

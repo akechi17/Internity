@@ -1,7 +1,7 @@
 #login-page {
-    overflow-x: hidden; 
-    overflow-y: hidden; 
-    
+    overflow-x: hidden;
+    overflow-y: hidden;
+
     .container-fluid {
         padding: 0;
     }
@@ -18,12 +18,17 @@
     }
 
     .side-right {
-        background: linear-gradient(153.69deg, #0144A7 0%, #30B4FF 60.45%, #00F0C5 100%);
+        background: linear-gradient(
+            153.69deg,
+            #0144a7 0%,
+            #30b4ff 60.45%,
+            #00f0c5 100%
+        );
         height: 100vh;
 
-        h1 {        
-        font-weight: 700;
-        margin-bottom: 50px;
+        h1 {
+            font-weight: 700;
+            margin-bottom: 50px;
         }
     }
 
@@ -42,7 +47,7 @@
         }
 
         p {
-            color: #2697d8; 
+            color: #2697d8;
             font-weight: 600;
             font-size: large;
         }
@@ -75,7 +80,7 @@
     }
 
     #password {
-    margin-bottom: 30px;
+        margin-bottom: 30px;
     }
 
     #show {
@@ -87,32 +92,36 @@
         outline: none;
         height: 45px;
         background: white;
-        color: #0161A7;
+        color: #0161a7;
         border-radius: 15px;
-        margin:20px 0;
+        margin: 20px 0;
         text-align: center;
         font-weight: 700;
     }
 
     .submit:hover {
-        background: #0144A7;
+        background: #0144a7;
         color: white;
     }
 
-    .remember { 
+    .remember {
         margin-bottom: 10px;
         font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
         a {
             float: right;
             color: white;
             text-decoration: none;
         }
-    
+
         a:hover {
             color: #014575;
         }
     }
-    
+
     .eye {
         position: absolute;
         right: 10px;
@@ -120,34 +129,34 @@
         transform: translateY(-50%);
         cursor: pointer;
     }
-    
+
     .signup {
         text-align: center;
-    
+
         p {
             font-weight: 500;
-            color: #0161A7;
+            color: #0161a7;
         }
-    
+
         a {
             font-weight: 600;
             color: #005796;
             text-decoration: none;
         }
-    
+
         a:hover {
             color: white;
         }
     }
-} 
+}
 
 // @media screen and (max-width: 450px) {
-//     .side-left { 
+//     .side-left {
 //         h1 {
 //             font-size: 26px;
 //         }
-    
-//         p { 
+
+//         p {
 //             font-size: 13px;
 //         }
 //     }
@@ -167,7 +176,7 @@
 //             font-size: 28px;
 //         }
 
-//         p { 
+//         p {
 //             font-size: 14px;
 //         }
 //     }
@@ -188,7 +197,7 @@
 //     #login-page #email {
 //         margin-bottom: 30px;
 //     }
-    
+
 //     #login-page #password {
 //         margin-bottom: 15px;
 //     }

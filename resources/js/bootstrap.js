@@ -11,5 +11,15 @@ window.bootstrap = bootstrap;
 
 import Trix from "trix";
 
+// import sweetalert
+import swal from "sweetalert";
+window.swal = swal;
+
+import utils from "./utils";
+window.utils = utils;
+
+import $ from "jquery";
+window.$ = $;
+
 import "../css/app.scss";
 import "iconify-icon";

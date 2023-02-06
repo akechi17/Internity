@@ -1,24 +1,20 @@
 <?php
 
-namespace App\View\Components\latihan;
+namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class radios extends Component
+class validation extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $radio, $fm, $nama;
-    public function __construct($radio, $fm, $nama)
+    public $message;
+    public function __construct($message)
     {
-        $this->radio = $radio;
-        $this->fm = $fm;
-        $this->nama = $nama;
-
-        //
+        $this->message = $message;
     }
 
     /**
@@ -28,6 +24,6 @@ class radios extends Component
      */
     public function render()
     {
-        return view('components.latihan.radios');
+        return view('components.validation');
     }
 }

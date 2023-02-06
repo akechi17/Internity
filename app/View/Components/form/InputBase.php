@@ -1,25 +1,31 @@
 <?php
 
-namespace App\View\Components\latihan;
+namespace App\View\Components\form;
 
 use Illuminate\View\Component;
 
-class checkbox extends Component
+class InputBase extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $class;
+
+    public $type; 
+
     public $id;
-    public function __construct($class, $id)
+
+    public $label;
+
+    public $name;
+
+    public function __construct($type, $id, $label, $name)
     {
-        $this->class = $class;
+        $this->type = $type;
         $this->id = $id;
-        // $this->for = $for;
-        // $this->label = $label;
-        //
+        $this->label = $label;
+        $this->name = $name;
     }
 
     /**
@@ -29,6 +35,6 @@ class checkbox extends Component
      */
     public function render()
     {
-        return view('components.latihan.checkbox');
+        return view('components.form.input-base');
     }
 }

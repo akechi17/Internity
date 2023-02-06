@@ -7,65 +7,9 @@
                 {{-- Table Function --}}
                 <div class="header-function d-flex align-items-center justify-content-between">
                     <!-- Add data Start -->
-                    <button type="button" class="btn bg-gradient-info mb-0" data-bs-toggle="modal"
-                        data-bs-target="#modalAdd">
+                    <a href="{{ route('users.create') }}" class="btn bg-gradient-info mb-0">
                         TAMBAH DATA
-                    </button>
-
-                    <x-modal modalId="modalAdd" modalLable="modalAddLabel" modalTitle="Tambah Data">
-                        <x-slot:modal-body>
-                            <form>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="input-data" class="form-label">Logo
-                                                Perusahaan</label>
-                                            <input type="file" class="form-control" id="input-data" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="input-data">Nama
-                                                Perusahaan</label>
-                                            <input type="text" class="form-control" id="input-data" required />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="input-data">Website</label>
-                                        <input type="text" class="form-control" id="input-data" required />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="input-data">Alamat</label>
-                                        <input type="text" class="form-control" id="input-data" />
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label for="input-data">Nama
-                                            Narahubung</label>
-                                        <input type="text" class="form-control" id="input-data" required />
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label for="input-data">Kontak
-                                            Narahubung</label>
-                                        <input type="text" class="form-control" id="input-data" required />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="input-data">Deskripsi</label>
-                                        <input id="input-data" type="hidden" name="content" required />
-                                        <trix-editor class="trix-content" input="input-data"></trix-editor>
-                                    </div>
-                                </div>
-                            </form>
-                        </x-slot:modal-body>
-
-                        <x-slot:modal-footer>
-                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">
-                                Close
-                            </button>
-                            <button type="button" class="btn bg-gradient-info" id="save-data" onclick="simpan()">
-                                Save
-                            </button>
-                        </x-slot:modal-footer>
-                    </x-modal>
+                    </a>
                     <!-- Add data End -->
 
                     <div class="card-header p-0">

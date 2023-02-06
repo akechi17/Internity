@@ -1,3 +1,12 @@
+@php
+    dd($user);
+@endphp
+
+
 @extends('layouts.dashboard')
 
-<form action="{{  }}"></form>
+@section('dashboard-content')
+    <form action="">
+        <input type="text" name="" id="">
+    </form>
+@endsection

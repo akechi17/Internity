@@ -34,12 +34,14 @@ class VacancyController extends Controller
                 'status' => true,
                 'message' => 'Data lowongan ditemukan',
                 'vacancies' => $vacancies,
+                'company' => $company,
             ];
         } else {
             $context = [
                 'status' => false,
                 'message' => 'Data lowongan tidak ditemukan',
                 'vacancies' => $vacancies,
+                'company' => $company,
             ];
         }
 

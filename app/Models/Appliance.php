@@ -12,6 +12,7 @@ class Appliance extends Model
     protected $fillable = [
         'user_id',
         'vacancy_id',
+        'resume',
         'status',
         'message',
     ];

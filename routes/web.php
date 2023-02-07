@@ -57,7 +57,10 @@ Route::middleware(['auth'])->group( function () {
 
     Route::resource('/companies', CompanyController::class);
 
-    Route::resource('/vacancies', VacancyController::class);
+    Route::get('vacancies/search/{companyId}', [VacancyController::class, 'search'])->name('vacancies.search');
+    Route::get('vacancies/{companyId}', [VacancyController::class, 'index'])->name('vacancies.index');
+    Route::get('vacancies/create/{companyId}', [VacancyController::class, 'create'])->name('vacancies.create');
+    Route::resource('/vacancies', VacancyController::class)->except(['index', 'create']);
 
     Route::get('students', [StudentController::class, 'index'])->name('students.index');
 });

@@ -25,7 +25,7 @@ class CompanyController extends Controller
         $companies = Company::query()
             // ->school($school)
             ->when($department, function ($query, $department) {
-                return $query->department($department);
+                return $query->where('department_id', $department);
             })
             ->when($search, function ($query, $search) {
                 return $query->search($search);
@@ -119,7 +119,13 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        $departments = Department::pluck('name', 'id');
+        $isTeacher = auth()->user()->hasRole('teacher');
+
+        $departments = $isTeacher
+            ? auth()->user()->departments()->pluck('name', 'id')
+            : Department::pluck('name', 'id');
+
+        dd($departments);
 
         return view('companies.create', compact('departments'));
     }

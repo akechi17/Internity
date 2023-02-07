@@ -31,6 +31,14 @@ class PresenceStatusSeeder extends Seeder
             [
                 'name' => 'excused',
                 'color' => '#0000FF',
+            ],
+            [
+                'name' => 'sick',
+                'color' => '#FF00FF',
+            ],
+            [
+                'name' => 'holiday',
+                'color' => '#00FFFF',
             ]
         ];
 

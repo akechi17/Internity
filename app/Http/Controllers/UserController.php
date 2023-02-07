@@ -125,10 +125,11 @@ class UserController extends Controller
             $schoolId = auth()->user()->schools()->first()->id;
             $schools = School::find($schoolId)->pluck('name', 'id');
             $departments = Department::where('school_id', $schoolId)->pluck('name', 'id');
-            $courses = Course::join('deparments', 'courses.department_id', '=', 'departments.id')
+            $courses = Course::join('departments', 'courses.department_id', '=', 'departments.id')
                 ->join('schools', 'departments.school_id', '=', 'schools.id')
                 ->where('schools.id', $schoolId)
                 ->pluck('courses.name', 'courses.id');
+
         } else {
             $roles = auth()->user()->hasRole('super-admin')
                 ? Role::pluck('name', 'id')

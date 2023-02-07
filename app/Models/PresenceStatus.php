@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class PresenceStatus extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'color',
+    ];
+
+    public function presences()
+    {
+        return $this->hasMany(Presence::class);
+    }
 }

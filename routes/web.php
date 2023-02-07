@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\StudentController;
@@ -45,7 +45,15 @@ Route::middleware(['auth'])->group( function () {
 
     Route::resource('/schools', SchoolController::class);
 
-    Route::resource('/departments', DepartmentController::class);
+    Route::get('departments/search/{schoolId}', [DepartmentController::class, 'search'])->name('departments.search');
+    Route::get('departments/{schoolId}', [DepartmentController::class, 'index'])->name('departments.index');
+    Route::get('departments/create/{schoolId}', [DepartmentController::class, 'create'])->name('departments.create');
+    Route::resource('/departments', DepartmentController::class)->except(['index', 'create']);
+
+    Route::get('courses/search/{departmentId}', [CourseController::class, 'search'])->name('courses.search');
+    Route::get('courses/{departmentId}', [CourseController::class, 'index'])->name('courses.index');
+    Route::get('courses/create/{departmentId}', [CourseController::class, 'create'])->name('courses.create');
+    Route::resource('/courses', CourseController::class)->except(['index', 'create']);
 
     Route::resource('/companies', CompanyController::class);
 

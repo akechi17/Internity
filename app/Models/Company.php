@@ -33,9 +33,24 @@ class Company extends Model
         return $this->hasMany(Vacancy::class);
     }
 
-    public function departments()
+    public function users()
     {
-        return $this->belongsToMany(Department::class, 'company_department', 'company_id', 'department_id');
+        return $this->belongsToMany(User::class, 'company_user', 'company_id', 'user_id');
+    }
+
+    public function presences()
+    {
+        return $this->hasMany(Presence::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function internDates()
+    {
+        return $this->hasMany(InternDate::class);
     }
 
     public function scopeActive()

@@ -13,17 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('presence', function (Blueprint $table) {
+        Schema::create('intern_dates', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('presence_status_id')->constrained('presence_statuses')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->date('date');
-            $table->time('check_in')->nullable();
-            $table->time('check_out')->nullable();
-            $table->string('attachment')->nullable();
-            $table->boolean('is_approved')->default(0);
-            $table->string('description')->nullable();
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->integer('extend')->default(0);
             $table->timestamps();
         });
     }
@@ -35,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('presence');
+        Schema::dropIfExists('intern_dates');
     }
 };

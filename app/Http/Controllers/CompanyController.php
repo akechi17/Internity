@@ -125,8 +125,6 @@ class CompanyController extends Controller
             ? auth()->user()->departments()->pluck('name', 'id')
             : Department::pluck('name', 'id');
 
-        dd($departments);
-
         return view('companies.create', compact('departments'));
     }
 
@@ -144,7 +142,7 @@ class CompanyController extends Controller
             'address' => 'required',
             'phone' => 'required',
             'email' => 'required',
-            'departments' => 'required',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
         $company = Company::create([
@@ -153,10 +151,8 @@ class CompanyController extends Controller
             'address' => $request->address,
             'phone' => $request->phone,
             'email' => $request->email,
-            'school_id' => auth()->user()->schools()->first()->id,
+            'department_id' => $request->department_id,
         ]);
-
-        $company->departments()->attach($request->departments);
 
         return redirect()->route('companies.index')->with('success', 'Data perusahaan berhasil ditambahkan');
     }
@@ -208,7 +204,7 @@ class CompanyController extends Controller
             'address' => 'required',
             'phone' => 'required',
             'email' => 'required',
-            'departments' => 'required',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
         $company->update([
@@ -217,9 +213,8 @@ class CompanyController extends Controller
             'address' => $request->address,
             'phone' => $request->phone,
             'email' => $request->email,
+            'department_id' => $request->department_id,
         ]);
-
-        $company->departments()->sync($request->departments);
 
         return redirect()->route('companies.index')->with('success', 'Data perusahaan berhasil diubah');
     }

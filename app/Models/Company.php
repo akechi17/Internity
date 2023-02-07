@@ -63,16 +63,6 @@ class Company extends Model
         return $this->where('status', 0);
     }
 
-    public function scopeSchool($query, $school)
-    {
-        return $query->where('school_id', $school);
-    }
-
-    public function scopeDepartment($query, $department)
-    {
-        return $query->whereRelation('departments', 'id', $department);
-    }
-
     public function scopeSearch($query, $search)
     {
         return $query->where('name', 'like', '%' . $search . '%')

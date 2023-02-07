@@ -47,7 +47,7 @@
                         {{-- Login Validation End --}}
 
                         <div class="remember">
-                            <x-form.checkbox id="input-checkbox-1" label="Remember Me" value="1" />
+                            {{-- <x-form.checkbox id="input-checkbox-1" label="Remember Me" value="1" /> --}}
                             <a href="{{ route('password.request') }}">Forgot Your Password?</a>
                         </div>
 

@@ -25,7 +25,7 @@ class CompanyController extends Controller
         $companies = Company::query()
             // ->school($school)
             ->when($department, function ($query, $department) {
-                return $query->department($department);
+                return $query->where('department_id', $department);
             })
             ->when($search, function ($query, $search) {
                 return $query->search($search);
@@ -119,7 +119,11 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        $departments = Department::pluck('name', 'id');
+        $isTeacher = auth()->user()->hasRole('teacher');
+
+        $departments = $isTeacher
+            ? auth()->user()->departments()->pluck('name', 'id')
+            : Department::pluck('name', 'id');
 
         return view('companies.create', compact('departments'));
     }
@@ -138,7 +142,7 @@ class CompanyController extends Controller
             'address' => 'required',
             'phone' => 'required',
             'email' => 'required',
-            'departments' => 'required',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
         $company = Company::create([
@@ -147,10 +151,8 @@ class CompanyController extends Controller
             'address' => $request->address,
             'phone' => $request->phone,
             'email' => $request->email,
-            'school_id' => auth()->user()->schools()->first()->id,
+            'department_id' => $request->department_id,
         ]);
-
-        $company->departments()->attach($request->departments);
 
         return redirect()->route('companies.index')->with('success', 'Data perusahaan berhasil ditambahkan');
     }
@@ -202,7 +204,7 @@ class CompanyController extends Controller
             'address' => 'required',
             'phone' => 'required',
             'email' => 'required',
-            'departments' => 'required',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
         $company->update([
@@ -211,9 +213,8 @@ class CompanyController extends Controller
             'address' => $request->address,
             'phone' => $request->phone,
             'email' => $request->email,
+            'department_id' => $request->department_id,
         ]);
-
-        $company->departments()->sync($request->departments);
 
         return redirect()->route('companies.index')->with('success', 'Data perusahaan berhasil diubah');
     }

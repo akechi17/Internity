@@ -21,10 +21,8 @@ class CompanySeeder extends Seeder
             $departments = Department::where('school_id', $school->id)->get();
             foreach ($departments as $department) {
                 Company::factory()->count(10)->create([
-                    'school_id' => $school->id,
-                ])->each(function ($company) use ($department) {
-                    $company->departments()->attach($department->id);
-                });
+                    'department_id' => $department->id,
+                ]);
             }
         }
     }

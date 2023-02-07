@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('journals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('work_type');
+            $table->text('description');
+            $table->boolean('is_approved')->default(0);
             $table->timestamps();
         });
     }

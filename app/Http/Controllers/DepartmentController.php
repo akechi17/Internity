@@ -10,10 +10,9 @@ use App\Http\Requests\UpdateDepartmentRequest;
 
 class DepartmentController extends Controller
 {
-    public function getData($schoolId=null, $search=null, $status=null, $sort=null)
+    public function getData($schoolId, $search=null, $status=null, $sort=null, $paginate=true)
     {
         $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
-        $schoolId ??= auth()->user()->schools()->first()->id;
         $departments = Department::where('school_id', $schoolId)
             ->when($search, function ($query, $search) {
                 return $query->search($search);
@@ -30,9 +29,14 @@ class DepartmentController extends Controller
                 }
                 return $query->orderBy($sort, $sortType);
             })
-            ->paginate(10);
+            ->when($paginate, function ($query) {
+                return $query->paginate(10);
+            })
+            ->when(!$paginate, function ($query) {
+                return $query->get();
+            });
 
-        $departments->withPath('/departments')->withQueryString();
+        $paginate ? $departments->withPath('/departments')->withQueryString() : null;
 
         $schools = $isAdmin
             ? School::pluck('name', 'id')
@@ -43,7 +47,7 @@ class DepartmentController extends Controller
                 'status' => true,
                 'message' => 'Data jurusan ditemukan',
                 'departments' => $departments,
-                'pagination' => $departments->links()->render(),
+                'pagination' => $paginate ? $departments->links()->render() : null,
                 'search' => $search,
                 'statusData' => $status,
                 'sort' => $sort,
@@ -55,7 +59,7 @@ class DepartmentController extends Controller
                 'status' => false,
                 'message' => 'Data jurusan tidak ditemukan',
                 'departments' => [],
-                'pagination' => $departments->links()->render(),
+                'pagination' => $paginate ? $departments->links()->render() : null,
                 'search' => $search,
                 'statusData' => $status,
                 'sort' => $sort,
@@ -72,23 +76,28 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $schoolId)
     {
-        $context = $this->getData();
+        $schoolId = decrypt($schoolId);
+        $search = $request->query('search');
+        $status = $request->query('status');
+        $sort = $request->query('sort');
+
+        $context = $this->getData($schoolId, $search, $status, $sort);
 
         return $context['status']
             ? view('departments.index', $context)
             : view('departments.index', $context)->with('error', $context['message']);
     }
 
-    public function search(Request $request)
+    public function search(Request $request, $schoolId)
     {
-        // $schoolId = decrypt($request->query('school_id'));
+        $schoolId = decrypt($schoolId);
         $search = $request->query('search');
         $status = $request->query('status');
         $sort = $request->query('sort');
 
-        $context = $this->getData($search, $status, $sort);
+        $context = $this->getData($schoolId, $search, $status, $sort, false);
 
         return $context['status']
             ? response()->json($context)
@@ -100,13 +109,10 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($schoolId)
     {
-        $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
-        $schools = $isAdmin
-            ? School::pluck('name', 'id')
-            : School::where('id', auth()->user()->schools()->first()->id)->pluck('name', 'id');
-        return view('departments.create', compact('schools'));
+        $schoolId = decrypt($schoolId);
+        return view('departments.create', compact('schoolId'));
     }
 
     /**

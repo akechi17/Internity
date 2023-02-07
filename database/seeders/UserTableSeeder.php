@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Appliance;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\School;
+use App\Models\Company;
+use App\Models\Vacancy;
 use App\Models\Department;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -53,13 +56,18 @@ class UserTableSeeder extends Seeder
         $user->schools()->attach($school->id);
         $user->departments()->attach($department->id);
 
+        $company = Company::find(1);
+        $vacancy = Vacancy::where('company_id', $company->id)->first();
         $user = User::create([
             'name' => 'Mentor',
             'email' => 'mentor@test.dev',
             'password' => bcrypt('123qweasd'),
         ]);
         $user->assignRole('mentor');
+        $user->companies()->attach($company->id);
 
+        $startDate = now()->subDays(30);
+        $endDate = now()->addDays(180);
         $course = Course::where('name', 'XIII SIJA 1')->where('department_id', $department->id)->first();
         $user = User::create([
             'name' => 'Student',
@@ -70,6 +78,19 @@ class UserTableSeeder extends Seeder
         $user->schools()->attach($school->id);
         $user->departments()->attach($department->id);
         $user->courses()->attach($course->id);
+        $user->companies()->attach($company->id);
+        $user->internDate()->create([
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'company_id' => $company->id,
+            'user_id' => $user->id,
+        ]);
+
+        Appliance::create([
+            'user_id' => $user->id,
+            'vacancy_id' => $vacancy->id,
+            'status' => 'accepted',
+        ]);
 
         $courses = Course::all();
         foreach ($courses as $course) {

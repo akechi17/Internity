@@ -37,14 +37,9 @@ class Department extends Model
         return $this->morphMany(News::class, 'newsable');
     }
 
-    public function vacancies()
-    {
-        return $this->belongsToMany(Vacancy::class, 'department_vacancy', 'department_id', 'vacancy_id');
-    }
-
     public function companies()
     {
-        return $this->belongsToMany(Company::class, 'company_department', 'department_id', 'company_id');
+        return $this->hasMany(Company::class);
     }
 
     public function scopeActive()

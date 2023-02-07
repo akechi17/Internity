@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateVacancyRequest;
 
 class VacancyController extends Controller
 {
-    private function getData($company, $search, $sort)
+    private function getData($company, $search=null, $sort=null)
     {
         $vacancies = Vacancy::query()
             ->company($company)
@@ -52,13 +52,13 @@ class VacancyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $companyId)
     {
-        $company = decrypt($request->query('company'));
+        $companyId = decrypt($companyId);
         $search = $request->query('search');
         $sort = $request->query('sort');
 
-        $context = $this->getData($company, $search, $sort);
+        $context = $this->getData($companyId, $search, $sort);
 
         return view('vacancies.index', $context);
     }
@@ -68,54 +68,84 @@ class VacancyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($companyId)
     {
-
+        $companyId = decrypt($companyId);
+        return view('vacancies.create', compact('companyId'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreVacancyRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreVacancyRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'company_id' => 'required|exists:companies,id',
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'description' => 'required|string',
+            'slot' => 'required|integer',
+            'status' => 'required|boolean'
+        ]);
+
+        $vacancy = Vacancy::create($request->all());
+
+        return redirect()->route('vacancies.index', encrypt($vacancy->company_id))->with('success', 'Lowongan berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Vacancy  $vacancy
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Vacancy $vacancy)
+    public function show($id)
     {
-        //
+        $id = decrypt($id);
+        $vacancy = Vacancy::findOrFail($id);
+
+        return view('vacancies.show', compact('vacancy'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Vacancy  $vacancy
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vacancy $vacancy)
+    public function edit($id)
     {
-        //
+        $id = decrypt($id);
+        $vacancy = Vacancy::findOrFail($id);
+
+        return view('vacancies.edit', compact('vacancy'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateVacancyRequest  $request
-     * @param  \App\Models\Vacancy  $vacancy
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateVacancyRequest $request, Vacancy $vacancy)
+    public function update(Request $request, $id)
     {
-        //
+        $id = decrypt($id);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'description' => 'required|string',
+            'slot' => 'required|integer',
+            'status' => 'required|boolean'
+        ]);
+
+        $vacancy = Vacancy::findOrFail($id);
+        $vacancy->update($request->all());
+
+        return redirect()->route('vacancies.index', encrypt($vacancy->company_id))->with('success', 'Lowongan berhasil diubah');
     }
 
     /**
@@ -124,8 +154,12 @@ class VacancyController extends Controller
      * @param  \App\Models\Vacancy  $vacancy
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vacancy $vacancy)
+    public function destroy($id)
     {
-        //
+        $id = decrypt($id);
+        $vacancy = Vacancy::findOrFail($id);
+        $vacancy->delete();
+
+        return redirect()->route('vacancies.index', encrypt($vacancy->company_id))->with('success', 'Lowongan berhasil dihapus');
     }
 }

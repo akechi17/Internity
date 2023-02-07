@@ -90,7 +90,7 @@ class UserTableSeeder extends Seeder
             'user_id' => $user->id,
             'vacancy_id' => $vacancy->id,
             'status' => 'accepted',
-            'resume' => storage_path('app/public/resumes/CV_Hermawan.pdf'),
+            'resume' => 'resumes/CV_Hermawan.pdf'
         ]);
 
         $courses = Course::all();

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Appliance;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\VacancyController;
+use App\Http\Controllers\ApplianceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\VerificationController;
 
@@ -63,4 +65,8 @@ Route::middleware(['auth'])->group( function () {
     Route::resource('/vacancies', VacancyController::class)->except(['index', 'create']);
 
     Route::get('students', [StudentController::class, 'index'])->name('students.index');
+
+    Route::get('appliances/{vacancyId}', [ApplianceController::class, 'index'])->name('appliances.index');
+    Route::get('appliances/{vacancyId}/create', [ApplianceController::class, 'create'])->name('appliances.create');
+    Route::resource('/appliances', ApplianceController::class)->except(['index', 'create']);
 });

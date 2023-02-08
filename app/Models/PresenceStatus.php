@@ -18,4 +18,11 @@ class PresenceStatus extends Model
     {
         return $this->hasMany(Presence::class);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('color', 'like', '%' . $search . '%')
+            ->orWhere('description', 'like', '%' . $search . '%');
+    }
 }

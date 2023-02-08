@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('vacancy_id');
+            $table->string('resume');
             $table->enum('status', ['pending', 'accepted', 'rejected']);
             $table->string('message')->nullable();
             $table->timestamps();

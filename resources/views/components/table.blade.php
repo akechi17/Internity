@@ -7,7 +7,7 @@
                 {{-- Table Function --}}
                 <div class="header-function d-flex align-items-center justify-content-between">
                     <!-- Add data Start -->
-                    <a href="{{ route('users.create') }}" class="btn bg-gradient-info mb-0">
+                    <a href="{{ $route }}" class="btn bg-gradient-info mb-0">
                         TAMBAH DATA
                     </a>
                     <!-- Add data End -->

@@ -288,6 +288,7 @@ class UserController extends Controller
                 'address' => $request->address,
                 'phone' => $request->phone,
                 'date_of_birth' => $request->date_of_birth,
+                'skills' => $request->skills,
             ])->syncRoles($request->role_id);
 
             if ($request->hasFile('avatar')) {

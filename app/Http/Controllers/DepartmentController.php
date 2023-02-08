@@ -29,14 +29,13 @@ class DepartmentController extends Controller
                 }
                 return $query->orderBy($sort, $sortType);
             })
-            ->when($paginate, function ($query) {
-                return $query->paginate(10);
-            })
-            ->when(!$paginate, function ($query) {
-                return $query->get();
+            ->when($paginate, function ($query) use ($paginate){
+                return $paginate
+                    ? $query->paginate(10)
+                    : $query->get();
             });
 
-        $paginate ? $departments->withPath('/departments')->withQueryString() : null;
+        $paginate ? $departments->withPath('/departments/'.encrypt($schoolId))->withQueryString() : null;
 
         $schools = $isAdmin
             ? School::pluck('name', 'id')
@@ -83,7 +82,7 @@ class DepartmentController extends Controller
         $status = $request->query('status');
         $sort = $request->query('sort');
 
-        $context = $this->getData($schoolId, $search, $status, $sort);
+        $context = $this->getData($schoolId, $search, $status, $sort, true);
 
         return $context['status']
             ? view('departments.index', $context)

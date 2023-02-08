@@ -1,3 +1,55 @@
-@php
-    dd($departments);
-@endphp
+{{-- @php
+    dd($companies);
+@endphp --}}
+
+@extends('layouts.dashboard')
+
+@section('dashboard-content')
+    <x-table route="{{ route('departments.create', encrypt($selectedSchool)) }}" pageName="Kompetensi Keahlian" :pagination="$departments">
+
+        <x-slot:thead>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
+                Kelola
+            </th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
+                Nama
+            </th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-120">
+                Deskripsi
+            </th>
+            {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
+                Alamat
+            </th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+                Contact Person
+            </th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+                Email
+            </th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20">
+                Phone
+            </th> --}}
+        </x-slot:thead>
+
+        <x-slot:tbody>
+            @foreach ($departments as $data)
+                <tr>
+                    <td>
+                        <a href="{{ route('departments.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
+                                class="bi bi-pencil-square"></i></a>
+                        <a href="{{ route('departments.destroy', encrypt($data->id)) }}" class="btn btn-info text-xs"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i
+                                class="bi bi-trash"></i></a>
+                    </td>
+                    <td class="text-sm">{{ $data->name }}</td>
+                    <td class="text-sm">{{ $data->description }}</td>
+                    {{-- <td class="text-sm">{{ $data->address }}</td>
+                    <td class="text-sm">{{ $data->contact_person }}</td>
+                    <td class="text-sm">{{ $data->email }}</td>
+                    <td class="text-sm">{{ $data->phone }}</td>
+                </tr> --}}
+            @endforeach
+        </x-slot:tbody>
+    </x-table>
+@endsection

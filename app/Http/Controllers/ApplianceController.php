@@ -35,13 +35,16 @@ class ApplianceController extends Controller
             $context = [
                 'status' => true,
                 'message' => 'Data peralatan ditemukan',
-                'data' => $appliances,
+                'appliances' => $appliances,
+                'vacancy' => $vacancy,
+                'pagination' => $appliances->links()->render(),
             ];
         } else {
             $context = [
                 'status' => false,
                 'message' => 'Data peralatan tidak ditemukan',
-                'data' => $appliances,
+                'appliances' => $appliances,
+                'vacancy' => $vacancy,
             ];
         }
 
@@ -53,16 +56,16 @@ class ApplianceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $vacancyId)
     {
-        $vacancy = decrypt($request->query('vacancy'));
+        $vacancyId = decrypt($vacancyId);
         $search = $request->query('search');
         $status = $request->query('status');
         $sort = $request->query('sort');
 
-        $context = $this->getData($vacancy, $search, $status, $sort);
+        $context = $this->getData($vacancyId, $search, $status, $sort);
 
-        return response()->json($context);
+        return view('appliances.index', $context);
     }
 
     /**
@@ -70,20 +73,58 @@ class ApplianceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($vacancyId)
     {
-        //
+        $vacancyId = decrypt($vacancyId);
+
+        return view('appliances.create', compact('vacancyId'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreApplianceRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreApplianceRequest $request)
+    public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'vacancy_id' => 'required|exists:vacancies,id',
+            'user_id' => 'required|exists:users,id',
+            'resume' => 'file|mimes:pdf,doc,docx|max:2048',
+            'status' => 'required|in:pending,accepted,rejected',
+            'message' => 'nullable|string',
+        ]);
+
+        try {
+            $resume = $request->file('resume');
+            $resumeName = time() . '_' . $resume->getClientOriginalName();
+            $resume->move(storage_path('app/public/resumes'), $resumeName);
+
+            $appliance = Appliance::create([
+                'vacancy_id' => $request->vacancy_id,
+                'user_id' => $request->user_id,
+                'resume' => $resumeName,
+                'status' => $request->status,
+                'message' => $request->message,
+            ]);
+
+            $context = [
+                'status' => true,
+                'message' => 'Data berhasil ditambahkan',
+                'data' => $appliance,
+            ];
+
+            return redirect()->route('appliances.show', encrypt($appliance->id))->with($context);
+        } catch (\Exception $e) {
+            $context = [
+                'status' => false,
+                'message' => 'Data gagal ditambahkan',
+                'data' => null,
+            ];
+
+            return redirect()->route('appliances.index', encrypt($request->vacancy_id))->with($context);
+        }
     }
 
     /**
@@ -121,7 +162,25 @@ class ApplianceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id = decrypt($id);
+        try {
+            $appliance = Appliance::findOrFail($id);
+            $context = [
+                'status' => true,
+                'message' => 'Data ditemukan',
+                'data' => $appliance,
+            ];
+
+            return view('appliances.edit', $context);
+        } catch (\Exception $e) {
+            $context = [
+                'status' => false,
+                'message' => 'Data tidak ditemukan',
+                'data' => null,
+            ];
+
+            return back()->with($context);
+        }
     }
 
     /**
@@ -166,11 +225,28 @@ class ApplianceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Appliance  $appliance
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Appliance $appliance)
+    public function destroy($id)
     {
-        //
+        $id = decrypt($id);
+        try {
+            $appliance = Appliance::findOrFail($id);
+            $appliance->delete();
+            $context = [
+                'status' => true,
+                'message' => 'Data berhasil dihapus',
+                'data' => $appliance,
+            ];
+        } catch (\Exception $e) {
+            $context = [
+                'status' => false,
+                'message' => 'Data tidak ditemukan',
+                'data' => null,
+            ];
+        }
+
+        return back()->with($context);
     }
 }

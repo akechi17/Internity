@@ -69,4 +69,7 @@ Route::middleware(['auth'])->group( function () {
     Route::get('appliances/{vacancyId}', [ApplianceController::class, 'index'])->name('appliances.index');
     Route::get('appliances/{vacancyId}/create', [ApplianceController::class, 'create'])->name('appliances.create');
     Route::resource('/appliances', ApplianceController::class)->except(['index', 'create']);
+
+    Route::get('presence-statuses/search', [PresenceStatusController::class, 'search'])->name('presence-statuses.search');
+    Route::resource('presence-statuses', PresenceStatusController::class);
 });

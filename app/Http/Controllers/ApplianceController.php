@@ -56,9 +56,11 @@ class ApplianceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $vacancyId)
+    public function index(Request $request)
     {
-        $vacancyId = decrypt($vacancyId);
+        $vacancyId = $request->query('vacancy');
+        ! $vacancyId ? abort(404) : $vacancyId = decrypt($vacancyId);
+
         $search = $request->query('search');
         $status = $request->query('status');
         $sort = $request->query('sort');
@@ -73,9 +75,10 @@ class ApplianceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($vacancyId)
+    public function create(Request $request)
     {
-        $vacancyId = decrypt($vacancyId);
+        $vacancyId = $request->query('vacancy');
+        ! $vacancyId ? abort(404) : $vacancyId = decrypt($vacancyId);
 
         return view('appliances.create', compact('vacancyId'));
     }

@@ -11,7 +11,10 @@ class PresenceStatus extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'color',
+        'icon',
+        'status'
     ];
 
     public function presences()

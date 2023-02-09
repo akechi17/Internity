@@ -35,7 +35,7 @@
                         <a href="{{ route('vacancies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i
                                 class="bi bi-trash"></i></a>
-                        <a href="{{ route('appliances.index', encrypt($data->id)) }}"
+                        <a href="{{ route('appliances.index', ['vacancy' => encrypt($data->id)]) }}"
                             class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
                             title="Lowongan"><i class="bi bi-person-workspace"></i></a>
                     </td>

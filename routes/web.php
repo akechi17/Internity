@@ -13,6 +13,7 @@ use App\Http\Controllers\ApplianceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\PresenceStatusController;
+use App\Http\Controllers\ScorePredicateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,29 +49,23 @@ Route::middleware(['auth'])->group( function () {
 
     Route::resource('/schools', SchoolController::class);
 
-    Route::get('departments/search/{schoolId}', [DepartmentController::class, 'search'])->name('departments.search');
-    Route::get('departments/{schoolId}', [DepartmentController::class, 'index'])->name('departments.index');
-    Route::get('departments/create/{schoolId}', [DepartmentController::class, 'create'])->name('departments.create');
-    Route::resource('/departments', DepartmentController::class)->except(['index', 'create']);
+    Route::get('departments/search', [DepartmentController::class, 'search'])->name('departments.search');
+    Route::resource('/departments', DepartmentController::class);
 
-    Route::get('courses/search/{departmentId}', [CourseController::class, 'search'])->name('courses.search');
-    Route::get('courses/{departmentId}', [CourseController::class, 'index'])->name('courses.index');
-    Route::get('courses/create/{departmentId}', [CourseController::class, 'create'])->name('courses.create');
-    Route::resource('/courses', CourseController::class)->except(['index', 'create']);
+    Route::get('courses/search', [CourseController::class, 'search'])->name('courses.search');
+    Route::resource('/courses', CourseController::class);
 
     Route::resource('/companies', CompanyController::class);
 
-    Route::get('vacancies/search/{companyId}', [VacancyController::class, 'search'])->name('vacancies.search');
-    Route::get('vacancies/{companyId}', [VacancyController::class, 'index'])->name('vacancies.index');
-    Route::get('vacancies/create/{companyId}', [VacancyController::class, 'create'])->name('vacancies.create');
-    Route::resource('/vacancies', VacancyController::class)->except(['index', 'create']);
+    Route::get('vacancies/search', [VacancyController::class, 'search'])->name('vacancies.search');
+    Route::resource('/vacancies', VacancyController::class);
 
     Route::get('students', [StudentController::class, 'index'])->name('students.index');
 
-    Route::get('appliances/{vacancyId}', [ApplianceController::class, 'index'])->name('appliances.index');
-    Route::get('appliances/{vacancyId}/create', [ApplianceController::class, 'create'])->name('appliances.create');
-    Route::resource('/appliances', ApplianceController::class)->except(['index', 'create']);
+    Route::resource('/appliances', ApplianceController::class);
 
     Route::get('presence-statuses/search', [PresenceStatusController::class, 'search'])->name('presence-statuses.search');
     Route::resource('presence-statuses', PresenceStatusController::class);
+
+    Route::resource('score-predicates', ScorePredicateController::class);
 });

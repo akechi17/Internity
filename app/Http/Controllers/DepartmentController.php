@@ -13,6 +13,11 @@ class DepartmentController extends Controller
     public function getData($schoolId, $search=null, $status=null, $sort=null, $paginate=true)
     {
         $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
+
+        $schoolId = $isAdmin
+            ? $schoolId
+            : auth()->user()->schools()->first()->id;
+
         $departments = Department::where('school_id', $schoolId)
             ->when($search, function ($query, $search) {
                 return $query->search($search);
@@ -75,9 +80,11 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $schoolId)
+    public function index(Request $request)
     {
-        $schoolId = decrypt($schoolId);
+        $schoolId = $request->query('school');
+        ! $schoolId ? abort(404) : $schoolId = decrypt($schoolId);
+
         $search = $request->query('search');
         $status = $request->query('status');
         $sort = $request->query('sort');
@@ -89,9 +96,11 @@ class DepartmentController extends Controller
             : view('departments.index', $context)->with('error', $context['message']);
     }
 
-    public function search(Request $request, $schoolId)
+    public function search(Request $request)
     {
-        $schoolId = decrypt($schoolId);
+        $schoolId = $request->query('school');
+        ! $schoolId ? abort(404) : $schoolId = decrypt($schoolId);
+
         $search = $request->query('search');
         $status = $request->query('status');
         $sort = $request->query('sort');
@@ -108,9 +117,11 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($schoolId)
+    public function create(Request $request)
     {
-        $schoolId = decrypt($schoolId);
+        $schoolId = $request->query('school');
+        ! $schoolId ? abort(404) : $schoolId = decrypt($schoolId);
+
         return view('departments.create', compact('schoolId'));
     }
 

@@ -9,11 +9,17 @@ use App\Http\Requests\UpdatePresenceStatusRequest;
 
 class PresenceStatusController extends Controller
 {
-    private function getData($search, $sort)
+    private function getData($schoolId, $search=null, $sort=null)
     {
-        $presenceStatuses = PresenceStatus::when($search, function ($query, $search) {
-            return $query->search($search);
-        })
+        $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
+        $schoolId = $isAdmin
+            ? $schoolId
+            : auth()->user()->schools()->first()->id;
+
+        $presenceStatuses = PresenceStatus::where('school_id', $schoolId)
+            ->when($search, function ($query, $search) {
+                return $query->search($search);
+            })
             ->when($sort, function ($query, $sort) {
                 if ($sort[0] == '-') {
                     $sort = substr($sort, 1);
@@ -52,6 +58,9 @@ class PresenceStatusController extends Controller
      */
     public function index(Request $request)
     {
+        $schoolId = $request->query('school');
+        ! $schoolId ? abort(404) : $schoolId = decrypt($schoolId);
+
         $search = $request->query('search');
         $sort = $request->query('sort');
 
@@ -62,6 +71,9 @@ class PresenceStatusController extends Controller
 
     public function search(Request $request)
     {
+        $schoolId = $request->query('school');
+        ! $schoolId ? abort(404) : $schoolId = decrypt($schoolId);
+
         $search = $request->query('search');
         $sort = $request->query('sort');
 
@@ -77,8 +89,11 @@ class PresenceStatusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $schoolId = $request->query('school');
+        ! $schoolId ? abort(404) : $schoolId = decrypt($schoolId);
+
         return view('presence-statuses.create');
     }
 

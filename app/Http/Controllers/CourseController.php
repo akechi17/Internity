@@ -63,8 +63,8 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-        $departmentId = decrypt($request->query('department'));
-        ! $departmentId ? abort(404) : null;
+        $departmentId = $request->query('department');
+        ! $departmentId ? abort(404) : $departmentId = decrypt($departmentId);
 
         $search = $request->query('search');
         $sort = $request->query('sort');
@@ -77,8 +77,8 @@ class CourseController extends Controller
 
     public function search(Request $request)
     {
-        $departmentId = decrypt($request->query('department'));
-        ! $departmentId ? abort(404) : null;
+        $departmentId = $request->query('department');
+        ! $departmentId ? abort(404) : $departmentId = decrypt($departmentId);
 
         $search = $request->query('search');
         $sort = $request->query('sort');
@@ -96,8 +96,8 @@ class CourseController extends Controller
      */
     public function create(Request $request)
     {
-        $departmentId = decrypt($request->query('department'));
-        ! $departmentId ? abort(404) : null;
+        $departmentId = $request->query('department');
+        ! $departmentId ? abort(404) : $departmentId = decrypt($departmentId);
 
         return view('courses.create', compact('departmentId'));
     }

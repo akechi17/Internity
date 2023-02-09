@@ -13,6 +13,11 @@ class DepartmentController extends Controller
     public function getData($schoolId, $search=null, $status=null, $sort=null, $paginate=true)
     {
         $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
+
+        $schoolId = $isAdmin
+            ? $schoolId
+            : auth()->user()->schools()->first()->id;
+
         $departments = Department::where('school_id', $schoolId)
             ->when($search, function ($query, $search) {
                 return $query->search($search);
@@ -77,8 +82,8 @@ class DepartmentController extends Controller
      */
     public function index(Request $request)
     {
-        $schoolId = decrypt($request->query('school'));
-        ! $schoolId ? abort(404) : null;
+        $schoolId = $request->query('school');
+        ! $schoolId ? abort(404) : $schoolId = decrypt($schoolId);
 
         $search = $request->query('search');
         $status = $request->query('status');
@@ -93,8 +98,8 @@ class DepartmentController extends Controller
 
     public function search(Request $request)
     {
-        $schoolId = decrypt($request->query('school'));
-        ! $schoolId ? abort(404) : null;
+        $schoolId = $request->query('school');
+        ! $schoolId ? abort(404) : $schoolId = decrypt($schoolId);
 
         $search = $request->query('search');
         $status = $request->query('status');
@@ -114,8 +119,8 @@ class DepartmentController extends Controller
      */
     public function create(Request $request)
     {
-        $schoolId = decrypt($request->query('school'));
-        ! $schoolId ? abort(404) : null;
+        $schoolId = $request->query('school');
+        ! $schoolId ? abort(404) : $schoolId = decrypt($schoolId);
 
         return view('departments.create', compact('schoolId'));
     }

@@ -13,6 +13,9 @@ class ScorePredicateController extends Controller
     public function getData($schoolId, $search=null, $sort=null)
     {
         $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
+
+        $schoolId  = ! $isAdmin ? auth()->user()->schools()->first()->id : $schoolId;
+
         $scorePredicates = ScorePredicate::whereHas('school', function ($query) use ($schoolId, $isAdmin) {
             return $isAdmin
             ? $query->where('id', $schoolId)
@@ -64,8 +67,13 @@ class ScorePredicateController extends Controller
      */
     public function index(Request $request)
     {
-        $schoolId = decrypt($request->query('school'));
-        $context = $this->getData($schoolId);
+        $schoolId = $request->query('school');
+        ! $schoolId ? abort(404) : $schoolId = decrypt($schoolId);
+
+        $search = $request->query('search');
+        $sort = $request->query('sort');
+
+        $context = $this->getData($schoolId, $search, $sort);
 
         return view('score-predicates.index', $context);
     }
@@ -75,12 +83,13 @@ class ScorePredicateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
-        $schools = $isAdmin
-            ? School::pluck('name', 'id')
-            : auth()->user()->schools()->first()->pluck('name', 'id');
+        $schoolId = $request->query('school');
+        ! $schoolId ? abort(404) : $schoolId = decrypt($schoolId);
+
+        $schools = School::where('id', $schoolId)->get();
+
         return view('score-predicates.create', compact('schools'));
     }
 

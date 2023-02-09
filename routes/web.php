@@ -12,6 +12,8 @@ use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\ApplianceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\PresenceStatusController;
+use App\Http\Controllers\ScorePredicateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +66,6 @@ Route::middleware(['auth'])->group( function () {
 
     Route::get('presence-statuses/search', [PresenceStatusController::class, 'search'])->name('presence-statuses.search');
     Route::resource('presence-statuses', PresenceStatusController::class);
+
+    Route::resource('score-predicates', ScorePredicateController::class);
 });

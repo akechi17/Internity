@@ -47,15 +47,11 @@ Route::middleware(['auth'])->group( function () {
 
     Route::resource('/schools', SchoolController::class);
 
-    Route::get('departments/search/{schoolId}', [DepartmentController::class, 'search'])->name('departments.search');
-    Route::get('departments/{schoolId}', [DepartmentController::class, 'index'])->name('departments.index');
-    Route::get('departments/create/{schoolId}', [DepartmentController::class, 'create'])->name('departments.create');
-    Route::resource('/departments', DepartmentController::class)->except(['index', 'create']);
+    Route::get('departments/search', [DepartmentController::class, 'search'])->name('departments.search');
+    Route::resource('/departments', DepartmentController::class);
 
-    Route::get('courses/search/{departmentId}', [CourseController::class, 'search'])->name('courses.search');
-    Route::get('courses/{departmentId}', [CourseController::class, 'index'])->name('courses.index');
-    Route::get('courses/create/{departmentId}', [CourseController::class, 'create'])->name('courses.create');
-    Route::resource('/courses', CourseController::class)->except(['index', 'create']);
+    Route::get('courses/search', [CourseController::class, 'search'])->name('courses.search');
+    Route::resource('/courses', CourseController::class);
 
     Route::resource('/companies', CompanyController::class);
 

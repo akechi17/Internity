@@ -100,6 +100,10 @@ class ScorePredicateController extends Controller
             'min' => 'required',
             'max' => 'required',
         ]);
+
+        $scorePredicate = ScorePredicate::create($request->all());
+
+        return redirect()->route('score-predicates.index', ['school' => encrypt($scorePredicate->school_id)])->with('success', 'Predikat nilai berhasil ditambahkan');
     }
 
     /**

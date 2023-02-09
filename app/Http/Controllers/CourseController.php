@@ -61,9 +61,11 @@ class CourseController extends Controller
      * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $departmentId)
+    public function index(Request $request)
     {
-        $departmentId = decrypt($departmentId);
+        $departmentId = decrypt($request->query('department'));
+        ! $departmentId ? abort(404) : null;
+
         $search = $request->query('search');
         $sort = $request->query('sort');
         $context = $this->getData($departmentId, $search, $sort);
@@ -73,9 +75,11 @@ class CourseController extends Controller
             : view('courses.index', $context)->with('error', $context['message']);
     }
 
-    public function search(Request $request, $departmentId)
+    public function search(Request $request)
     {
-        $departmentId = decrypt($departmentId);
+        $departmentId = decrypt($request->query('department'));
+        ! $departmentId ? abort(404) : null;
+
         $search = $request->query('search');
         $sort = $request->query('sort');
         $context = $this->getData($departmentId, $search, $sort, false);
@@ -90,9 +94,11 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($departmentId)
+    public function create(Request $request)
     {
-        $departmentId = decrypt($departmentId);
+        $departmentId = decrypt($request->query('department'));
+        ! $departmentId ? abort(404) : null;
+
         return view('courses.create', compact('departmentId'));
     }
 

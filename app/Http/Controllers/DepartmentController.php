@@ -75,9 +75,11 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $schoolId)
+    public function index(Request $request)
     {
-        $schoolId = decrypt($schoolId);
+        $schoolId = decrypt($request->query('school'));
+        ! $schoolId ? abort(404) : null;
+
         $search = $request->query('search');
         $status = $request->query('status');
         $sort = $request->query('sort');
@@ -89,9 +91,11 @@ class DepartmentController extends Controller
             : view('departments.index', $context)->with('error', $context['message']);
     }
 
-    public function search(Request $request, $schoolId)
+    public function search(Request $request)
     {
-        $schoolId = decrypt($schoolId);
+        $schoolId = decrypt($request->query('school'));
+        ! $schoolId ? abort(404) : null;
+
         $search = $request->query('search');
         $status = $request->query('status');
         $sort = $request->query('sort');
@@ -108,9 +112,11 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($schoolId)
+    public function create(Request $request)
     {
-        $schoolId = decrypt($schoolId);
+        $schoolId = decrypt($request->query('school'));
+        ! $schoolId ? abort(404) : null;
+
         return view('departments.create', compact('schoolId'));
     }
 

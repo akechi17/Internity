@@ -55,16 +55,12 @@ Route::middleware(['auth'])->group( function () {
 
     Route::resource('/companies', CompanyController::class);
 
-    Route::get('vacancies/search/{companyId}', [VacancyController::class, 'search'])->name('vacancies.search');
-    Route::get('vacancies/{companyId}', [VacancyController::class, 'index'])->name('vacancies.index');
-    Route::get('vacancies/create/{companyId}', [VacancyController::class, 'create'])->name('vacancies.create');
-    Route::resource('/vacancies', VacancyController::class)->except(['index', 'create']);
+    Route::get('vacancies/search', [VacancyController::class, 'search'])->name('vacancies.search');
+    Route::resource('/vacancies', VacancyController::class);
 
     Route::get('students', [StudentController::class, 'index'])->name('students.index');
 
-    Route::get('appliances/{vacancyId}', [ApplianceController::class, 'index'])->name('appliances.index');
-    Route::get('appliances/{vacancyId}/create', [ApplianceController::class, 'create'])->name('appliances.create');
-    Route::resource('/appliances', ApplianceController::class)->except(['index', 'create']);
+    Route::resource('/appliances', ApplianceController::class);
 
     Route::get('presence-statuses/search', [PresenceStatusController::class, 'search'])->name('presence-statuses.search');
     Route::resource('presence-statuses', PresenceStatusController::class);

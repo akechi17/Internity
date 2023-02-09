@@ -54,9 +54,11 @@ class VacancyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $companyId)
+    public function index(Request $request)
     {
-        $companyId = decrypt($companyId);
+        $companyId = decrypt($request->query('company'));
+        ! $companyId && abort(404);
+
         $search = $request->query('search');
         $sort = $request->query('sort');
 
@@ -70,9 +72,11 @@ class VacancyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($companyId)
+    public function create(Request $request)
     {
-        $companyId = decrypt($companyId);
+        $companyId = decrypt($request->query('company'));
+        ! $companyId && abort(404);
+
         return view('vacancies.create', compact('companyId'));
     }
 

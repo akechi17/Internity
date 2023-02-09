@@ -99,7 +99,7 @@ class DepartmentController extends Controller
     public function search(Request $request)
     {
         $schoolId = $request->query('school');
-        ! $schoolId ? abort(404) : $schoolId = decrypt($schoolId);
+        ! $schoolId ? abort(404) : null;
 
         $search = $request->query('search');
         $status = $request->query('status');

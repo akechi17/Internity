@@ -12,6 +12,7 @@ use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\ApplianceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\PresenceStatusController;
 
 /*
 |--------------------------------------------------------------------------

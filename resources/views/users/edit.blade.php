@@ -13,7 +13,7 @@
             <x-form.input-base label="Email" id="input-email" type="email" name="email" value="{{ $user->email }}" />
             <x-form.input-password label="Password" id="input-password" name="password" />
             <x-form.input-password label="Ulangi Password" id="input-confirm-password" name="confirm-password" />
-            <x-form.select label="Role" id="input-role" name="role_id">
+            {{-- <x-form.select label="Role" id="input-role" name="role_id">
                 <option selected hidden>Pilih</option>
                 <x-slot:options>
                     @foreach ($roles as $key => $value)
@@ -21,16 +21,9 @@
                             {{ $value }}</option>
                     @endforeach
                 </x-slot:options>
-            </x-form.select>
+            </x-form.select> --}}
 
-            <x-form.select label="Sekolah" id="input-school" name="school_id">
-                <option selected hidden>Pilih</option>
-                <x-slot:options>
-                    @foreach ($schools as $key => $value)
-                        <option value="{{ $key }}">{{ $value }}</option>
-                    @endforeach
-                </x-slot:options>
-            </x-form.select>
+            <input type="hidden" value="1" name="school_id">
 
             <x-form.select label="Departemen" id="input-department" name="department_id">
                 <option selected hidden>Pilih</option>
@@ -65,3 +58,17 @@
         </x-slot:formBody>
     </x-form.form>
 @endsection
+
+@once
+    @push('scripts')
+        <script type="module">
+            axios.get('/departments/search/1')
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        </script>
+    @endpush
+@endonce

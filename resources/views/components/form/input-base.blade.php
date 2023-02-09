@@ -1,5 +1,9 @@
 <div class="form-group has-validation">
-    <label for="input-data">{{ $label }}</label>
+
+    @if ($label)
+        <label for="input-data">{{ $label }}</label>
+    @endif
+
     <input type="{{ $type }}" class="form-control" id="{{ $id }}" name="{{ $name }}"
         value="{{ $value ?? '' }}" />
 

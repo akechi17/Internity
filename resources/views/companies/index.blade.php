@@ -2,7 +2,7 @@
     dd($companies);
 @endphp --}}
 
-@extends('layouts.dashboard')
+@extends('layouts.dashboard') 
 
 @section('dashboard-content')
     <x-table route="{{ route('companies.create') }}" pageName="Perusahaan" :pagination="$companies">

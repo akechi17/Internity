@@ -13,7 +13,6 @@ class Presence extends Model
         'user_id',
         'presence_status_id',
         'company_id',
-        'department_id',
         'date',
         'check_in',
         'check_out',

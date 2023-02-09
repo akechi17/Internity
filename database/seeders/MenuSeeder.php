@@ -57,7 +57,7 @@ class MenuSeeder extends Seeder
             [
                 'name' => 'Kompetensi Keahlian',
                 'icon' => 'mdi:book-open-page-variant',
-                'url' => 'departments/' . encrypt($school->id),
+                'url' => 'departments?school=' . encrypt($school->id),
                 'status' => 1,
                 'order' => 40,
                 'parent_id' => null,

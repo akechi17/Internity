@@ -58,8 +58,8 @@ class ApplianceController extends Controller
      */
     public function index(Request $request)
     {
-        $vacancyId = decrypt($request->query('vacancy'));
-        ! $vacancyId && abort(404);
+        $vacancyId = $request->query('vacancy');
+        ! $vacancyId ? abort(404) : $vacancyId = decrypt($vacancyId);
 
         $search = $request->query('search');
         $status = $request->query('status');
@@ -77,8 +77,8 @@ class ApplianceController extends Controller
      */
     public function create(Request $request)
     {
-        $vacancyId = decrypt($request->query('vacancy'));
-        ! $vacancyId && abort(404);
+        $vacancyId = $request->query('vacancy');
+        ! $vacancyId ? abort(404) : $vacancyId = decrypt($vacancyId);
 
         return view('appliances.create', compact('vacancyId'));
     }

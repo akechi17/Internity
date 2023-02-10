@@ -62,7 +62,7 @@
 @once
     @push('scripts')
         <script type="module">
-            axios.get('/departments/search/1')
+            axios.get('/departments/search?school=1')
                 .then(response => {
                     console.log(response);
                 })

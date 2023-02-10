@@ -27,8 +27,8 @@
                 <tr>
                     <td class="text-sm text-center">{{ $data->name }}</td>
                     <td class="text-sm">{{ $data->permissions->implode('name', ', ') }}</td>
-                    <td class="text-center badge badge-sm bg-gradient-success d-flex align-items-center">
-                        <p>{{ $data->status ? "Aktif" : "Nonaktif" }}</p>
+                    <td class="text-center">
+                        <p class="badge badge-sm bg-gradient-success">{{ $data->status ? 'Aktif' : 'Nonaktif' }}</p>
                     </td>
                     <td>
                         <a href="{{ route('roles.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
@@ -42,6 +42,4 @@
             @endforeach
         </x-slot:tbody>
     </x-table>
-    {{-- ini untuk pagination --}}
-    {{ $roles->links() }}
 @endsection

@@ -19,13 +19,13 @@ class DepartmentController extends Controller
             : auth()->user()->schools()->first()->id;
 
         $departments = Department::where('school_id', $schoolId)
-            ->when($search, function ($query, $search) {
+            ->when($search != null, function ($query, $search) {
                 return $query->search($search);
             })
-            ->when($status, function ($query, $status) {
+            ->when($status != null, function ($query, $status) {
                 return $query->where('status', $status);
             })
-            ->when($sort, function ($query, $sort) {
+            ->when($sort != null, function ($query, $sort) {
                 if ($sort[0] == '-') {
                     $sort = substr($sort, 1);
                     $sortType = 'desc';
@@ -34,7 +34,7 @@ class DepartmentController extends Controller
                 }
                 return $query->orderBy($sort, $sortType);
             })
-            ->when($paginate, function ($query) use ($paginate){
+            ->when($paginate != null, function ($query) use ($paginate){
                 return $paginate
                     ? $query->paginate(10)
                     : $query->get();

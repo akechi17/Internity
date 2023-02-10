@@ -1,7 +1,7 @@
 <div>
     <form action="{{ $formAction }}" method="{{ $formMethod }}" class="form-input">
         @csrf
-        @method($formMethod)
+        @method($spoofMethod ?? $formMethod)
 
         <div class="header">
             <h6 class="text-uppercase">{{ $formTitle }}</h6>

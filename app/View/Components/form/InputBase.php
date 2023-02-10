@@ -20,12 +20,15 @@ class InputBase extends Component
 
     public $name;
 
-    public function __construct($type, $id, $label, $name)
+    public $value;
+
+    public function __construct($type, $id, $name, $value = null, $label = null)
     {
         $this->type = $type;
         $this->id = $id;
         $this->label = $label;
         $this->name = $name;
+        $this->value = $value;
     }
 
     /**

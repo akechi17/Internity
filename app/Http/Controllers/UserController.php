@@ -243,7 +243,7 @@ class UserController extends Controller
                 $courses = Course::pluck('name', 'id');
             }
 
-            return view('users.edit', compact('user', 'schools', 'departments', 'courses'));
+            return view('users.edit', compact('user', 'schools', 'departments', 'courses', 'roles'));
         } catch (\Exception $e) {
             return redirect()->route('users.index')
                 ->with('error', 'User tidak ditemukan');

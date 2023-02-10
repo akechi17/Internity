@@ -62,8 +62,4 @@
             </x-form.radio>
         </x-slot:formBody>
     </x-form.form>
-
-    @error('error')
-        {{ $message }}
-    @enderror
 @endsection

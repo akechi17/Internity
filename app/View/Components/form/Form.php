@@ -17,11 +17,14 @@ class Form extends Component
 
     public $formTitle;
 
-    public function __construct($formAction, $formMethod, $formTitle)
+    public $spoofMethod;
+
+    public function __construct($formAction, $formMethod, $formTitle, $spoofMethod = null)
     {
         $this->formAction = $formAction;
         $this->formMethod = $formMethod;
         $this->formTitle = $formTitle;
+        $this->spoofMethod = $spoofMethod;
     }
 
     /**

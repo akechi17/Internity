@@ -7,9 +7,11 @@
                 {{-- Table Function --}}
                 <div class="header-function d-flex align-items-center justify-content-between">
                     <!-- Add data Start -->
-                    <a href="{{ $route }}" class="btn bg-gradient-info mb-0">
-                        TAMBAH DATA
-                    </a>
+                    @if (Route::currentRouteName() != 'roles.index')
+                        <a href="{{ $route }}" class="btn bg-gradient-info mb-0">
+                            TAMBAH DATA
+                        </a>
+                    @endif
                     <!-- Add data End -->
 
                     <div class="card-header p-0">

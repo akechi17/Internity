@@ -35,9 +35,14 @@
                         <a href="{{ route('presence-statuses.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
-                        <a href="{{ route('presence-statuses.destroy', encrypt($data->id)) }}" class="btn btn-info text-xs"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i
-                                class="bi bi-trash"></i></a>
+
+                        <form action="{{ route('presence-statuses.destroy', encrypt($data->id)) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button id="button-{{ $data->id }}" class="button-delete btn btn-info text-xs"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
+                                    class="bi bi-trash"></i></button>
+                        </form>
                         {{-- <a href="{{ route('vacancies.index', ['company' => encrypt($data->id)]) }}"
                             class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
                             title="Lowongan"><i class="bi bi-person-workspace"></i></a> --}}

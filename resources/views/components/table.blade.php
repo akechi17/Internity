@@ -7,13 +7,15 @@
                 {{-- Table Function --}}
                 <div class="header-function d-flex align-items-center justify-content-between">
                     <!-- Add data Start -->
-                    @if (Route::currentRouteName() != 'roles.index')
-                        <a href="{{ $route }}" class="btn bg-gradient-info mb-0">
+                    @if ($routeCreate)
+                        <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
                             TAMBAH DATA
                         </a>
                     @endif
                     <!-- Add data End -->
 
+
+                    {{-- Filter Search Start --}}
                     <div class="card-header p-0">
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                             <div class="input-group">
@@ -24,6 +26,7 @@
                             </div>
                         </div>
                     </div>
+                    {{-- Filter Search End --}}
                 </div>
             </div>
 
@@ -36,6 +39,14 @@
                         </thead>
                         <tbody>
                             {{ $tbody }}
+
+                            @if ($pagination->isEmpty())
+                                <tr>
+                                    <td colspan="6" class="text-center">
+                                        <h5 class="text-secondary">Data tidak ditemukan</h5>
+                                    </td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>

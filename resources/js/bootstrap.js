@@ -1,3 +1,5 @@
+import "../css/app.scss";
+
 import _ from "lodash";
 window._ = _;
 
@@ -21,5 +23,4 @@ window.utils = utils;
 import $ from "jquery";
 window.$ = $;
 
-import "../css/app.scss";
 import "iconify-icon";

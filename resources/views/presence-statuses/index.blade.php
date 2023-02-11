@@ -5,7 +5,8 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table route="{{ route('presence-statuses.create') }}" pageName="Master Status Kehadiran" :pagination="$presenceStatuses">
+    <x-table route="{{ route('presence-statuses.create') }}" pageName="Master Status Kehadiran" :pagination="$presenceStatuses"
+        :tableData="$presenceStatuses">
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-30">

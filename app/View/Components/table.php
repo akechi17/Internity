@@ -12,7 +12,7 @@ class table extends Component
      *
      * @return void
      */
-    public function __construct($pageName, $pagination,  $routeCreate = null, $tableData = null)
+    public function __construct($pageName, $pagination, $tableData, $routeCreate = null )
     {
         //
         $this->routeCreate = $routeCreate;

@@ -5,7 +5,7 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table routeCreate="{{ route('roles.create') }}" pageName="Roles" :pagination="$roles">
+    <x-table routeCreate="{{ route('roles.create') }}" pageName="Roles" :pagination="$roles" :tableData="$roles">
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">

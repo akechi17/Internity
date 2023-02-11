@@ -40,10 +40,10 @@
                         <tbody>
                             {{ $tbody }}
 
-                            @if ($pagination->isEmpty())
+                            @if ($tableData->isEmpty())
                                 <tr>
                                     <td colspan="6" class="text-center">
-                                        <h5 class="text-secondary">Data tidak ditemukan</h5>
+                                        <p class="text-xs mb-0">Data Tidak Ditemukan</p>
                                     </td>
                                 </tr>
                             @endif

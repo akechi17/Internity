@@ -18,27 +18,25 @@ class DepartmentController extends Controller
             ? $schoolId
             : auth()->user()->schools()->first()->id;
 
-        $departments = Department::where('school_id', $schoolId)
-            ->when($search != null, function ($query, $search) {
-                return $query->search($search);
-            })
-            ->when($status != null, function ($query, $status) {
-                return $query->where('status', $status);
-            })
-            ->when($sort != null, function ($query, $sort) {
-                if ($sort[0] == '-') {
-                    $sort = substr($sort, 1);
-                    $sortType = 'desc';
-                } else {
-                    $sortType = 'asc';
-                }
-                return $query->orderBy($sort, $sortType);
-            })
-            ->when($paginate != null, function ($query) use ($paginate){
-                return $paginate
-                    ? $query->paginate(10)
-                    : $query->get();
-            });
+        $departments = Department::where('school_id', $schoolId);
+        if ($search != null) {
+            $departments = $departments->where('name', 'like', '%' . $search . '%');
+        }
+        if ($status != null) {
+            $departments = $departments->where('status', $status);
+        }
+        if ($sort != null) {
+            if ($sort[0] == '-') {
+                $sort = substr($sort, 1);
+                $sortType = 'desc';
+            } else {
+                $sortType = 'asc';
+            }
+            $departments = $departments->orderBy($sort, $sortType);
+        }
+        $departments = $paginate
+            ? $departments->paginate(10)
+            : $departments->get();
 
         $paginate ? $departments->withPath('/departments/'.encrypt($schoolId))->withQueryString() : null;
 
@@ -105,7 +103,7 @@ class DepartmentController extends Controller
         $status = $request->query('status');
         $sort = $request->query('sort');
 
-        $context = $this->getData($schoolId, $search, $status, $sort, false);
+        $context = $this->getData($schoolId, $search, $status, $sort, $paginate=false);
 
         return $context['status']
             ? response()->json($context)

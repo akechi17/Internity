@@ -11,22 +11,13 @@ class Checkbox extends Component
      *
      * @return void
      */
-    public $id;
-
     public $label;
-
-    public $value;
-
     public $name;
-
-    public function __construct($id, $label, $value, $name)
+    public function __construct($label, $name)
     {
-        $this->id = $id;
         $this->label = $label;
-        $this->value = $value;
         $this->name = $name;
     }
-
     /**
      * Get the view / contents that represent the component.
      *

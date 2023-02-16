@@ -7,6 +7,20 @@
         <x-slot:formBody>
             <x-form.input-base label="Nama" id="input-name" type="text" name="name" value="{{ $role->name }}" />
 
+            <x-form.checkbox label="Permission" name="permissions">
+                <x-slot:checkboxItem>
+                    @foreach ($permissions as $key => $value)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{ $value->id }}"
+                                id="input-permission-{{ $value->id }}" name="permissions[]"
+                                {{ $role->permissions->contains($value->id) ? 'checked' : '' }}>
+                            <label class="form-check-label"
+                                for="input-permission-{{ $value->id }}">{{ $value->name }}</label>
+                        </div>
+                    @endforeach
+                </x-slot:checkboxItem>
+            </x-form.checkbox>
+
             <x-form.radio label="Status" name="status">
                 <x-slot:checkboxItem>
                     <div class="form-check">
@@ -21,20 +35,6 @@
                     </div>
                 </x-slot:checkboxItem>
             </x-form.radio>
-
-            <x-form.checkbox label="Permission" name="permissions">
-                <x-slot:checkboxItem>
-                    @foreach ($permissions as $key => $value)
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="{{ $value->id }}"
-                                id="input-permission-{{ $value->id }}" name="permissions[]"
-                                {{ $role->permissions->contains($value->id) ? 'checked' : '' }}>
-                            <label class="form-check-label"
-                                for="input-permission-{{ $value->id }}">{{ $value->name }}</label>
-                        </div>
-                    @endforeach
-                </x-slot:checkboxItem>
-            </x-form.checkbox>
         </x-slot:formBody>
     </x-form.form>
 @endsection

@@ -9,7 +9,7 @@
             <x-form.input-base label="Deskripsi" id="input-description" type="text" name="description" />
             <x-form.input-base label="Nilai Minimum" id="input-min" type="number" name="min" />
             <x-form.input-base label="Nilai Maksimal" id="input-max" type="number" name="max" />
-            <x-form.input-base id="input-color" type="color" name="color" value="#ff0000" />
+            <x-form.input-base id="input-color" type="hidden" name="color" value="#ff0000" />
 
             <div class="color-picker">
                 <label>Warna</label>

@@ -21,6 +21,7 @@
         "iconify-icon": "^1.0.3",
         "jquery": "^3.6.3",
         "sweetalert": "^2.1.2",
-        "trix": "^2.0.4"
+        "trix": "^2.0.4",
+        "vanilla-picker": "^2.12.1"
     }
 }

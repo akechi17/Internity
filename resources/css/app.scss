@@ -20,3 +20,6 @@
 @use "auth/forgot-password";
 @use "auth/verify";
 @use "auth/reset-password";
+
+// Score Predicates Pages
+@use "score-predicates/create-score-predicates";

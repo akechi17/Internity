@@ -5,26 +5,26 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table route="{{ route('score-predicates.create') }}" pageName="Master Predikat Nilai" :pagination="$scorePredicates"
-        :tableData="$scorePredicates">
+    <x-table routeCreate="{{ route('score-predicates.create', ['school' => Crypt::encrypt(1)]) }}"
+        pageName="Master Predikat Nilai" :pagination="$scorePredicates" :tableData="$scorePredicates">
 
         <x-slot:thead>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-30">
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-30">
                 Kelola
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                 Nama
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
                 Deskripsi
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                 Warna
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                 Min
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                 Max
             </th>
         </x-slot:thead>
@@ -36,12 +36,13 @@
                         <a href="{{ route('score-predicates.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
-                        <a href="{{ route('score-predicates.destroy', encrypt($data->id)) }}" class="btn btn-info text-xs"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i
-                                class="bi bi-trash"></i></a>
-                        {{-- <a href="{{ route('vacancies.index', ['company' => encrypt($data->id)]) }}"
-                            class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Lowongan"><i class="bi bi-person-workspace"></i></a> --}}
+                        <form action="{{ route('score-predicates.destroy', encrypt($data->id)) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button id="button-{{ $data->id }}" class="button-delete btn btn-info text-xs"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
+                                    class="bi bi-trash"></i></button>
+                        </form>
                     </td>
                     <td class="text-sm">{{ $data->name }}</td>
                     <td class="text-sm">{{ $data->description }}</td>
@@ -53,3 +54,16 @@
         </x-slot:tbody>
     </x-table>
 @endsection
+
+@once
+    @push('scripts')
+        <script type="module">
+            // Delete Data Function
+            $('.button-delete').on('click', function(){
+                const buttonId = $(this).attr('id');
+
+                utils.useDeleteButton({buttonId: buttonId});
+            });
+        </script>
+    @endpush
+@endonce

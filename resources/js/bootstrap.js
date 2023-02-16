@@ -24,3 +24,6 @@ import $ from "jquery";
 window.$ = $;
 
 import "iconify-icon";
+
+import Picker from "vanilla-picker";
+window.Picker = Picker;

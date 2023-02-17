@@ -14,6 +14,9 @@
                 Email
             </th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+                Role
+            </th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Last Login
             </th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
@@ -39,6 +42,7 @@
                     </td>
                     <td class="text-sm">{{ $user->name }}</td>
                     <td class="text-sm">{{ $user->email }}</td>
+                    <td class="text-sm">{{ $user->roles()->first()->name }}</td>
                     <td class="text-sm">{{ $user->last_login }}</td>
                     <td class="text-sm">{{ $user->last_login_ip }}</td>
                 </tr>

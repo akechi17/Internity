@@ -64,7 +64,7 @@ class PresenceStatusController extends Controller
         $search = $request->query('search');
         $sort = $request->query('sort');
 
-        $context = $this->getData($search, $sort);
+        $context = $this->getData($schoolId, $search, $sort);
 
         return view('presence-statuses.index', $context);
     }

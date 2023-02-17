@@ -229,7 +229,7 @@ class UserController extends Controller
                 $schoolId = auth()->user()->schools()->first()->id;
                 $schools = School::find($schoolId)->pluck('name', 'id');
                 $departments = Department::where('school_id', $schoolId)->pluck('name', 'id');
-                $courses = Course::join('deparments', 'courses.department_id', '=', 'departments.id')
+                $courses = Course::join('departments', 'courses.department_id', '=', 'departments.id')
                     ->join('schools', 'departments.school_id', '=', 'schools.id')
                     ->where('schools.id', $schoolId)
                     ->pluck('courses.name', 'courses.id');
@@ -289,7 +289,8 @@ class UserController extends Controller
                 'phone' => $request->phone,
                 'date_of_birth' => $request->date_of_birth,
                 'skills' => $request->skills,
-            ])->syncRoles($request->role_id);
+            ]);
+            $user->syncRoles($request->role_id);
 
             if ($request->hasFile('avatar')) {
                 $image = $request->file('avatar');

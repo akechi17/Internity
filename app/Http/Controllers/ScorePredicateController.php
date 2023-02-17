@@ -181,7 +181,7 @@ class ScorePredicateController extends Controller
         try {
             $scorePredicate = ScorePredicate::find($id);
             $scorePredicate->delete();
-            return redirect()->route('score-predicates.index', ['show' => encrypt($scorePredicate->school_id)])->with('success', 'Predikat nilai berhasil dihapus');
+            return redirect()->route('score-predicates.index', ['school' => encrypt($scorePredicate->school_id)])->with('success', 'Predikat nilai berhasil dihapus');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Predikat nilai gagal dihapus');
         }

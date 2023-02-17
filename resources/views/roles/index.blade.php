@@ -48,16 +48,3 @@
         </x-slot:tbody>
     </x-table>
 @endsection
-
-@once
-    @push('scripts')
-        <script type="module">
-            // Delete Data Function
-            $('.button-delete').on('click', function(){
-                const buttonId = $(this).attr('id');
-
-                utils.useDeleteButton({buttonId: buttonId});
-            });
-        </script>
-    @endpush
-@endonce

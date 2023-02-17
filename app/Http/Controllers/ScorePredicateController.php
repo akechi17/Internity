@@ -151,6 +151,8 @@ class ScorePredicateController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        // dd($request->all());
         $id = decrypt($id);
         $this->validate($request, [
             'name' => 'required',
@@ -163,7 +165,7 @@ class ScorePredicateController extends Controller
         try {
             $scorePredicate = ScorePredicate::find($id);
             $scorePredicate->update($request->all());
-            return redirect()->route('score-predicates.index', ['show' => encrypt($scorePredicate->school_id)])->with('success', 'Predikat nilai berhasil diperbarui');
+            return redirect()->route('score-predicates.index', ['school' => encrypt($scorePredicate->school_id)])->with('success', 'Predikat nilai berhasil diperbarui');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Predikat nilai gagal diperbarui');
         }

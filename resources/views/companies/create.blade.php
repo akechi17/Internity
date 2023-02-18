@@ -63,3 +63,26 @@
         </div>
 </div>
 @endsection --}}
+
+{{-- @php
+    dd($companies);
+@endphp --}}
+
+@extends('layouts.dashboard')
+
+@section('dashboard-content')
+    <x-form.form formTitle="Tambah Perusahaan" formMethod="POST" formAction="{{ route('companies.store') }}">
+        <x-slot:formBody>
+            <x-form.input-base label="Nama" id="input-name" type="text" name="name" />
+            <x-form.input-base label="Kategori" id="input-category" type="text" name="category" />
+            <x-form.input-base label="Contact Person" id="input-contact" type="text" name="contact_person" />
+            <x-form.input-base label="Phone" id="input-phone" type="text" name="phone" />
+            <x-form.input-base label="Email" id="input-email" type="email" name="email" />
+            <x-form.input-base label="Website" id="input-website" type="text" name="website" />
+            <x-form.input-base label="Alamat" id="input-address" type="text" name="address" />
+            <x-form.input-base label="Kota" id="input-city" type="text" name="city" />
+            <x-form.input-base label="Provinsi" id="input-state" type="text" name="state" />
+            <x-form.input-base label="Negara" id="input-country" type="text" name="country" />
+        </x-slot:formBody>
+    </x-form.form>
+@endsection

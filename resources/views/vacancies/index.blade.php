@@ -5,7 +5,7 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table route="{{ route('vacancies.create', encrypt($company)) }}" pageName="Lowongan" :pagination="$vacancies">
+    <x-table routeCreate="{{ route('vacancies.create') }}" pageName="Lowongan" :pagination="$vacancies" :tableData="$vacancies">
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
@@ -29,15 +29,27 @@
             @foreach ($vacancies as $data)
                 <tr>
                     <td class="text-center">
+                        <form action="{{ route('vacancies.destroy', encrypt($data->id)) }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <a href="{{ route('vacancies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
+                                    class="bi bi-pencil-square"></i></a>
+                            <button class="btn btn-info text-xs"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i
+                                    class="bi bi-trash"></i></button>
+                        </form>
+                        {{--
                         <a href="{{ route('vacancies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
                         <a href="{{ route('vacancies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i
                                 class="bi bi-trash"></i></a>
-                        <a href="{{ route('appliances.index', ['vacancy' => encrypt($data->id)]) }}"
+                        <a href="{{ route('companies.index', ['company' => encrypt($data->id)]) }}"
                             class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Lowongan"><i class="bi bi-person-workspace"></i></a>
+                            title="Perusahaan"><iconify-icon icon="mdi:building"></iconify-icon></a> 
+                        --}}
                     </td>
                     <td class="text-sm">{{ $data->name }}</td>
                     <td class="text-sm">{{ $data->category }}</td>

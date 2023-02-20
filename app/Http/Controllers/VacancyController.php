@@ -166,6 +166,6 @@ class VacancyController extends Controller
         $vacancy = Vacancy::findOrFail($id);
         $vacancy->delete();
 
-        return redirect()->route('vacancies.index', encrypt($vacancy->company_id))->with('success', 'Lowongan berhasil dihapus');
+        return back()->with('success', 'Lowongan berhasil dihapus');
     }
 }

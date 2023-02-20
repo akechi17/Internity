@@ -19,7 +19,7 @@
     </x-form.form>
 @endsection
 
-@once
+{{-- @once
     @push('scripts')
         <script type="module">
             axios.get('/departments/search?school=1')
@@ -31,4 +31,4 @@
                 });
         </script>
     @endpush
-@endonce
+@endonce --}}

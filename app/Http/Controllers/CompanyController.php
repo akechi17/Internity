@@ -22,33 +22,30 @@ class CompanyController extends Controller
             ? auth()->user()->departments()->first()->id
             : $department;
 
-        $companies = Company::query()
-            // ->school($school)
-            ->when($department, function ($query, $department) {
-                return $query->where('department_id', $department);
-            })
-            ->when($search, function ($query, $search) {
-                return $query->search($search);
-            })
-            ->when($status, function ($query, $status) {
-                return $query->where('status', $status);
-            })
-            ->when($sort, function ($query, $sort) {
-                if ($sort[0] == '-') {
-                    $sort = substr($sort, 1);
-                    $sortType = 'desc';
-                } else {
-                    $sortType = 'asc';
-                }
-                return $query->orderBy($sort, $sortType);
-            })
-            ->paginate(10);
+        $companies = Company::query();
+        if ($department) {
+            $companies->where('department_id', $department);
+        }
+        if ($search) {
+            $companies->search($search);
+        }
+        if ($status) {
+            $companies->where('status', $status);
+        }
+        if ($sort) {
+            if ($sort[0] == '-') {
+                $sort = substr($sort, 1);
+                $sortType = 'desc';
+            } else {
+                $sortType = 'asc';
+            }
+            $companies->orderBy($sort, $sortType);
+        } else {
+            $companies->orderBy('created_at', 'desc');
+        }
+        $companies = $companies->paginate(10);
 
         $companies->withPath('/companies')->withQueryString();
-
-        $schools = $isAdmin
-            ? School::pluck('name', 'id')
-            : School::where('id', $school)->pluck('name', 'id');
 
         $departments = $isAdmin
             ? Department::pluck('name', 'id')
@@ -63,7 +60,6 @@ class CompanyController extends Controller
                 'search' => $search,
                 'statusData' => $status,
                 'sort' => $sort,
-                'schools' => $schools,
                 'selectedSchool' => $school,
                 'departments' => $departments,
                 'selectedDepartment' => $department,
@@ -77,7 +73,6 @@ class CompanyController extends Controller
                 'search' => $search,
                 'statusData' => $status,
                 'sort' => $sort,
-                'schools' => $schools,
                 'selectedSchool' => $school,
                 'departments' => $departments,
                 'selectedDepartment' => $department,
@@ -122,8 +117,8 @@ class CompanyController extends Controller
         $isTeacher = auth()->user()->hasRole('teacher');
 
         $departments = $isTeacher
-            ? auth()->user()->departments()->pluck('name', 'id')
-            : Department::pluck('name', 'id');
+            ? auth()->user()->departments()
+            : Department::all();
 
         return view('companies.create', compact('departments'));
     }

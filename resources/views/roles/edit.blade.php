@@ -10,7 +10,7 @@
             <x-form.checkbox label="Permission" name="permissions">
                 <x-slot:checkboxItem>
                     @foreach ($permissions as $key => $value)
-                        <div class="form-check">
+                        <div class="form-check text-justify">
                             <input class="form-check-input" type="checkbox" value="{{ $value->id }}"
                                 id="input-permission-{{ $value->id }}" name="permissions[]"
                                 {{ $role->permissions->contains($value->id) ? 'checked' : '' }}>

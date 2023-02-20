@@ -21,6 +21,7 @@ class Company extends Model
         'website',
         'logo',
         'department_id',
+        'contact_person',
     ];
 
     public function school()

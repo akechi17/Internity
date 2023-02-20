@@ -75,6 +75,7 @@
         <x-slot:formBody>
             <x-form.input-base label="Nama" id="input-name" type="text" name="name" />
             <x-form.input-base label="Jenis Usaha" id="input-category" type="text" name="category" />
+            <x-form.input-base label="Contact Person" id="input-contact" type="text" name="contact_person" />
             <x-form.input-base label="Nomor Telepon" id="input-phone" type="text" name="phone" />
             <x-form.input-base label="Email" id="input-email" type="email" name="email" />
             <x-form.input-base label="Alamat" id="input-address" type="text" name="address" />

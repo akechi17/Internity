@@ -137,6 +137,7 @@ class CompanyController extends Controller
             'address' => 'required',
             'phone' => 'required',
             'email' => 'required',
+            'contact_person' => 'required',
             'department_id' => 'required|exists:departments,id',
         ]);
 
@@ -146,6 +147,7 @@ class CompanyController extends Controller
             'address' => $request->address,
             'phone' => $request->phone,
             'email' => $request->email,
+            'contact_person' => $request->contact_person,
             'department_id' => $request->department_id,
         ]);
 

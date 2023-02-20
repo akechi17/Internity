@@ -11,7 +11,7 @@
             <x-form.input-base label="Nama" id="input-name" type="text" name="name" value="{{ $vacancy->name }}" />
             <x-form.input-base label="Kategori" id="input-category" type="text" name="category" value="{{ $vacancy->category }}"/>
             <x-form.input-base label="Deskripsi" id="input-description" type="text" name="description" value="{{ $vacancy->description }}" />
-            <x-form.input-base label="Kuota" id="input-slots" type="integer" name="slots" value="{{ $vacancy->slots }}"/>
+            <x-form.input-base label="Kuota" id="input-slots" type="number" min="0" name="slots" value="{{ $vacancy->slots }}"/>
         </x-slot:formBody>
     </x-form.form>
 @endsection

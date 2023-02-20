@@ -11,10 +11,11 @@ class Vacancy extends Model
 
     protected $fillable = [
         'name',
+        'category',
         'description',
         'status',
+        'slots',
         'company_id',
-        'room_id',
     ];
 
     public function company()

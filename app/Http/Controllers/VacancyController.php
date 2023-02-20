@@ -144,14 +144,13 @@ class VacancyController extends Controller
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'description' => 'required|string',
-            'slot' => 'required|integer',
-            'status' => 'required|boolean'
+            'slots' => 'required|integer',
         ]);
 
         $vacancy = Vacancy::findOrFail($id);
         $vacancy->update($request->all());
 
-        return redirect()->route('vacancies.index', encrypt($vacancy->company_id))->with('success', 'Lowongan berhasil diubah');
+        return back()->with('success', 'Lowongan berhasil diubah');
     }
 
     /**
@@ -166,6 +165,6 @@ class VacancyController extends Controller
         $vacancy = Vacancy::findOrFail($id);
         $vacancy->delete();
 
-        return redirect()->route('vacancies.index', encrypt($vacancy->company_id))->with('success', 'Lowongan berhasil dihapus');
+        return back()->with('success', 'Lowongan berhasil dihapus');
     }
 }

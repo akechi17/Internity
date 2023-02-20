@@ -5,7 +5,7 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table routeCreate="{{ route('roles.create') }}" pageName="Roles" :pagination="$roles" :tableData="$roles">
+    <x-table pageName="Roles" :pagination="$roles" :tableData="$roles">
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
@@ -25,18 +25,18 @@
         <x-slot:tbody>
             @foreach ($roles as $data)
                 <tr>
-                    <td>
+                    <td class="text-center"> 
                         <a href="{{ route('roles.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
 
-                        <form action="{{ route('roles.destroy', encrypt($data->id)) }}" method="POST">
+                        {{-- <form action="{{ route('roles.destroy', encrypt($data->id)) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button id="button-{{ $data->id }}" class="button-delete btn btn-info text-xs"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
                                     class="bi bi-trash"></i></button>
-                        </form>
+                        </form> --}}
                     </td>
                     <td class="text-sm text-center">{{ $data->name }}</td>
                     <td class="text-sm">{{ $data->permissions->implode('name', ', ') }}</td>

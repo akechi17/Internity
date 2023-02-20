@@ -4,22 +4,22 @@
     <x-table routeCreate="{{ route('users.create') }}" pageName="user" :pagination="$users" :tableData="$users">
 
         <x-slot:thead>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Kelola
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Nama
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Email
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Role
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Last Login
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20">
                 Last Login IP
             </th>
         </x-slot:thead>
@@ -27,7 +27,7 @@
         <x-slot:tbody>
             @foreach ($users as $user)
                 <tr>
-                    <td>
+                    <td class="text-center">
                         <a href="{{ route('users.edit', encrypt($user->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
@@ -40,11 +40,11 @@
                                     class="bi bi-trash"></i></button>
                         </form>
                     </td>
-                    <td class="text-sm">{{ $user->name }}</td>
-                    <td class="text-sm">{{ $user->email }}</td>
-                    <td class="text-sm">{{ $user->roles()->first()->name }}</td>
-                    <td class="text-sm">{{ $user->last_login }}</td>
-                    <td class="text-sm">{{ $user->last_login_ip }}</td>
+                    <td class="text-sm text-center">{{ $user->name }}</td>
+                    <td class="text-sm text-center">{{ $user->email }}</td>
+                    <td class="text-sm text-center">{{ $user->roles()->first()->name }}</td>
+                    <td class="text-sm text-center">{{ $user->last_login }}</td>
+                    <td class="text-sm text-center">{{ $user->last_login_ip }}</td>
                 </tr>
             @endforeach
         </x-slot:tbody>

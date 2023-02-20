@@ -5,13 +5,13 @@
         :tableData="$presenceStatuses">
 
         <x-slot:thead>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-30">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Kelola
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
                 Nama
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
                 Deskripsi
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
@@ -28,7 +28,7 @@
         <x-slot:tbody>
             @foreach ($presenceStatuses as $data)
                 <tr>
-                    <td>
+                    <td class="text-center">
                         <a href="{{ route('presence-statuses.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
@@ -44,11 +44,11 @@
                             class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
                             title="Lowongan"><i class="bi bi-person-workspace"></i></a> --}}
                     </td>
-                    <td class="text-sm">{{ $data->name }}</td>
-                    <td class="text-sm">{{ $data->description }}</td>
-                    <td class="text-sm">{{ $data->color }}</td>
-                    <td class="text-sm">{{ $data->icon }}</td>
-                    <td class="text-sm">{{ $data->status }}</td>
+                    <td class="text-sm text-center">{{ $data->name }}</td>
+                    <td class="text-sm text-center">{{ $data->description }}</td>
+                    <td class="text-sm text-center">{{ $data->color }}</td>
+                    <td class="text-sm text-center">{{ $data->icon }}</td>
+                    <td class="text-sm text-center">{{ $data->status }}</td>
                 </tr>
             @endforeach
         </x-slot:tbody>

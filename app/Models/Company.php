@@ -20,7 +20,8 @@ class Company extends Model
         'phone',
         'website',
         'logo',
-        'school_id',
+        'department_id',
+        'contact_person',
     ];
 
     public function school()

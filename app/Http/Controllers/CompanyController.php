@@ -178,7 +178,11 @@ class CompanyController extends Controller
     {
         $id = decrypt($id);
         $company = Company::findOrFail($id);
-        $departments = Department::pluck('name', 'id');
+        $isTeacher = auth()->user()->hasRole('teacher');
+
+        $departments = $isTeacher
+            ? auth()->user()->departments()
+            : Department::all();
 
         return view('companies.edit', compact('company', 'departments'));
     }
@@ -201,6 +205,7 @@ class CompanyController extends Controller
             'address' => 'required',
             'phone' => 'required',
             'email' => 'required',
+            'contact_person' => 'required',
             'department_id' => 'required|exists:departments,id',
         ]);
 
@@ -210,6 +215,11 @@ class CompanyController extends Controller
             'address' => $request->address,
             'phone' => $request->phone,
             'email' => $request->email,
+            'contact_person' => $request->contact_person,
+            'website' => $request->website,
+            'city' => $request->city,
+            'state' => $request->state,
+            'country' => $request->country,
             'department_id' => $request->department_id,
         ]);
 

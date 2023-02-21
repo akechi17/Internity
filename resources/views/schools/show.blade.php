@@ -2,6 +2,6 @@
 
 @section('dashboard-content')
 
-@php
+{{-- @php
     dd($school);
-@endphp
+@endphp --}}

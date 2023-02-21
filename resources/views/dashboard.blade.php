@@ -11,14 +11,6 @@
                     navbar-scroll="true">
                     <div class="container-fluid py-1 px-3">
                         <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                                <li class="breadcrumb-item text-sm">
-                                    <a class="opacity-5 text-dark" href="javascript:;">Pages</a>
-                                </li>
-                                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">
-                                    Dashboard
-                                </li>
-                            </ol>
                             <h6 class="font-weight-bolder mb-0">
                                 Dashboard
                             </h6>
@@ -53,9 +45,17 @@
                                             </a>
                                         </li>
                                         <li class="mb-2">
-                                            <a class="dropdown-item border-radius-md" href="#">
-                                                {{-- <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> --}}
+                                            <form action="{{ route('logout') }}" method="POST">
+                                                @method('POST')
+                                                @csrf
+                                                <button type="submit" class="dropdown-item border-radius-md"><h6 class="text-sm font-weight-normal mb-1">
+                                                    Logout
+                                                </h6>
+                                                </button>
+                                            </form>
+                                            {{-- <a class="dropdown-item border-radius-md" href="#">
+                                                 <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> 
                                                 <div class="d-flex py-1">
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="text-sm font-weight-normal mb-1">
@@ -63,7 +63,7 @@
                                                         </h6>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </a> --}}
                                             {{-- <form id="logout-form" action="{{ route('logout') }}" method="post" class="d-none">
                                                 @csrf
                                             </form> --}}

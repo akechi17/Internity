@@ -9,22 +9,22 @@
         pageName="Master Predikat Nilai" :pagination="$scorePredicates" :tableData="$scorePredicates">
 
         <x-slot:thead>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Kelola
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Nama
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-30">
                 Deskripsi
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Warna
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Min
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Max
             </th>
         </x-slot:thead>
@@ -36,7 +36,7 @@
                         <a href="{{ route('score-predicates.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
-                        <form action="{{ route('score-predicates.destroy', encrypt($data->id)) }}" method="POST">
+                        <form action="{{ route('score-predicates.destroy', encrypt($data->id)) }}" method="POST" class="m-0">
                             @csrf
                             @method('DELETE')
                             <button id="button-{{ $data->id }}" class="button-delete btn btn-info text-xs"

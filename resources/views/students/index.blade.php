@@ -1,6 +1,6 @@
-@php
+{{-- @php
     dd($students);
-@endphp
+@endphp --}}
 
 @extends('layouts.dashboard')
 
@@ -20,6 +20,12 @@
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 DU/DI
             </th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+                Tanggal Mulai
+            </th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+                Tanggal Selesai
+            </th>
         </x-slot:thead>
 
         <x-slot:tbody>
@@ -31,9 +37,9 @@
                         <a href="{{ route('users.edit', encrypt($student->id)) }}" class="btn btn-primary text-xs">Jurnal</a>
                     </td>
                     <td class="text-sm">{{ $student->name }}</td>
-                    {{-- <td class="text-sm">{{ $student->courses()->first()->name }}</td>
-                    <td class="text-sm">{{ $student->companies()->first()?->name }}</td> --}}
-                    {{-- <td class="text-sm">{{ $student->last_login_ip }}</td> --}}
+                    <td class="text-sm">{{ $student->courses()->first()?->name }}</td>
+                    <td class="text-sm">{{ $student->companies()->first()?->name }}</td>
+                    <td class="text-sm">{{ $student->end_date }}</td>
                 </tr>
             @endforeach
         </x-slot:tbody>

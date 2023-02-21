@@ -1,6 +1,6 @@
-@php
+{{-- @php
     dd($students);
-@endphp
+@endphp --}}
 
 @extends('layouts.dashboard')
 
@@ -20,21 +20,45 @@
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 DU/DI
             </th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+                Tanggal Mulai
+            </th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+                Tanggal Selesai
+            </th>
         </x-slot:thead>
 
         <x-slot:tbody>
             @foreach ($students as $student)
-                <tr>
-                    <td>
-                        <a href="{{ route('users.edit', encrypt($student->id)) }}"
-                            class="btn btn-primary text-xs">Presensi</a>
-                        <a href="{{ route('users.edit', encrypt($student->id)) }}" class="btn btn-primary text-xs">Jurnal</a>
-                    </td>
-                    <td class="text-sm">{{ $student->name }}</td>
-                    {{-- <td class="text-sm">{{ $student->courses()->first()->name }}</td>
-                    <td class="text-sm">{{ $student->companies()->first()?->name }}</td> --}}
-                    {{-- <td class="text-sm">{{ $student->last_login_ip }}</td> --}}
-                </tr>
+                @if (count($student->companies()->get()) == 0)
+                    <tr>
+                        <td>
+                            {{-- <a href="{{ route('users.edit', encrypt($student->id)) }}"
+                                class="btn btn-primary text-xs">Presensi</a>
+                            <a href="{{ route('users.edit', encrypt($student->id)) }}" class="btn btn-primary text-xs">Jurnal</a> --}}
+                        </td>
+                        <td class="text-sm">{{ $student->name }}</td>
+                        <td class="text-sm">{{ $student->courses()->first()?->name }}</td>
+                        <td class="text-sm">{{ $student->companies()->first()?->name }}</td>
+                        <td class="text-sm">{{ $student->internDates()->first()?->start_date }}</td>
+                        <td class="text-sm">{{ $student->internDates()->first()?->end_date }}</td>
+                    </tr>
+                @else
+                    @foreach ($student->companies()->get() as $company)
+                        <tr>
+                            <td>
+                                <a href="{{ route('users.edit', encrypt($student->id)) }}"
+                                    class="btn btn-primary text-xs">Presensi</a>
+                                <a href="{{ route('users.edit', encrypt($student->id)) }}" class="btn btn-primary text-xs">Jurnal</a>
+                            </td>
+                            <td class="text-sm">{{ $student->name }}</td>
+                            <td class="text-sm">{{ $student->courses->first()?->name }}</td>
+                            <td class="text-sm">{{ $company->name }}</td>
+                            <td class="text-sm">{{ $student->internDates()->where('company_id', $company->id)->first()?->start_date }}</td>
+                            <td class="text-sm">{{ $student->internDates()->where('company_id', $company->id)->first()?->end_date }}</td>
+                        </tr>
+                    @endforeach
+                @endif
             @endforeach
         </x-slot:tbody>
     </x-table>

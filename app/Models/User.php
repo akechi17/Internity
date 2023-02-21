@@ -79,9 +79,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Presence::class);
     }
 
-    public function internDate()
+    public function internDates()
     {
-        return $this->belongsTo(InternDate::class);
+        return $this->hasMany(InternDate::class);
     }
 
     public function scopeActive($query)

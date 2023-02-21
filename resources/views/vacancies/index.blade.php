@@ -52,8 +52,8 @@
                             title="Perusahaan"><iconify-icon icon="mdi:building"></iconify-icon></a>
                         --}}
                     </td>
-                    <td class="text-sm">{{ $data->name }}</td>
-                    <td class="text-sm">{{ $data->category }}</td>
+                    <td class="text-sm text-center">{{ $data->name }}</td>
+                    <td class="text-sm text-center">{{ $data->category }}</td>
                     <td class="text-sm">{{ $data->description }}</td>
                     <td class="text-sm text-center">{{ $data->slots }}</td>
                 </tr>

@@ -93,13 +93,16 @@ class VacancyController extends Controller
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'description' => 'required|string',
-            'slot' => 'required|integer',
-            'status' => 'required|boolean'
+            'slots' => 'required|integer',
         ]);
 
         $vacancy = Vacancy::create($request->all());
 
-        return redirect()->route('vacancies.index', encrypt($vacancy->company_id))->with('success', 'Lowongan berhasil ditambahkan');
+        if ($vacancy) {
+            return redirect()->route('vacancies.index', ['company' => encrypt($request->company_id)])->with('success', 'Lowongan berhasil ditambahkan');
+        } else {
+            return redirect()->route('vacancies.index', ['company' => encrypt($request->company_id)])->with('error', 'Lowongan gagal ditambahkan');
+        }
     }
 
     /**

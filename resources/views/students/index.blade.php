@@ -26,6 +26,9 @@
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Tanggal Selesai
             </th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+                Status Perpanjang
+            </th>
         </x-slot:thead>
 
         <x-slot:tbody>
@@ -42,6 +45,7 @@
                         <td class="text-sm">{{ $student->companies()->first()?->name }}</td>
                         <td class="text-sm">{{ $student->internDates()->first()?->start_date }}</td>
                         <td class="text-sm">{{ $student->internDates()->first()?->end_date }}</td>
+                        <td class="text-sm">{{ $student->internDates()->first()?->extend }}</td>
                     </tr>
                 @else
                     @foreach ($student->companies()->get() as $company)
@@ -56,6 +60,7 @@
                             <td class="text-sm">{{ $company->name }}</td>
                             <td class="text-sm">{{ $student->internDates()->where('company_id', $company->id)->first()?->start_date }}</td>
                             <td class="text-sm">{{ $student->internDates()->where('company_id', $company->id)->first()?->end_date }}</td>
+                            <td class="text-sm">{{ $student->internDates()->where('company_id', $company->id)->first()?->extend }}</td>
                         </tr>
                     @endforeach
                 @endif

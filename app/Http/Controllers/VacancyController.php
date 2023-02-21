@@ -153,7 +153,7 @@ class VacancyController extends Controller
         $vacancy = Vacancy::findOrFail($id);
         $vacancy->update($request->all());
 
-        return back()->with('success', 'Lowongan berhasil diubah');
+        return redirect()->route('vacancies.index', ['company' => encrypt($vacancy->company_id)])->with('success', 'Lowongan berhasil diubah');
     }
 
     /**

@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 
 class News extends Model
 {
     use HasFactory;
     use Sluggable;
+    use Searchable;
 
     protected $fillable = [
         'title',
@@ -19,6 +21,14 @@ class News extends Model
         'newsable_id',
         'newsable_type',
     ];
+
+    public function toSearchableArray()
+    {
+        return [
+            'title' => $this->title,
+            'content' => $this->content,
+        ];
+    }
 
     public function user()
     {

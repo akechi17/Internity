@@ -79,7 +79,7 @@ class UserTableSeeder extends Seeder
         $user->departments()->attach($department->id);
         $user->courses()->attach($course->id);
         $user->companies()->attach($company->id);
-        $user->internDate()->create([
+        $user->internDates()->create([
             'start_date' => $startDate,
             'end_date' => $endDate,
             'company_id' => $company->id,

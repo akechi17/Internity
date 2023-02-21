@@ -93,7 +93,7 @@ class VacancyController extends Controller
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'description' => 'required|string',
-            'slot' => 'required|integer',
+            'slots' => 'required|integer',
         ]);
 
         $vacancy = Vacancy::create($request->all());

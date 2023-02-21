@@ -9,7 +9,7 @@
         pageName="Master Predikat Nilai" :pagination="$scorePredicates" :tableData="$scorePredicates">
 
         <x-slot:thead>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-30">
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Kelola
             </th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -32,7 +32,7 @@
         <x-slot:tbody>
             @foreach ($scorePredicates as $data)
                 <tr>
-                    <td>
+                    <td class="text-center">
                         <a href="{{ route('score-predicates.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
@@ -44,11 +44,11 @@
                                     class="bi bi-trash"></i></button>
                         </form>
                     </td>
-                    <td class="text-sm">{{ $data->name }}</td>
-                    <td class="text-sm">{{ $data->description }}</td>
-                    <td class="text-sm">{{ $data->color }}</td>
-                    <td class="text-sm">{{ $data->min }}</td>
-                    <td class="text-sm">{{ $data->max }}</td>
+                    <td class="text-sm text-center">{{ $data->name }}</td>
+                    <td class="text-sm text-center">{{ $data->description }}</td>
+                    <td class="text-sm text-center">{{ $data->color }}</td>
+                    <td class="text-sm text-center">{{ $data->min }}</td>
+                    <td class="text-sm text-center">{{ $data->max }}</td>
                 </tr>
             @endforeach
         </x-slot:tbody>

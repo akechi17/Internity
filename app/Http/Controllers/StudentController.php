@@ -12,7 +12,8 @@ class StudentController extends Controller
         $isManager = auth()->user()->hasRole('manager');
         $isTeacher = auth()->user()->hasRole('teacher');
 
-        $users = User::when($search, function ($query, $search) {
+        $users = User::whereRelation('roles', 'name', 'student')
+            ->when($search, function ($query, $search) {
                 return $query->where('name', 'like', '%' . $search . '%')
                     ->orWhere('email', 'like', '%' . $search . '%');
             })
@@ -32,9 +33,6 @@ class StudentController extends Controller
             ->when($isManager, function ($query) {
                 return $query->whereHas('schools', function($query) {
                     $query->where('school_id', auth()->user()->schools()->first()->id);
-                })
-                ->whereHas('roles', function($query) {
-                    $query->where('name', 'student');
                 });
             })
             ->when($isTeacher, function ($query) {

@@ -17,6 +17,7 @@ class News extends Model
         'title',
         'content',
         'status',
+        'image',
         'user_id',
         'newsable_id',
         'newsable_type',

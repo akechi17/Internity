@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('slug')->unique()->nullable();
             $table->text('content')->fulltext();
             $table->boolean('status')->default(1);
+            $table->string('image')->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->morphs('newsable');
             $table->timestamps();

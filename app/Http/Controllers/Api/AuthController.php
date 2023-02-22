@@ -67,10 +67,11 @@ class AuthController extends Controller
     {
         $request->validate([
             'old_password' => 'required',
-            'password' => 'required|confirmed',
+            'password' => 'required|min:8|confirmed',
         ]);
 
-        $user = auth()->user();
+        $userId = auth()->user()->id;
+        $user = User::find($userId);
 
         if (! Hash::check($request->old_password, $user->password)) {
             return response()->json([

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -67,9 +68,27 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $userId = $request->user()->id;
+        $user = User::find($userId);
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'address' => 'string|max:255',
+            'phone' => 'min:10',
+            'gender' => 'in:male,female',
+            'date_of_birth' => 'date',
+            'bio' => 'string|max:255',
+            'skills' => 'string',
+        ]);
+
+        $user->update($request->all());
+
+        return response()->json([
+            'message' => 'User updated successfully',
+            'user' => $user
+        ]);
     }
 
     /**
@@ -85,15 +104,31 @@ class UserController extends Controller
 
     public function uploadAvatar(Request $request)
     {
-        $user = auth()->user();
+        $userId = $request->user()->id;
+        $user = User::find($userId);
         $file = $request->file('avatar');
         $filename = $file->getClientOriginalName();
-        $path = $file->storeAs('avatars', $filename, 'public');
-        $user->avatar = $path;
+        $path = $file->move(storage_path('app/public/avatars'), $filename);
+        $user->avatar = 'app/public/avatars/' . $filename;
         $user->save();
         return response()->json([
             'message' => 'Avatar uploaded successfully',
             'avatar' => $user->avatar
+        ]);
+    }
+
+    public function uploadResume(Request $request)
+    {
+        $userId = auth()->user()->id;
+        $user = User::find($userId);
+        $file = $request->file('resume');
+        $filename = $file->getClientOriginalName();
+        $path = $file->move(storage_path('app/public/resumes'), $filename);
+        $user->resume = 'app/public/resumes/' . $filename;
+        $user->save();
+        return response()->json([
+            'message' => 'Resume uploaded successfully',
+            'resume' => $user->resume
         ]);
     }
 }

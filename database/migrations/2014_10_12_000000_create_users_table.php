@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('avatar')->nullable();
+            $table->string('resume')->nullable();
             $table->text('skills')->nullable()->fulltext();
             $table->boolean('status')->default(1);
             $table->boolean('password_by_admin')->default(0);

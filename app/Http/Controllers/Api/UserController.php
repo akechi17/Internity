@@ -75,18 +75,18 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'address' => 'string|max:255',
-            'phone' => 'min:10',
+            'address' => 'max:255',
+            'phone' => 'nullable|min:10',
             'gender' => 'in:male,female',
             'date_of_birth' => 'date',
-            'bio' => 'string|max:255',
-            'skills' => 'string',
+            'bio' => 'max:255',
+            'skills' => 'nullable',
         ]);
 
         $user->update($request->all());
 
         return response()->json([
-            'message' => 'User updated successfully',
+            'message' => 'Data berhasil diubah',
             'user' => $user
         ]);
     }
@@ -112,7 +112,7 @@ class UserController extends Controller
         $user->avatar = 'app/public/avatars/' . $filename;
         $user->save();
         return response()->json([
-            'message' => 'Avatar uploaded successfully',
+            'message' => 'Avatar berhasil diunggah',
             'avatar' => $user->avatar
         ]);
     }
@@ -127,7 +127,7 @@ class UserController extends Controller
         $user->resume = 'app/public/resumes/' . $filename;
         $user->save();
         return response()->json([
-            'message' => 'Resume uploaded successfully',
+            'message' => 'CV berhasil diunggah',
             'resume' => $user->resume
         ]);
     }

@@ -1,0 +1,5 @@
+ Proficient in Python including Python Unit Test.
+Strong hands-on experience with Python frameworks like Django or Flask.
+Strong critical and logical thinking skills.
+Familiar with commonly used databases, both SQL and No SQL.
+Having knowledge of Git, GraphQL, Docker, or RabbitMQ is a plus.

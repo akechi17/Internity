@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class NewsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:news-list', ['only' => ['index']]);
+    }
+
     private function getData($category=null, $search=null)
     {
         $news = News::query();
@@ -26,7 +31,8 @@ class NewsController extends Controller
             ->where('newsable_id', auth()->user()->departments()->first()->id);
         }
         if ($search) {
-            $news->search($search);
+            $news->where('title', 'like', '%' . $search . '%')
+                ->orWhereFullText('content', $search);
         }
 
         return $news->paginate(10);

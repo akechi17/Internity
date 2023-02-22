@@ -26,12 +26,7 @@ class NewsSeeder extends Seeder
                 'user_id' => $teacher->id,
                 'newsable_type' => 'App\Models\Department',
                 'newsable_id' => $teacher->departments->first()->id,
-            ])->each(function ($news) {
-                Image::factory()->count(3)->create([
-                    'imageable_id' => $news->id,
-                    'imageable_type' => 'App\Models\News',
-                ]);
-            });
+            ]);
         }
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -60,5 +61,30 @@ class AuthController extends Controller
     public function me()
     {
         return response()->json(auth()->user());
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $userId = auth()->user()->id;
+        $user = User::find($userId);
+
+        if (! Hash::check($request->old_password, $user->password)) {
+            return response()->json([
+                'error' => 'Unauthorized',
+                'message' => 'Password lama salah',
+            ], 401);
+        } else {
+            $user->update([
+                'password' => Hash::make($request->password),
+            ]);
+            return response()->json([
+                'message' => 'Password berhasil diubah',
+            ]);
+        }
     }
 }

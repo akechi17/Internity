@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -54,7 +55,24 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login' => 'datetime',
     ];
+
+    protected $appends = [
+        'avatar_url',
+        'resume_url',
+    ];
+
+    public function getAvatarUrlAttribute()
+    {
+        return $this->avatar ? asset('storage/' . $this->avatar) : null;
+    }
+
+    public function getResumeUrlAttribute()
+    {
+        return $this->resume ? asset('storage/' . $this->resume) : null;
+    }
+
 
     public function schools()
     {

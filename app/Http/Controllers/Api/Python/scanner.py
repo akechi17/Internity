@@ -32,7 +32,6 @@ def read_pdf_resume(pdf_doc):
     converter.close()
     fake_file_handle.close()
     if text:
-        # print(text)
         return text
 
 def read_word_resume(word_doc):
@@ -44,15 +43,34 @@ def read_word_resume(word_doc):
     if text:
         return text
 
-def clean_job_decsription(resumeText):
-    resumeText = re.sub('http\S+\s*', ' ', resumeText)  # remove URLs
-    resumeText = re.sub('RT|cc', ' ', resumeText)  # remove RT and cc
-    resumeText = re.sub('#\S+', '', resumeText)  # remove hashtags
-    resumeText = re.sub('@\S+', '  ', resumeText)  # remove mentions
-    resumeText = re.sub('[%s]' % re.escape("""!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"""), ' ', resumeText)  # remove punctuations
-    resumeText = re.sub(r'[^\x00-\x7f]',r' ', resumeText)
-    resumeText = re.sub('\s+', ' ', resumeText)  # remove extra whitespace
-    return resumeText
+def clean_job_decsription(jd):
+    ''' a function to create a word cloud based on the input text parameter'''
+    ## Clean the Text
+    # Lower
+    clean_jd = jd.lower()
+    # remove punctuation
+    clean_jd = re.sub(r'[^\w\s]', '', clean_jd)
+    # remove trailing spaces
+    clean_jd = clean_jd.strip()
+    # remove numbers
+    clean_jd = re.sub('[0-9]+', '', clean_jd)
+    clean_jd = clean_jd.replace(" I ", " ")
+    clean_jd = clean_jd.replace(" i ", " ")
+    clean_jd = clean_jd.replace(" me ", " ")
+    clean_jd = clean_jd.replace(" my ", " ")
+    clean_jd = clean_jd.replace(" we ", " ")
+    clean_jd = clean_jd.replace(" us ", " ")
+    clean_jd = clean_jd.replace(" our ", " ")
+    clean_jd = clean_jd.replace(" you ", " ")
+    clean_jd = clean_jd.replace(" your ", " ")
+    clean_jd = clean_jd.replace("I am", " ")
+    clean_jd = clean_jd.replace("I'm", " ")
+    # tokenize
+    clean_jd = word_tokenize(clean_jd)
+    # remove stop words
+    stop = stopwords.words('english')
+    clean_jd = [w for w in clean_jd if not w in stop]
+    return(clean_jd)
 
 def get_resume_score(text):
     cv = CountVectorizer(stop_words='english')
@@ -74,15 +92,14 @@ if __name__ == '__main__':
     else:
         resume = read_word_resume('test_resume.docx')
 
-    with open('D:\\Project\\Internity\\app\\Http\\Controllers\\Api\\Python\\test.txt', 'r') as myfile:
-        job_description=myfile.read()
-
+    with open('D:\\Project\\Internity\\app\\Http\\Controllers\\Api\\Python\\test.txt', 'r') as file:
+        job_description = file.read().replace('\n', '')
     ## Get a Keywords Cloud
     clean_jd = clean_job_decsription(job_description)
     clean_resume = clean_job_decsription(resume)
-    print(clean_jd)
+    print(clean_resume)
     # create_word_cloud(clean_jd) text = [resume, job_description]
-    text =  [clean_resume, clean_jd]
+    text =  [' '.join(clean_resume), ' '.join(clean_jd)]
 
     # ## Get a Match score
     get_resume_score(text)

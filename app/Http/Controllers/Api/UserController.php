@@ -109,7 +109,7 @@ class UserController extends Controller
         $file = $request->file('avatar');
         $filename = $file->getClientOriginalName();
         $path = $file->move(storage_path('app/public/avatars'), $filename);
-        $user->avatar = 'app/public/avatars/' . $filename;
+        $user->avatar = 'avatars/' . $filename;
         $user->save();
         return response()->json([
             'message' => 'Avatar berhasil diunggah',
@@ -124,7 +124,7 @@ class UserController extends Controller
         $file = $request->file('resume');
         $filename = $file->getClientOriginalName();
         $path = $file->move(storage_path('app/public/resumes'), $filename);
-        $user->resume = 'app/public/resumes/' . $filename;
+        $user->resume = 'resumes/' . $filename;
         $user->save();
         return response()->json([
             'message' => 'CV berhasil diunggah',

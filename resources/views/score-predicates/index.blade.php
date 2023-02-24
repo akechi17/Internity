@@ -9,13 +9,13 @@
         pageName="Master Predikat Nilai" :pagination="$scorePredicates" :tableData="$scorePredicates">
 
         <x-slot:thead>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
                 Kelola
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Nama
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-30">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20">
                 Deskripsi
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">

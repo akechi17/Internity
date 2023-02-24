@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('category');
             $table->text('description')->nullable()->fulltext();
+            $table->text('skills')->nullable()->fulltext();
             $table->integer('slots')->default(1);
             $table->boolean('status')->default(1);
             $table->timestamps();

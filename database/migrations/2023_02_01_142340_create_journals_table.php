@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->date('date');
             $table->string('work_type');
             $table->text('description');
             $table->boolean('is_approved')->default(0);

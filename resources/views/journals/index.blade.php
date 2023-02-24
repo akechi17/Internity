@@ -11,7 +11,7 @@
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
-                No
+                Tanggal
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-14">
                 Bidang Pekerjaan
@@ -28,9 +28,9 @@
         </x-slot:thead>
 
         <x-slot:tbody>
-            @foreach ($companies as $data)
+            @foreach ($journals as $data)
                 <tr>
-                    <td class="text-sm">1</td>
+                    <td class="text-sm">{{ $data->date }}</td>
                     <td class="text-sm">{{ $data->work_type }}</td>
                     <td class="text-sm">{{ $data->description }}</td>
                 </tr>

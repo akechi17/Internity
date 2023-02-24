@@ -78,6 +78,7 @@ class PermissionTableSeeder extends Seeder
             'presence-create',
             'presence-edit',
             'presence-delete',
+            'presence-approve',
 
             'student-list',
 
@@ -85,6 +86,7 @@ class PermissionTableSeeder extends Seeder
             'journal-create',
             'journal-edit',
             'journal-delete',
+            'journal-approve',
 
             'presence-status-list',
             'presence-status-create',

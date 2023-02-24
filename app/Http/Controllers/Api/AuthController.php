@@ -27,6 +27,11 @@ class AuthController extends Controller
                         'message' => 'Akun anda dinonaktifkan, silakan hubungi admin'
                     ], 401);
                 } else {
+                    $user->update([
+                        'last_login' => now(),
+                        'last_login_ip' => $request->ip()
+                    ]);
+
                     return response()->json([
                         'message' => "Selamat datang $user->name",
                         'access_token' => $user->createToken('auth_token')->plainTextToken,
@@ -80,7 +85,8 @@ class AuthController extends Controller
             ], 401);
         } else {
             $user->update([
-                'password' => Hash::make($request->password),
+                'password' => bcrypt($request->password),
+                'password_by_admin' => 0,
             ]);
             return response()->json([
                 'message' => 'Password berhasil diubah',

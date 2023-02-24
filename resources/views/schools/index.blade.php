@@ -1,7 +1,3 @@
-{{-- @php
-    dd($roles);
-@endphp --}}
-
 @extends('layouts.dashboard')
 
 @section('dashboard-content')

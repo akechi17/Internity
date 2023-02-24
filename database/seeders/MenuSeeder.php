@@ -66,7 +66,7 @@ class MenuSeeder extends Seeder
             [
                 'name' => 'Sekolah',
                 'icon' => 'mdi:home-city',
-                'url' => 'schools/' . encrypt($school->id),
+                'url' => 'schools/' . encrypt($school->id) . '/edit',
                 'status' => 1,
                 'order' => 50,
                 'parent_id' => null,

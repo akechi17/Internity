@@ -9,25 +9,24 @@ class CourseController extends Controller
 {
     private function getData($departmentId, $search=null, $sort=null, $paginate=true)
     {
-        $courses = Course::where('department_id', $departmentId)
-            ->when($search, function ($query, $search) {
-                return $query->search($search);
-            })
-            ->when($sort, function ($query, $sort) {
-                if ($sort[0] == '-') {
-                    $sort = substr($sort, 1);
-                    $sortType = 'desc';
-                } else {
-                    $sortType = 'asc';
-                }
-                return $query->orderBy($sort, $sortType);
-            })
-            ->when($paginate, function ($query) {
-                return $query->paginate(10);
-            })
-            ->when(!$paginate, function ($query) {
-                return $query->get();
-            });
+        $courses = Course::where('department_id', $departmentId);
+        if ($search) {
+            $courses = $courses->search($search);
+        }
+        if ($sort) {
+            if ($sort[0] == '-') {
+                $sort = substr($sort, 1);
+                $sortType = 'desc';
+            } else {
+                $sortType = 'asc';
+            }
+            $courses = $courses->orderBy($sort, $sortType);
+        }
+        if ($paginate) {
+            $courses = $courses->paginate(10);
+        } else {
+            $courses = $courses->get();
+        }
 
         $paginate ? $courses->withPath('/courses')->withQueryString() : null;
 
@@ -113,7 +112,7 @@ class CourseController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'description' => 'string|max:255',
-            'status' => 'required|boolean',
+            'status' => 'nullable|boolean',
             'department_id' => 'required|exists:departments,id',
         ]);
 
@@ -172,15 +171,11 @@ class CourseController extends Controller
         $request->validate([
             'name' => 'required|unique:courses,name,' . $id,
             'description' => 'string|max:255',
-            'status' => 'required|boolean',
+            'status' => 'nullable|boolean',
         ]);
 
         $course = Course::find($id);
-        $course->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'status' => $request->status,
-        ]);
+        $course->update($request->all());
 
         return redirect()->route('courses.index', ['department' => encrypt($course->department_id)])
             ->with('success', 'Kelas berhasil diubah');

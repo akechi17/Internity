@@ -56,7 +56,7 @@ class UserTableSeeder extends Seeder
         $user->schools()->attach($school->id);
         $user->departments()->attach($department->id);
 
-        $company = Company::find(1);
+        $company = Company::where('department_id', $department->id)->first();
         $vacancy = Vacancy::where('company_id', $company->id)->first();
         $user = User::create([
             'name' => 'Mentor',
@@ -73,6 +73,40 @@ class UserTableSeeder extends Seeder
             'name' => 'Student',
             'email' => 'student@test.dev',
             'password' => bcrypt('123qweasd'),
+        ]);
+        $user->assignRole('student');
+        $user->schools()->attach($school->id);
+        $user->departments()->attach($department->id);
+        $user->courses()->attach($course->id);
+        $user->companies()->attach($company->id);
+        $user->internDates()->create([
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'company_id' => $company->id,
+            'user_id' => $user->id,
+        ]);
+
+        Appliance::create([
+            'user_id' => $user->id,
+            'vacancy_id' => $vacancy->id,
+            'status' => 'accepted',
+            'resume' => 'resumes/CV_Hermawan.pdf'
+        ]);
+
+        $company = Company::where('department_id', $department->id)->orderBy('id', 'desc')->first();
+        $vacancy = Vacancy::where('company_id', $company->id)->first();
+        $user = User::create([
+            'name' => 'Student Two',
+            'email' => 'student2@test.dev',
+            'password' => bcrypt('123qweasd'),
+            'phone' => '081234567890',
+            'gender' => 'male',
+            'address' => 'Jl. Cibinong No. 1',
+            'date_of_birth' => '2000-01-01',
+            'bio' => 'I am a student',
+            'avatar' => 'avatars/placeholder.jpg',
+            'skills' => 'PHP,Laravel,VueJS,MySQL,HTML,CSS,JavaScript,Bootstrap',
+            'resume' => 'resumes/CV_Hermawan.pdf',
         ]);
         $user->assignRole('student');
         $user->schools()->attach($school->id);

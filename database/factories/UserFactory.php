@@ -17,6 +17,7 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $skills = ['HTML', 'CSS', 'JavaScript', 'BootStrap', 'Laravel', 'ReactJs', 'VueJs', 'AngularJs', 'NodeJs', 'PHP', 'Python', 'Java', 'C++', 'C#', 'C', 'Ruby', 'Swift', 'Kotlin', 'Go', 'Rust', 'Dart', 'SQL', 'NoSQL', 'MongoDB', 'MySQL', 'PostgreSQL', 'Oracle', 'SQLite', 'Firebase', 'AWS', 'Azure', 'GCP', 'Docker', 'Kubernetes', 'Git', 'GitHub', 'GitLab', 'BitBucket', 'Jira', 'Confluence', 'Trello', 'Slack', 'Discord', 'Zoom', 'Google Meet', 'Microsoft Teams', 'Skype', 'WebRTC', 'WebSockets', 'REST', 'GraphQL', 'JSON', 'XML', 'YAML', 'CSV', 'Excel', 'Word', 'PowerPoint', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Lightroom', 'Audition', 'Figma', 'Adobe XD', 'Sketch', 'InVision', 'Zeplin', 'Marvel', 'Miro', 'Notion', 'Trello', 'Asana', 'Jira', 'Confluence', 'Slack', 'Discord', 'Zoom', 'Google Meet', 'Microsoft Teams', 'Skype', 'WebRTC', 'WebSockets', 'REST', 'GraphQL', 'JSON', 'XML', 'YAML', 'CSV', 'Excel', 'Word', 'PowerPoint', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Lightroom', 'Audition', 'Figma', 'Adobe XD', 'Sketch', 'InVision', 'Zeplin', 'Marvel', 'Miro', 'Notion', 'Trello', 'Asana', 'Jira', 'Confluence', 'Slack', 'Discord', 'Zoom', 'Google Meet', 'Microsoft Teams', 'Skype', 'WebRTC', 'WebSockets', 'REST', 'GraphQL', 'JSON', 'XML', 'YAML', 'CSV', 'Excel', 'Word', 'PowerPoint', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Lightroom', 'Audition', 'Figma', 'Adobe XD', 'Sketch'];
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
@@ -29,6 +30,7 @@ class UserFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'date_of_birth' => fake()->dateTimeBetween('-18 years', '-16 years')->format('Y-m-d'),
             'status' => 1,
+            'skills' => implode(',', fake()->randomElements($skills, fake()->numberBetween(2, 5))),
             'password_by_admin' => 1,
         ];
     }

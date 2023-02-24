@@ -112,7 +112,7 @@ class CourseController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'description' => 'string|max:255',
-            'status' => 'required|boolean',
+            'status' => 'nullable|boolean',
             'department_id' => 'required|exists:departments,id',
         ]);
 

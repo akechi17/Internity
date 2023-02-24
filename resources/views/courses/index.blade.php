@@ -18,7 +18,7 @@
             @foreach ($courses as $data)
                 <tr>
                     <td class="text-center">
-                        <a href="{{ route('companies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
+                        <a href="{{ route('courses.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
 

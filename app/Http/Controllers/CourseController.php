@@ -171,15 +171,11 @@ class CourseController extends Controller
         $request->validate([
             'name' => 'required|unique:courses,name,' . $id,
             'description' => 'string|max:255',
-            'status' => 'required|boolean',
+            'status' => 'nullable|boolean',
         ]);
 
         $course = Course::find($id);
-        $course->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'status' => $request->status,
-        ]);
+        $course->update($request->all());
 
         return redirect()->route('courses.index', ['department' => encrypt($course->department_id)])
             ->with('success', 'Kelas berhasil diubah');

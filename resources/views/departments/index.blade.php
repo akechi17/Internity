@@ -18,18 +18,6 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-50">
                 Deskripsi
             </th>
-            {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
-                Alamat
-            </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
-                Contact Person
-            </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
-                Email
-            </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20">
-                Phone
-            </th> --}}
         </x-slot:thead>
 
         <x-slot:tbody>
@@ -46,14 +34,12 @@
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
                                     class="bi bi-trash"></i></button>
                         </form>
+                        <a href="{{ route('courses.index', ['department' => encrypt($data->id)]) }}" class="btn btn-info text-xs"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Kelas"><i
+                                class="bi bi-book-half"></i></a>
                     </td>
                     <td class="text-sm text-center">{{ $data->name }}</td>
                     <td class="text-sm text-center">{{ $data->description }}</td>
-                    {{-- <td class="text-sm">{{ $data->address }}</td>
-                    <td class="text-sm">{{ $data->contact_person }}</td>
-                    <td class="text-sm">{{ $data->email }}</td>
-                    <td class="text-sm">{{ $data->phone }}</td>
-                </tr> --}}
             @endforeach
         </x-slot:tbody>
     </x-table>

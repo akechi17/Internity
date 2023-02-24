@@ -93,7 +93,7 @@ class UserTableSeeder extends Seeder
             'resume' => 'resumes/CV_Hermawan.pdf'
         ]);
 
-        $company = Company::where('department_id', $department->id)->latest()->first();
+        $company = Company::where('department_id', $department->id)->orderBy('id', 'desc')->first();
         $vacancy = Vacancy::where('company_id', $company->id)->first();
         $user = User::create([
             'name' => 'Student Two',

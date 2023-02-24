@@ -9,25 +9,24 @@ class CourseController extends Controller
 {
     private function getData($departmentId, $search=null, $sort=null, $paginate=true)
     {
-        $courses = Course::where('department_id', $departmentId)
-            ->when($search, function ($query, $search) {
-                return $query->search($search);
-            })
-            ->when($sort, function ($query, $sort) {
-                if ($sort[0] == '-') {
-                    $sort = substr($sort, 1);
-                    $sortType = 'desc';
-                } else {
-                    $sortType = 'asc';
-                }
-                return $query->orderBy($sort, $sortType);
-            })
-            ->when($paginate, function ($query) {
-                return $query->paginate(10);
-            })
-            ->when(!$paginate, function ($query) {
-                return $query->get();
-            });
+        $courses = Course::where('department_id', $departmentId);
+        if ($search) {
+            $courses = $courses->search($search);
+        }
+        if ($sort) {
+            if ($sort[0] == '-') {
+                $sort = substr($sort, 1);
+                $sortType = 'desc';
+            } else {
+                $sortType = 'asc';
+            }
+            $courses = $courses->orderBy($sort, $sortType);
+        }
+        if ($paginate) {
+            $courses = $courses->paginate(10);
+        } else {
+            $courses = $courses->get();
+        }
 
         $paginate ? $courses->withPath('/courses')->withQueryString() : null;
 

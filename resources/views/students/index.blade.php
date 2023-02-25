@@ -8,26 +8,29 @@
     <x-table pageName="Data Magang Siswa" route="{{ route('users.create') }}" :pagination="$students" :tableData="$students">
 
         <x-slot:thead>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20">
                 Kelola
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Nama
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                 Kelas
+            </th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+                Keahlian
             </th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 DU/DI
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Tanggal Mulai
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Tanggal Selesai
             </th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
-                Status Perpanjang
+                Lama Perpanjangan
             </th>
         </x-slot:thead>
 
@@ -43,6 +46,7 @@
                         </td>
                         <td class="text-sm">{{ $student->name }}</td>
                         <td class="text-sm">{{ $student->courses()->first()?->name }}</td>
+                        <td class="text-sm">{{ $student->skills }}</td>
                         <td class="text-sm">{{ $student->companies()->first()?->name }}</td>
                         <td class="text-sm">{{ $student->internDates()->first()?->start_date }}</td>
                         <td class="text-sm">{{ $student->internDates()->first()?->end_date }}</td>
@@ -51,20 +55,21 @@
                 @else
                     @foreach ($student->companies()->get() as $company)
                         <tr>
-                            <td>
+                            <td class="text-center">
                                 <a href="{{ route('users.edit', encrypt($student->id)) }}"
                                     class="btn btn-primary text-xs">Presensi</a>
-                                <a href="{{ route('users.edit', encrypt($student->id)) }}"
+                                <a href="{{ route('journals.index', ['user' => encrypt($student->id)]) }}"
                                     class="btn btn-primary text-xs">Jurnal</a>
                             </td>
                             <td class="text-sm">{{ $student->name }}</td>
                             <td class="text-sm">{{ $student->courses->first()?->name }}</td>
+                            <td class="text-sm">{{ $student->skills }}</td>
                             <td class="text-sm">{{ $company->name }}</td>
                             <td class="text-sm">
                                 {{ $student->internDates()->where('company_id', $company->id)->first()?->start_date }}</td>
                             <td class="text-sm">
                                 {{ $student->internDates()->where('company_id', $company->id)->first()?->end_date }}</td>
-                            <td class="text-sm">
+                            <td class="text-sm text-center">
                                 {{ $student->internDates()->where('company_id', $company->id)->first()?->extend }}</td>
                         </tr>
                     @endforeach

@@ -17,7 +17,8 @@ class JournalFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'work_type' => $this->faker->randomElement(['frontend', 'backend', 'fullstack', 'mobile', 'design', 'devops', 'qa', 'pm', 'other']),
+            'description' => $this->faker->paragraph,
         ];
     }
 }

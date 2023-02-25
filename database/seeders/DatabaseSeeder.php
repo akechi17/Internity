@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Journal;
 use App\Models\School;
 use Illuminate\Database\Seeder;
 
@@ -36,6 +37,7 @@ class DatabaseSeeder extends Seeder
             MenuSeeder::class,
             UserTableSeeder::class,
             NewsSeeder::class,
+            JournalSeeder::class,
         ]);
     }
 }

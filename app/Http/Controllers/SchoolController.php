@@ -175,7 +175,7 @@ class SchoolController extends Controller
 
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'status' => 'required|boolean',
+            'status' => 'nullable|boolean',
             'email' => 'email|unique:schools,email,' . $school->id,
             'phone' => 'numeric|unique:schools,phone,' . $school->id,
             'address' => 'string|max:255',

@@ -7,8 +7,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\JournalController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\VacancyController;
+use App\Http\Controllers\PresenceController;
 use App\Http\Controllers\ApplianceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\VerificationController;
@@ -68,4 +70,8 @@ Route::middleware(['auth'])->group( function () {
     Route::resource('presence-statuses', PresenceStatusController::class);
 
     Route::resource('score-predicates', ScorePredicateController::class);
+
+    Route::resource('journals', JournalController::class);
+
+    Route::resource('presences', PresenceController::class);
 });

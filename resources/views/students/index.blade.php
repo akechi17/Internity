@@ -36,9 +36,10 @@
                 @if (count($student->companies()->get()) == 0)
                     <tr>
                         <td>
-                            {{-- <a href="{{ route('users.edit', encrypt($student->id)) }}"
+                            <a href="{{ route('users.edit', encrypt($student->id)) }}"
                                 class="btn btn-primary text-xs">Presensi</a>
-                            <a href="{{ route('users.edit', encrypt($student->id)) }}" class="btn btn-primary text-xs">Jurnal</a> --}}
+                            <a href="{{ route('users.edit', encrypt($student->id)) }}"
+                                class="btn btn-primary text-xs">Jurnal</a>
                         </td>
                         <td class="text-sm">{{ $student->name }}</td>
                         <td class="text-sm">{{ $student->courses()->first()?->name }}</td>
@@ -53,14 +54,18 @@
                             <td>
                                 <a href="{{ route('users.edit', encrypt($student->id)) }}"
                                     class="btn btn-primary text-xs">Presensi</a>
-                                <a href="{{ route('users.edit', encrypt($student->id)) }}" class="btn btn-primary text-xs">Jurnal</a>
+                                <a href="{{ route('users.edit', encrypt($student->id)) }}"
+                                    class="btn btn-primary text-xs">Jurnal</a>
                             </td>
                             <td class="text-sm">{{ $student->name }}</td>
                             <td class="text-sm">{{ $student->courses->first()?->name }}</td>
                             <td class="text-sm">{{ $company->name }}</td>
-                            <td class="text-sm">{{ $student->internDates()->where('company_id', $company->id)->first()?->start_date }}</td>
-                            <td class="text-sm">{{ $student->internDates()->where('company_id', $company->id)->first()?->end_date }}</td>
-                            <td class="text-sm">{{ $student->internDates()->where('company_id', $company->id)->first()?->extend }}</td>
+                            <td class="text-sm">
+                                {{ $student->internDates()->where('company_id', $company->id)->first()?->start_date }}</td>
+                            <td class="text-sm">
+                                {{ $student->internDates()->where('company_id', $company->id)->first()?->end_date }}</td>
+                            <td class="text-sm">
+                                {{ $student->internDates()->where('company_id', $company->id)->first()?->extend }}</td>
                         </tr>
                     @endforeach
                 @endif

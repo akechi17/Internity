@@ -84,7 +84,7 @@ class MenuSeeder extends Seeder
             [
                 'name' => 'Status Presensi',
                 'icon' => 'mdi:format-list-bulleted',
-                'url' => 'presence-statuses?school='.encrypt($school->id),
+                'url' => 'presence-statuses?school=' . encrypt($school->id),
                 'status' => 1,
                 'order' => 70,
                 'parent_id' => null,

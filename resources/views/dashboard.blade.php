@@ -48,9 +48,10 @@
                                             <form action="{{ route('logout') }}" method="POST">
                                                 @method('POST')
                                                 @csrf
-                                                <button type="submit" class="dropdown-item border-radius-md"><h6 class="text-sm font-weight-normal mb-1">
-                                                    Logout
-                                                </h6>
+                                                <button type="submit" class="dropdown-item border-radius-md">
+                                                    <h6 class="text-sm font-weight-normal mb-1">
+                                                        Logout
+                                                    </h6>
                                                 </button>
                                             </form>
                                             {{-- <a class="dropdown-item border-radius-md" href="#">
@@ -186,7 +187,40 @@
                 </div>
                 {{-- Dashboard Data End --}}
             </div>
+
+            <div class="chart">
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
         <!-- Content End -->
     </main>
 @endsection
+
+
+@once
+    @push('scripts')
+        <script type="module">
+            const ctx = document.getElementById('myChart');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [12, 19, 3, 5, 2, 3],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                        beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+        </script>
+    @endpush
+@endonce

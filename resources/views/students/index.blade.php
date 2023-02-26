@@ -40,9 +40,9 @@
                     <tr>
                         <td>
                             <a href="{{ route('users.edit', encrypt($student->id)) }}"
-                                class="btn btn-primary text-xs">Presensi</a>
-                            <a href="{{ route('users.edit', encrypt($student->id)) }}"
-                                class="btn btn-primary text-xs">Jurnal</a>
+                                class="btn btn-secondary text-xs" style="pointer-events: none">Presensi</a>
+                            <a href="{{ route('journals.index', encrypt($student->id)) }}"
+                                class="btn btn-secondary text-xs" style="pointer-events: none">Jurnal</a>
                         </td>
                         <td class="text-sm">{{ $student->name }}</td>
                         <td class="text-sm">{{ $student->courses()->first()?->name }}</td>

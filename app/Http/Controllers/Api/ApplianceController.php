@@ -18,7 +18,36 @@ class ApplianceController extends Controller
     {
         $userId = auth()->user()->id;
         try {
-            $appliances = Appliance::where('user_id', $userId)->get();
+            $appliances = Appliance::where('user_id', $userId)->with('vacancy')->get();
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error while getting appliances',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+
+        return response()->json([
+            'message' => 'Appliances retrieved successfully',
+            'appliances' => $appliances,
+        ], 200);
+    }
+
+    public function accepted()
+    {
+        $userId = auth()->user()->id;
+        try {
+            $appliances = Appliance::where('user_id', $userId)
+                ->where('status', 'accepted')
+                ->get()->toArray();
+
+            $internDates = auth()->user()->internDates()->get();
+
+            foreach ($appliances as $key => $appliance) {
+                $vacancy = Vacancy::find($appliance['vacancy_id']);
+                $company = $vacancy->company()->first();
+                $appliances[$key]['vacancy'] = $vacancy;
+                $appliances[$key]['intern_date'] = $internDates[$key];
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error while getting appliances',

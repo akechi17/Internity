@@ -21,6 +21,10 @@ class Vacancy extends Model
         'company_id',
     ];
 
+    protected $with = [
+        'company',
+    ];
+
     protected $appends = [
         'applied',
     ];

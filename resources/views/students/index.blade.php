@@ -14,7 +14,7 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Nama
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                 Kelas
             </th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
@@ -54,7 +54,7 @@
                 @else
                     @foreach ($student->companies()->get() as $company)
                         <tr>
-                            <td>
+                            <td class="text-center">
                                 <a href="{{ route('users.edit', encrypt($student->id)) }}"
                                     class="btn btn-primary text-xs">Presensi</a>
                                 <a href="{{ route('journals.index', ['user' => encrypt($student->id)]) }}" class="btn btn-primary text-xs">Jurnal</a>
@@ -63,8 +63,8 @@
                             <td class="text-sm">{{ $student->courses->first()?->name }}</td>
                             <td class="text-sm">{{ $student->skills }}</td>
                             <td class="text-sm">{{ $company->name }}</td>
-                            <td class="text-sm text-center">{{ $student->internDates()->where('company_id', $company->id)->first()?->start_date }}</td>
-                            <td class="text-sm text-center">{{ $student->internDates()->where('company_id', $company->id)->first()?->end_date }}</td>
+                            <td class="text-sm">{{ $student->internDates()->where('company_id', $company->id)->first()?->start_date }}</td>
+                            <td class="text-sm">{{ $student->internDates()->where('company_id', $company->id)->first()?->end_date }}</td>
                             <td class="text-sm text-center">{{ $student->internDates()->where('company_id', $company->id)->first()?->extend }}</td>
                         </tr>
                     @endforeach

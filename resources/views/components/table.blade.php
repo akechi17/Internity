@@ -8,14 +8,12 @@
                 <div class="header-function d-flex align-items-center justify-content-between">
                     <!-- Add data Start -->
                     @if ($routeCreate)
-                        <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
-                            TAMBAH DATA
-                        </a>
+                    <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
+                        TAMBAH DATA
+                    </a>
                     @endif
                     <!-- Add data End -->
 
-
-                    {{-- Filter Search Start --}}
                     <div class="card-header p-0">
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                             <div class="input-group">
@@ -26,7 +24,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- Filter Search End --}}
                 </div>
             </div>
 
@@ -39,14 +36,6 @@
                         </thead>
                         <tbody>
                             {{ $tbody }}
-
-                            @if ($tableData->isEmpty())
-                                <tr>
-                                    <td colspan="6" class="text-center">
-                                        <p class="text-xs mb-0">Data Tidak Ditemukan</p>
-                                    </td>
-                                </tr>
-                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -61,12 +50,12 @@
 @once
     @push('scripts')
         <script type="module">
-            // Delete Data Function
-            $('.button-delete').on('click', function(){
+            //Deelete Data Function
+        $(document).ready(function() {
+            $('.button-delete').On('click', function(){
                 const buttonId = $(this).attr('id');
-
-                utils.useDeleteButton({buttonId: buttonId});
-            });
+            }
+        });
         </script>
     @endpush
 @endonce

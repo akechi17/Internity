@@ -85,8 +85,6 @@ class ApplianceController extends Controller
                 ], 403);
             }
 
-
-
             $appliance = Appliance::create([
                 'user_id' => auth()->user()->id,
                 'vacancy_id' => $request->vacancy_id,

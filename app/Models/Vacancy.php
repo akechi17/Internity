@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Searchable;
 
 class Vacancy extends Model
 {
     use HasFactory;
+    use Searchable;
 
     protected $fillable = [
         'name',
@@ -17,6 +20,20 @@ class Vacancy extends Model
         'slots',
         'company_id',
     ];
+
+    // #[SearchUsingFullText(['skills'])]
+    // public function toSearchableArray()
+    // {
+    //     return [
+    //         'name' => $this->name,
+    //         'category' => $this->category,
+    //         'description' => $this->description,
+    //         'status' => $this->status,
+    //         'slots' => $this->slots,
+    //         'skills' => $this->skills,
+    //         'company_id' => $this->company_id,
+    //     ];
+    // }
 
     public function company()
     {

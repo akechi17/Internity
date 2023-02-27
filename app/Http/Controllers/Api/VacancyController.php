@@ -39,25 +39,36 @@ class VacancyController extends Controller
     public function recommended()
     {
         $departmentId = auth()->user()->departments()->first()->id;
-        try {
-            $userSkills = auth()->user()->skills;
+        // try {
+            $userSkills = explode(',', auth()->user()->skills);
+            // $vacancies = Vacancy::whereHas('company', function ($query) use ($departmentId) {
+            //     $query->where('department_id', $departmentId);
+            //     })
+            //     ->whereFullText('skills', str_replace(' ', ',', $userSkills))
+            //     ->orderBy('updated_at', 'desc')->get();
+            $vacancies = [];
+            foreach ($userSkills as $skill) {
+                $vacancy = Vacancy::search($skill)->query(function ($query) use ($departmentId) {
+                    $query->whereHas('company', function ($query) use ($departmentId) {
+                        $query->where('department_id', $departmentId);
+                    });
+                })->get();
 
-            $vacancies = Vacancy::whereHas('company', function ($query) use ($departmentId) {
-                $query->where('department_id', $departmentId);
-                })
-                ->whereFullText('skills', str_replace(' ', ',', $userSkills))
-                ->orderBy('updated_at', 'desc')->get();
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data lowongan tidak ditemukan',
-                'vacancies' => [],
-            ], 404);
-        }
+                $vacancies = array_merge($vacancies, $vacancy->toArray());
+            }
+            // ->orderBy('updated_at', 'desc')
+            // ->get();
+        // } catch (\Exception $e) {
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => 'Data lowongan tidak ditemukan',
+        //         'vacancies' => [],
+        //     ], 404);
+        // }
 
         return response()->json([
             'status' => true,
-            'count' => $vacancies->count(),
+            'count' => count($vacancies),
             'message' => 'Data lowongan ditemukan',
             'vacancies' => $vacancies,
         ], 200);

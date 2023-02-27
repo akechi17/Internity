@@ -19,11 +19,8 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                 Uraian Pekerjaan
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-23">
-                Hari/Tanggal Pelaksanaan
-            </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-14">
-                #
+                Status
             </th>
         </x-slot:thead>
 
@@ -33,6 +30,7 @@
                     <td class="text-sm">{{ $data->date }}</td>
                     <td class="text-sm">{{ $data->work_type }}</td>
                     <td class="text-sm">{{ $data->description }}</td>
+                    <td></td>
                 </tr>
             @endforeach
         </x-slot:tbody>

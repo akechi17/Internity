@@ -21,9 +21,9 @@ class Appliance extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function vacancies()
+    public function vacancy()
     {
-        return $this->hasMany(Vacancy::class);
+        return $this->belongsTo(Vacancy::class);
     }
 
     public function scopePending($query)

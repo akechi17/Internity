@@ -21,6 +21,15 @@ class Vacancy extends Model
         'company_id',
     ];
 
+    protected $appends = [
+        'applied',
+    ];
+
+    public function getAppliedAttribute()
+    {
+        return $this->appliances()->count();
+    }
+
     // #[SearchUsingFullText(['skills'])]
     // public function toSearchableArray()
     // {
@@ -48,6 +57,11 @@ class Vacancy extends Model
     public function departments()
     {
         return $this->belongsToMany(Department::class, 'department_vacancy', 'vacancy_id', 'department_id');
+    }
+
+    public function appliances()
+    {
+        return $this->hasMany(Appliance::class);
     }
 
     public function scopeCompany($query, $company)

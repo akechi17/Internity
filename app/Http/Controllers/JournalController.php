@@ -100,45 +100,107 @@ class JournalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Journal  $journal
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Journal $journal)
+    public function show($id)
     {
-        //
+        $journal = Journal::find(decrypt($id));
+        if ($journal) {
+            $context = [
+                'status' => true,
+                'message' => 'Data jurnal ditemukan',
+                'journal' => $journal,
+            ];
+        } else {
+            $context = [
+                'status' => false,
+                'message' => 'Data jurnal tidak ditemukan',
+                'journal' => null,
+            ];
+        }
+
+        return view('journals.show', $context);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Journal  $journal
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Journal $journal)
+    public function edit($id)
     {
-        //
+        $journal = Journal::find(decrypt($id));
+        if ($journal) {
+            $context = [
+                'status' => true,
+                'message' => 'Data jurnal ditemukan',
+                'journal' => $journal,
+            ];
+        } else {
+            $context = [
+                'status' => false,
+                'message' => 'Data jurnal tidak ditemukan',
+                'journal' => null,
+            ];
+        }
+
+        return view('journals.edit', $context);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateJournalRequest  $request
-     * @param  \App\Models\Journal  $journal
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateJournalRequest $request, Journal $journal)
+    public function update(Request $request, $id)
     {
-        //
+        $journal = Journal::find(decrypt($id));
+        if ($journal) {
+            $journal->update($request->all());
+            $context = [
+                'status' => true,
+                'message' => 'Data jurnal berhasil diubah',
+                'journal' => $journal,
+            ];
+        } else {
+            $context = [
+                'status' => false,
+                'message' => 'Data jurnal tidak ditemukan',
+                'journal' => null,
+            ];
+        }
+
+        return view('journals.edit', $context);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Journal  $journal
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Journal $journal)
+    public function destroy($id)
     {
-        //
+        $journal = Journal::find(decrypt($id));
+        if ($journal) {
+            $journal->delete();
+            $context = [
+                'status' => true,
+                'message' => 'Data jurnal berhasil dihapus',
+                'journal' => $journal,
+            ];
+        } else {
+            $context = [
+                'status' => false,
+                'message' => 'Data jurnal tidak ditemukan',
+                'journal' => null,
+            ];
+        }
+
+        return view('journals.index', $context);
     }
 }

@@ -48,9 +48,10 @@
                                             <form action="{{ route('logout') }}" method="POST">
                                                 @method('POST')
                                                 @csrf
-                                                <button type="submit" class="dropdown-item border-radius-md"><h6 class="text-sm font-weight-normal mb-1">
-                                                    Logout
-                                                </h6>
+                                                <button type="submit" class="dropdown-item border-radius-md">
+                                                    <h6 class="text-sm font-weight-normal mb-1">
+                                                        Logout
+                                                    </h6>
                                                 </button>
                                             </form>
                                             {{-- <a class="dropdown-item border-radius-md" href="#">
@@ -87,15 +88,15 @@
 
                 {{-- Dashboard Data Start --}}
                 <div class="row">
-                    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                         <div class="card">
                             <div class="card-body p-3">
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="numbers">
-                                            <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                                            <h6 class="text-sm mb-0 text-capitalize font-weight-bold">
                                                 Siswa
-                                            </p>
+                                            </h6>
                                             <h5 class="font-weight-bolder mb-0">
                                                 300
                                                 <!-- <span class="text-success text-sm font-weight-bolder">+55%</span> -->
@@ -104,22 +105,22 @@
                                     </div>
                                     <div class="col-4 text-end">
                                         <div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
-                                            <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                            <i><iconify-icon icon="mdi:account-multiple"></iconify-icon></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                         <div class="card">
                             <div class="card-body p-3">
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="numbers">
-                                            <p class="text-sm mb-0 text-capitalize font-weight-bold">
-                                                DU/DI
-                                            </p>
+                                            <h6 class="text-sm mb-0 text-capitalize font-weight-bold">
+                                                IDUKA
+                                            </h6>
                                             <h5 class="font-weight-bolder mb-0">
                                                 70
                                                 <!-- <span class="text-success text-sm font-weight-bolder">+3%</span> -->
@@ -128,22 +129,22 @@
                                     </div>
                                     <div class="col-4 text-end">
                                         <div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
-                                            <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                                            <i><iconify-icon icon="mdi:building"></iconify-icon></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                         <div class="card">
                             <div class="card-body p-3">
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="numbers">
-                                            <p class="text-sm mb-0 text-capitalize font-weight-bold">
-                                                Magang
-                                            </p>
+                                            <h6 class="text-sm mb-0 text-capitalize font-weight-bold">
+                                                Lowongan Magang
+                                            </h6>
                                             <h5 class="font-weight-bolder mb-0">
                                                 700
                                                 <!-- <span class="text-danger text-sm font-weight-bolder">-2%</span> -->
@@ -152,41 +153,157 @@
                                     </div>
                                     <div class="col-4 text-end">
                                         <div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
-                                            <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                                            <i class="bi bi-person-workspace"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-sm-6">
-                        <div class="card">
+                    {{-- Coba --}}
+                    <div class="col-lg-6 pt-4">
+                        <div class="card z-index-2">
+                            <div class="card-header pb-0">
+                                <h6>Status Magang</h6>
+                            </div>
                             <div class="card-body p-3">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="numbers">
-                                            <p class="text-sm mb-0 text-capitalize font-weight-bold">
-                                                Jurnal Magang
-                                            </p>
-                                            <h5 class="font-weight-bolder mb-0">
-                                                300
-                                                <!-- <span class="text-success text-sm font-weight-bolder">+5%</span> -->
-                                            </h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 text-end">
-                                        <div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
-                                            <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
+                                <div class="chart">
+                                <canvas
+                                    id="myChart"
+                                    height="300"
+                                ></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-lg-6 pt-4">
+                            <div class="card z-index-2">
+                            <div class="card-header pb-0">
+                                <h6>Relevansi</h6>
+                            </div>
+                            <div class="card-body p-3">
+                                <div class="chart">
+                                <canvas
+                                    id="chart-line"
+                                    height="300"
+                                ></canvas>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 {{-- Dashboard Data End --}}
             </div>
+
+            {{-- <div class="chart">
+                <canvas id="myChart"></canvas>
+            </div> --}}
         </div>
         <!-- Content End -->
     </main>
 @endsection
+
+
+@once
+    @push('scripts')
+        <script type="module">
+            const ctx = document.getElementById('myChart');
+            const ctx2 = document.getElementById('chart-line');
+
+            const gradient1 = ctx.getContext('2d').createLinearGradient(15, 0, 0, 150);
+            gradient1.addColorStop(0, '#ff667c');
+            gradient1.addColorStop(1, '#ea0606');
+
+            const gradient2 = ctx.getContext('2d').createLinearGradient(130, 0, 0, 150);
+            gradient2.addColorStop(0, '#21d4fd');
+            gradient2.addColorStop(1, '#2152ff');
+
+            const gradient3 = ctx.getContext('2d').createLinearGradient(90, 0, 0, 150);
+            gradient3.addColorStop(0, '#98ec2d');
+            gradient3.addColorStop(1, '#17ad37');
+
+            const gradient4 = ctx2.getContext('2d').createLinearGradient(90, 0, 0, 150);
+            gradient4.addColorStop(0, '#627594');
+            gradient4.addColorStop(1, '#a8b8d8');
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Belum Magang', 'Sedang Magang', 'Selesai Magang'],
+                    datasets: [{
+                        label: 'Jumlah',
+                        data: [20, 20, 20],
+                        backgroundColor: [
+                            gradient1,
+                            gradient2,
+                            gradient3
+                            // "#FF6B6B", // warna untuk data 1
+                            // "#4D96FF", // warna untuk data 2
+                            // "#6BCB77"  // warna untuk data 3
+                        ],
+                        hoverOffset: 4
+                        // borderColor: [
+                        //     "#FF6B6B",   // warna border untuk data 1
+                        //     "#4D96FF",   // warna border untuk data 2
+                        //     "#6BCB77"    // warna border untuk data 3
+                        // ],
+                        // borderWidth: 1
+                    }]
+                },
+                options: {
+                    // cutoutPercentage: 50,
+                    // animation: {
+                    //     animateScale: true
+                    // }
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    // scales: {
+                    //     y: {
+                    //     beginAtZero: true
+                    //     }
+                    // }
+                }
+            });
+
+            new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: ['Sangat Relevan', 'Relevan', 'Kurang Relevan', 'Tidak Relevan'],
+                    datasets: [{
+                        label: 'Jumlah',
+                        data: [20, 10, 7, 5],
+                        backgroundColor: [
+                            gradient1,
+                            gradient2,
+                            gradient3,
+                            gradient4
+                            // "#FF6B6B", // warna untuk data 1
+                            // "#4D96FF", // warna untuk data 2
+                            // "#6BCB77"  // warna untuk data 3
+                        ],
+                        hoverOffset: 4
+                        // borderColor: [
+                        //     "#FF6B6B",   // warna border untuk data 1
+                        //     "#4D96FF",   // warna border untuk data 2
+                        //     "#6BCB77"    // warna border untuk data 3
+                        // ],
+                        // borderWidth: 1
+                    }]
+                },
+                options: {
+                    // cutoutPercentage: 50,
+                    // animation: {
+                    //     animateScale: true
+                    // }
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    // scales: {
+                    //     y: {
+                    //     beginAtZero: true
+                    //     }
+                    // }
+                }
+            });
+        </script>
+    @endpush
+@endonce

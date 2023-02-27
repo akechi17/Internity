@@ -17,11 +17,11 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                 Kelas
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Keahlian
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
-                DU/DI
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+                IDUKA
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Tanggal Mulai
@@ -29,7 +29,7 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Tanggal Selesai
             </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Lama Perpanjangan
             </th>
         </x-slot:thead>
@@ -38,10 +38,16 @@
             @foreach ($students as $student)
                 @if (count($student->companies()->get()) == 0)
                     <tr>
-                        <td>
-                            {{-- <a href="{{ route('users.edit', encrypt($student->id)) }}"
-                                class="btn btn-primary text-xs">Presensi</a>
-                            <a href="{{ route('users.edit', encrypt($student->id)) }}" class="btn btn-primary text-xs">Jurnal</a> --}}
+                        <td class="text-center">
+                            <a href="{{ route('users.edit', encrypt($student->id)) }}" class="btn btn-secondary text-xs" style="pointer-events: none"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Presensi">
+                                    <i class="bi bi-calendar-check"></i></a>
+                            <a href="{{ route('journals.index', encrypt($student->id)) }}" class="btn btn-secondary text-xs" style="pointer-events: none" 
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jurnal">
+                                    <i class="bi bi-journal-bookmark-fill"></i></a>
+                            <a href="{{ route('journals.index', encrypt($student->id)) }}" class="btn btn-info text-xs"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit">
+                                    <i class="bi bi-pencil-square"></i></a>
                         </td>
                         <td class="text-sm">{{ $student->name }}</td>
                         <td class="text-sm">{{ $student->courses()->first()?->name }}</td>
@@ -55,17 +61,26 @@
                     @foreach ($student->companies()->get() as $company)
                         <tr>
                             <td class="text-center">
-                                <a href="{{ route('users.edit', encrypt($student->id)) }}"
-                                    class="btn btn-primary text-xs">Presensi</a>
-                                <a href="{{ route('journals.index', ['user' => encrypt($student->id)]) }}" class="btn btn-primary text-xs">Jurnal</a>
+                                <a href="{{ route('users.edit', encrypt($student->id)) }}" class="btn btn-info text-xs"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Presensi">
+                                        <i class="bi bi-calendar-check"></i></a>
+                                <a href="{{ route('journals.index', ['user' => encrypt($student->id)]) }}" class="btn btn-info text-xs"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jurnal">
+                                        <i class="bi bi-journal-bookmark-fill"></i></a>
+                                <a href="{{ route('journals.index', encrypt($student->id)) }}" class="btn btn-info text-xs"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit">
+                                        <i class="bi bi-pencil-square"></i></a>
                             </td>
                             <td class="text-sm">{{ $student->name }}</td>
                             <td class="text-sm">{{ $student->courses->first()?->name }}</td>
                             <td class="text-sm">{{ $student->skills }}</td>
                             <td class="text-sm">{{ $company->name }}</td>
-                            <td class="text-sm">{{ $student->internDates()->where('company_id', $company->id)->first()?->start_date }}</td>
-                            <td class="text-sm">{{ $student->internDates()->where('company_id', $company->id)->first()?->end_date }}</td>
-                            <td class="text-sm text-center">{{ $student->internDates()->where('company_id', $company->id)->first()?->extend }}</td>
+                            <td class="text-sm">
+                                {{ $student->internDates()->where('company_id', $company->id)->first()?->start_date }}</td>
+                            <td class="text-sm">
+                                {{ $student->internDates()->where('company_id', $company->id)->first()?->end_date }}</td>
+                            <td class="text-sm text-center">
+                                {{ $student->internDates()->where('company_id', $company->id)->first()?->extend }}</td>
                         </tr>
                     @endforeach
                 @endif

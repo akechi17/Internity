@@ -44,7 +44,6 @@ class ApplianceController extends Controller
 
             foreach ($appliances as $key => $appliance) {
                 $vacancy = Vacancy::find($appliance['vacancy_id']);
-                $company = $vacancy->company()->first();
                 $appliances[$key]['vacancy'] = $vacancy;
                 $appliances[$key]['intern_date'] = $internDates[$key];
             }

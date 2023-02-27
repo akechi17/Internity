@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\VacancyController;
+use App\Http\Controllers\Api\ApplianceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +34,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/resumes', [UserController::class, 'uploadResume']);
 
     Route::get('/news', [NewsController::class, 'index']);
+
+    Route::get('/vacancies', [VacancyController::class, 'index']);
+    Route::get('/vacancies/recommended', [VacancyController::class, 'recommended']);
+
+    Route::resource('appliances', ApplianceController::class)->only([
+        'index', 'store', 'destroy'
+    ]);
 });

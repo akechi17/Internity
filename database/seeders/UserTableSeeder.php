@@ -89,9 +89,7 @@ class UserTableSeeder extends Seeder
         Appliance::create([
             'user_id' => $user->id,
             'vacancy_id' => $vacancy->id,
-            'status' => 'accepted',
-            'resume' => 'resumes/CV_Hermawan.pdf'
-        ]);
+            'status' => 'accepted',        ]);
 
         $company = Company::where('department_id', $department->id)->orderBy('id', 'desc')->first();
         $vacancy = Vacancy::where('company_id', $company->id)->first();
@@ -106,7 +104,6 @@ class UserTableSeeder extends Seeder
             'bio' => 'I am a student',
             'avatar' => 'avatars/placeholder.jpg',
             'skills' => 'PHP,Laravel,VueJS,MySQL,HTML,CSS,JavaScript,Bootstrap',
-            'resume' => 'resumes/CV_Hermawan.pdf',
         ]);
         $user->assignRole('student');
         $user->schools()->attach($school->id);
@@ -123,9 +120,7 @@ class UserTableSeeder extends Seeder
         Appliance::create([
             'user_id' => $user->id,
             'vacancy_id' => $vacancy->id,
-            'status' => 'accepted',
-            'resume' => 'resumes/CV_Hermawan.pdf'
-        ]);
+            'status' => 'accepted',        ]);
 
         $courses = Course::all();
         foreach ($courses as $course) {

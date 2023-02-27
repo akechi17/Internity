@@ -24,7 +24,7 @@ class VacancyFactory extends Factory
             'description' => fake()->paragraph(),
             'slots' => fake()->numberBetween(1, 5),
             'status' => 1,
-            'skills' => implode(',', fake()->randomElements($skills, fake()->numberBetween(3, 6))),
+            'skills' => implode(', ', fake()->randomElements($skills, fake()->numberBetween(3, 6))),
         ];
     }
 }

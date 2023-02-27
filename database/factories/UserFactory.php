@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'date_of_birth' => fake()->dateTimeBetween('-18 years', '-16 years')->format('Y-m-d'),
             'status' => 1,
-            'skills' => implode(',', fake()->randomElements($skills, fake()->numberBetween(2, 5))),
+            'skills' => implode(', ', fake()->randomElements($skills, fake()->numberBetween(2, 5))),
             'password_by_admin' => 1,
         ];
     }

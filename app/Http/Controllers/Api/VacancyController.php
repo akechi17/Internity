@@ -40,13 +40,18 @@ class VacancyController extends Controller
     {
         $departmentId = auth()->user()->departments()->first()->id;
         try {
-            $userSkills = auth()->user()->skills;
+            $userSkills = explode(',', auth()->user()->skills);
 
-            $vacancies = Vacancy::whereHas('company', function ($query) use ($departmentId) {
-                $query->where('department_id', $departmentId);
-                })
-                ->whereFullText('skills', str_replace(' ', ',', $userSkills))
-                ->orderBy('updated_at', 'desc')->get();
+            $vacancies = [];
+            foreach ($userSkills as $skill) {
+                $vacancy = Vacancy::search($skill)->query(function ($query) use ($departmentId) {
+                    $query->whereHas('company', function ($query) use ($departmentId) {
+                        $query->where('department_id', $departmentId);
+                    });
+                })->get();
+
+                $vacancies = array_merge($vacancies, $vacancy->toArray());
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
@@ -57,7 +62,7 @@ class VacancyController extends Controller
 
         return response()->json([
             'status' => true,
-            'count' => $vacancies->count(),
+            'count' => count($vacancies),
             'message' => 'Data lowongan ditemukan',
             'vacancies' => $vacancies,
         ], 200);

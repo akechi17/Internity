@@ -18,7 +18,35 @@ class ApplianceController extends Controller
     {
         $userId = auth()->user()->id;
         try {
-            $appliances = Appliance::where('user_id', $userId)->get();
+            $appliances = Appliance::where('user_id', $userId)->with('vacancy')->get();
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error while getting appliances',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+
+        return response()->json([
+            'message' => 'Appliances retrieved successfully',
+            'appliances' => $appliances,
+        ], 200);
+    }
+
+    public function accepted()
+    {
+        $userId = auth()->user()->id;
+        try {
+            $appliances = Appliance::where('user_id', $userId)
+                ->where('status', 'accepted')
+                ->get()->toArray();
+
+            $internDates = auth()->user()->internDates()->get();
+
+            foreach ($appliances as $key => $appliance) {
+                $vacancy = Vacancy::find($appliance['vacancy_id']);
+                $appliances[$key]['vacancy'] = $vacancy;
+                $appliances[$key]['intern_date'] = $internDates[$key];
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error while getting appliances',
@@ -67,9 +95,21 @@ class ApplianceController extends Controller
             $userDept = auth()->user()->departments()->first()->id;
             $vacancyDept = $vacancy->company->department->id;
 
+            if (Appliance::where('user_id', auth()->user()->id)->where('vacancy_id', $request->vacancy_id)->exists()) {
+                return response()->json([
+                    'message' => 'Anda sudah mendaftar pada lowongan ini',
+                ], 403);
+            }
+
             if ($userDept != $vacancyDept) {
                 return response()->json([
                     'message' => 'Lowongan ini tidak sesuai dengan jurusan anda',
+                ], 403);
+            }
+
+            if ($vacancy->slots <= $vacancy->applied) {
+                return response()->json([
+                    'message' => 'Lowongan ini sudah penuh',
                 ], 403);
             }
 

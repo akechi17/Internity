@@ -1,3 +1,6 @@
+{{-- @php
+    dd($journals);
+@endphp --}}
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
@@ -10,13 +13,13 @@
         </div>
 
         <x-slot:thead>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Tanggal
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-14">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Bidang Pekerjaan
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-50">
                 Uraian Pekerjaan
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-14">
@@ -27,8 +30,8 @@
         <x-slot:tbody>
             @foreach ($journals as $data)
                 <tr>
-                    <td class="text-sm">{{ $data->date }}</td>
-                    <td class="text-sm">{{ $data->work_type }}</td>
+                    <td class="text-sm text-center">{{ $data->date }}</td>
+                    <td class="text-sm text-center">{{ $data->work_type }}</td>
                     <td class="text-sm">{{ $data->description }}</td>
                     <td></td>
                 </tr>

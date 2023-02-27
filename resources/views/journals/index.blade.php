@@ -14,6 +14,9 @@
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+                Kelola
+            </th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Tanggal
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
@@ -30,10 +33,13 @@
         <x-slot:tbody>
             @foreach ($journals as $data)
                 <tr>
+                    <td>
+
+                    </td>
                     <td class="text-sm text-center">{{ $data->date }}</td>
                     <td class="text-sm text-center">{{ $data->work_type }}</td>
                     <td class="text-sm">{{ $data->description }}</td>
-                    <td></td>
+                    <td class="text-sm text-center">{{ $data->is_approved }}</td>
                 </tr>
             @endforeach
         </x-slot:tbody>

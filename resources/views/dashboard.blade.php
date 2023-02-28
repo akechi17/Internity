@@ -54,20 +54,6 @@
                                                     </h6>
                                                 </button>
                                             </form>
-                                            {{-- <a class="dropdown-item border-radius-md" href="#">
-                                                 <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> 
-                                                <div class="d-flex py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="text-sm font-weight-normal mb-1">
-                                                            Log Out
-                                                        </h6>
-                                                    </div>
-                                                </div>
-                                            </a> --}}
-                                            {{-- <form id="logout-form" action="{{ route('logout') }}" method="post" class="d-none">
-                                                @csrf
-                                            </form> --}}
                                         </li>
                                     </ul>
                                 </li>
@@ -87,7 +73,9 @@
                 <!-- Navbar End -->
 
                 {{-- Dashboard Data Start --}}
+
                 <div class="row">
+                    {{-- Siswa Start --}}
                     <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                         <div class="card">
                             <div class="card-body p-3">
@@ -112,6 +100,9 @@
                             </div>
                         </div>
                     </div>
+                    {{-- Siswa End --}}
+
+                    {{-- Guru Start --}}
                     <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                         <div class="card">
                             <div class="card-body p-3">
@@ -136,6 +127,9 @@
                             </div>
                         </div>
                     </div>
+                    {{-- Guru End --}}
+
+                    {{-- Lowongan Magang Start --}}
                     <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                         <div class="card">
                             <div class="card-body p-3">
@@ -160,7 +154,9 @@
                             </div>
                         </div>
                     </div>
-                    {{-- Coba --}}
+                    {{-- Lowongan Magang End --}}
+
+                    {{-- Status Magang Start --}}
                     <div class="col-lg-6 pt-4">
                         <div class="card z-index-2">
                             <div class="card-header pb-0">
@@ -176,6 +172,9 @@
                             </div>
                         </div>
                     </div>
+                    {{-- Status Magang End --}}
+
+                    {{-- Relevansi Start --}}
                     <div class="col-lg-6 pt-4">
                             <div class="card z-index-2">
                             <div class="card-header pb-0">
@@ -192,6 +191,9 @@
                             </div>
                         </div>
                     </div>
+                    {{-- Relevansi End --}}
+
+                    {{-- Waktu Magang Start --}}
                     <div class="col-lg-6 pt-4">
                             <div class="card z-index-2">
                             <div class="card-header pb-0">
@@ -208,6 +210,7 @@
                             </div>
                         </div>
                     </div>
+                    {{-- Waktu Magang End --}}
                 {{-- Dashboard Data End --}}
             </div>
 
@@ -227,7 +230,7 @@
             const ctx2 = document.getElementById('chart-line');
             const ctx3 = document.getElementById('newChart');
 
-            const gradient1 = ctx.getContext('2d').createLinearGradient(15, 0, 0, 150);
+            const gradient1 = ctx.getContext('2d').createLinearGradient(50, 0, 0, 150);
             gradient1.addColorStop(0, '#ff667c');
             gradient1.addColorStop(1, '#ea0606');
 
@@ -268,10 +271,6 @@
                     }]
                 },
                 options: {
-                    // cutoutPercentage: 50,
-                    // animation: {
-                    //     animateScale: true
-                    // }
                     responsive: true,
                     maintainAspectRatio: false,
                     // scales: {
@@ -308,10 +307,6 @@
                     }]
                 },
                 options: {
-                    // cutoutPercentage: 50,
-                    // animation: {
-                    //     animateScale: true
-                    // }
                     responsive: true,
                     maintainAspectRatio: false,
                     // scales: {
@@ -330,8 +325,8 @@
                         label: 'Jumlah',
                         data: [10, 20],
                         backgroundColor: [
-                            gradient1,
-                            gradient2
+                            "#ea0606",
+                            "#2152ff"
                             // "#FF6B6B", // warna untuk data 1
                             // "#4D96FF", // warna untuk data 2
                             // "#6BCB77"  // warna untuk data 3
@@ -346,10 +341,6 @@
                     }]
                 },
                 options: {
-                    // cutoutPercentage: 50,
-                    // animation: {
-                    //     animateScale: true
-                    // }
                     responsive: true,
                     maintainAspectRatio: false,
                     // scales: {

@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateJournalRequest;
 
 class JournalController extends Controller
 {
-    public function getData($userId, $search=null, $status=null, $sort=null, $paginate=true)
+    public function getData($userId, $search = null, $status = null, $sort = null, $paginate = true)
     {
         $journals = Journal::where('user_id', $userId);
         if ($search) {
@@ -66,7 +66,7 @@ class JournalController extends Controller
     public function index(Request $request)
     {
         $userId = $request->query('user');
-        ! $userId ? abort(404) : $userId = decrypt($userId);
+        !$userId ? abort(404) : $userId = decrypt($userId);
 
         $search = $request->query('search');
         $status = $request->query('status');

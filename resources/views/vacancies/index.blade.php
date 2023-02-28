@@ -29,6 +29,9 @@
             @foreach ($vacancies as $data)
                 <tr>
                     <td class="text-center">
+                        <a href="{{ route('appliances.index', ['vacancy' => encrypt($data->id)]) }}" class="btn btn-info text-xs"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pendaftar"><i
+                                class="bi bi-people"></i></a>
                         <a href="{{ route('vacancies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
@@ -39,7 +42,7 @@
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
                                     class="bi bi-trash"></i></button>
                         </form>
-                        
+
                         {{--
                         <a href="{{ route('vacancies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -97,5 +98,96 @@ class StudentController extends Controller
         return $context['status']
         ? view('students.index', $context)
         : view('students.index', $context)->with('error', $context['message']);
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $company = $request->query('company');
+        $company = $company ? decrypt($company) : null;
+        $id = decrypt($id);
+
+        if ($company) {
+            $user = User::whereRelation('roles', 'name', 'student')
+                ->where('id', $id)
+                ->whereHas('companies', function($query) use ($company) {
+                    $query->where('company_id', $company);
+                })
+                ->with(['companies' => function($query) use ($company) {
+                    $query->where('company_id', $company);
+                }, 'courses' => function($query) use ($company) {
+                    $query->first();
+                },'internDates' => function($query) use ($company) {
+                    $query->where('company_id', $company);
+                }])
+                ->first();
+        } else {
+            $user = User::whereRelation('roles', 'name', 'student')
+                ->where('id', $id)
+                ->first();
+        }
+
+        $company = $company ? $user->companies()->first() : null;
+
+        if ($user) {
+            $courses = Course::where('department_id', $user->departments()->first()->id)->pluck('name', 'id');
+
+            $context = [
+                'status' => true,
+                'message' => 'Data siswa ditemukan',
+                'student' => $user,
+                'company' => $company,
+                'courses' => $courses,
+            ];
+        } else {
+            $context = [
+                'status' => false,
+                'message' => 'Data siswa tidak ditemukan',
+                'student' => null,
+                'company' => $company,
+                'courses' => null
+            ];
+        }
+
+        return view('students.edit', $context);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $company = $request->query('company');
+        $company = $company ? decrypt($company) : null;
+        $id = decrypt($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'skills' => 'nullable|string',
+            'course_id' => 'required|exists:courses,id',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
+            'extend' => 'nullable|numeric',
+        ]);
+
+        $user = User::whereRelation('roles', 'name', 'student')
+            ->where('id', $id)
+            ->first();
+
+        if ($user) {
+            $user->update([
+                'name' => $request->name,
+                'skills' => $request->skills,
+            ]);
+            $user->courses()->sync($request->course_id);
+
+            if ($company) {
+                $user->internDates()->where('company_id', $company)->update([
+                    'start_date' => $request->start_date,
+                    'end_date' => $request->end_date,
+                    'extend' => $request->extend,
+                ]);
+            }
+
+            return redirect()->route('students.index')->with('success', 'Data siswa berhasil diperbarui');
+        } else {
+            return redirect()->route('students.index')->with('error', 'Data siswa tidak ditemukan');
+        }
     }
 }

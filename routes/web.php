@@ -63,6 +63,8 @@ Route::middleware(['auth'])->group( function () {
     Route::resource('/vacancies', VacancyController::class);
 
     Route::get('students', [StudentController::class, 'index'])->name('students.index');
+    Route::get('students/edit/{id}', [StudentController::class, 'edit'])->name('students.edit');
+    Route::put('students/update/{id}', [StudentController::class, 'update'])->name('students.update');
 
     Route::resource('/appliances', ApplianceController::class);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vacancy;
 use App\Models\Appliance;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreApplianceRequest;
@@ -11,23 +12,26 @@ class ApplianceController extends Controller
 {
     private function getData($vacancy, $search=null, $status=null, $sort=null)
     {
-        $appliances = Appliance::where('vacancy_id', $vacancy)
-            ->when($search, function ($query, $search) {
-                return $query->search($search);
-            })
-            ->when($status, function ($query, $status) {
-                return $query->status($status);
-            })
-            ->when($sort, function ($query, $sort) {
-                if ($sort[0] == '-') {
-                    $sort = substr($sort, 1);
-                    $sortType = 'desc';
-                } else {
-                    $sortType = 'asc';
-                }
-                return $query->orderBy($sort, $sortType);
-            })
-            ->paginate(10);
+        $appliances = Appliance::with(['user', 'vacancy'])
+            ->where('vacancy_id', $vacancy);
+        if ($search) {
+            $appliances = $appliances->whereHas('user', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            });
+        }
+        if ($status) {
+            $appliances = $appliances->where('status', $status);
+        }
+        if ($sort) {
+            if ($sort[0] == '-') {
+                $sort = substr($sort, 1);
+                $sortType = 'desc';
+            } else {
+                $sortType = 'asc';
+            }
+            $appliances = $appliances->orderBy($sort, $sortType);
+        }
+        $appliances = $appliances->paginate(10);
 
         $appliances->withPath('/appliances')->withQueryString();
 
@@ -36,7 +40,7 @@ class ApplianceController extends Controller
                 'status' => true,
                 'message' => 'Data peralatan ditemukan',
                 'appliances' => $appliances,
-                'vacancy' => $vacancy,
+                'vacancy' => Vacancy::where('id', $vacancy)->first(),
                 'pagination' => $appliances->links()->render(),
             ];
         } else {
@@ -44,7 +48,7 @@ class ApplianceController extends Controller
                 'status' => false,
                 'message' => 'Data peralatan tidak ditemukan',
                 'appliances' => $appliances,
-                'vacancy' => $vacancy,
+                'vacancy' => Vacancy::where('id', $vacancy)->first(),
             ];
         }
 

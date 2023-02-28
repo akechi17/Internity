@@ -13,12 +13,16 @@ class DepartmentController extends Controller
     public function getData($schoolId, $search=null, $status=null, $sort=null, $paginate=true)
     {
         $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
-
         $schoolId = $isAdmin
             ? $schoolId
             : auth()->user()->schools()->first()->id;
 
+        $isManager = auth()->user()->hasRole('manager');
+
         $departments = Department::where('school_id', $schoolId);
+        if (! $isManager) {
+            $departments = $departments->where('id', auth()->user()->departments()->first()->id);
+        }
         if ($search != null) {
             $departments = $departments->where('name', 'like', '%' . $search . '%');
         }

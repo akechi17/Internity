@@ -24,6 +24,10 @@ class Company extends Model
         'contact_person',
     ];
 
+    protected $orderBy = [
+        'created_at' => 'desc',
+    ];
+
     public function school()
     {
         return $this->belongsTo(School::class);

@@ -39,7 +39,7 @@
                 @if (count($student->companies()->get()) == 0)
                     <tr>
                         <td class="text-center">
-                            <a href="{{ route('users.edit', encrypt($student->id)) }}" class="btn btn-secondary text-xs" style="pointer-events: none"
+                            <a href="{{ route('presences.index', encrypt($student->id)) }}" class="btn btn-secondary text-xs" style="pointer-events: none"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Presensi">
                                     <i class="bi bi-calendar-check"></i></a>
                             <a href="{{ route('journals.index', encrypt($student->id)) }}" class="btn btn-secondary text-xs" style="pointer-events: none"
@@ -69,7 +69,7 @@
                     @foreach ($student->companies()->get() as $company)
                         <tr>
                             <td class="text-center">
-                                <a href="{{ route('users.edit', encrypt($student->id)) }}" class="btn btn-info text-xs"
+                                <a href="{{ route('presences.index', encrypt($student->id)) }}" class="btn btn-info text-xs"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Presensi">
                                         <i class="bi bi-calendar-check"></i></a>
                                 <a href="{{ route('journals.index', ['user' => encrypt($student->id)]) }}" class="btn btn-info text-xs"

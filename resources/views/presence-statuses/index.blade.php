@@ -46,7 +46,7 @@
                     </td>
                     <td class="text-sm text-center">{{ $data->name }}</td>
                     <td class="text-sm text-center">{{ $data->description }}</td>
-                    <td class="text-sm text-center">{{ $data->color }}</td>
+                    <td class="text-sm text-center"><button style="background-color: {{ $data->color }}; border:none; width:20px; height:20px; border-radius:20px" ></button></td>
                     <td class="text-sm text-center">{{ $data->icon }}</td>
                     <td class="text-sm text-center">{{ $data->status }}</td>
                 </tr>

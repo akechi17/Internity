@@ -12,7 +12,7 @@ class InputBase extends Component
      * @return void
      */
 
-    public $type; 
+    public $type;
 
     public $id;
 
@@ -22,13 +22,16 @@ class InputBase extends Component
 
     public $value;
 
-    public function __construct($type, $id, $name, $value = null, $label = null)
+    public $disabled;
+
+    public function __construct($type, $id, $name, $value = null, $label = null, $disabled = false)
     {
         $this->type = $type;
         $this->id = $id;
         $this->label = $label;
         $this->name = $name;
         $this->value = $value;
+        $this->disabled = $disabled;
     }
 
     /**

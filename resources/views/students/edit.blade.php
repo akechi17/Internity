@@ -15,7 +15,7 @@
                 </x-slot:options>
             </x-form.select>
             <x-form.input-base label="Keahlian" id="input-skills" type="text" name="skills" value="{{ $student->skills }}" />
-            <x-form.input-base disabled label="IDUKA" id="input-companies" type="text" name="company" value="{{ $company->name }}" />
+            <x-form.input-base label="IDUKA" id="input-companies" type="text" name="company" value="{{ $company->name }}" disabled/>
             <x-form.input-base label="Tanggal Mulai" id="input-start-date" type="date" name="start_date"
                 value="{{ $student->start_date }}" />
             <x-form.input-base label="Tanggal Selesai" id="input-end-date" type="date" name="end_date"

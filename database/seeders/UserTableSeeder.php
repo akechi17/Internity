@@ -103,7 +103,7 @@ class UserTableSeeder extends Seeder
             'date_of_birth' => '2000-01-01',
             'bio' => 'I am a student',
             'avatar' => 'avatars/placeholder.jpg',
-            'skills' => 'PHP,Laravel,VueJS,MySQL,HTML,CSS,JavaScript,Bootstrap',
+            'skills' => 'PHP, Laravel, VueJS, MySQL, HTML, CSS, JavaScript, Bootstrap',
         ]);
         $user->assignRole('student');
         $user->schools()->attach($school->id);

@@ -175,7 +175,6 @@ class SchoolController extends Controller
 
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'status' => 'nullable|boolean',
             'email' => 'email|unique:schools,email,' . $school->id,
             'phone' => 'numeric|unique:schools,phone,' . $school->id,
             'address' => 'string|max:255',
@@ -185,7 +184,6 @@ class SchoolController extends Controller
         try {
             $school->update([
                 'name' => $request->name,
-                'status' => $request->status,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'address' => $request->address,
@@ -201,9 +199,9 @@ class SchoolController extends Controller
                 ]);
             }
 
-            return redirect()->route('schools.index')->with('success', "Data sekolah $school->name berhasil diubah");
+            return back()->with('success', "Data sekolah $school->name berhasil diubah");
         } catch (\Exception $e) {
-            return redirect()->route('schools.index')->with('error', 'Terjadi kesalahan saat mengubah data sekolah');
+            return back()->with('error', 'Terjadi kesalahan saat mengubah data sekolah');
         }
     }
     /**

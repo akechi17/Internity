@@ -192,6 +192,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6 pt-4">
+                            <div class="card z-index-2">
+                            <div class="card-header pb-0">
+                                <h6>Waktu Magang</h6>
+                            </div>
+                            <div class="card-body p-3">
+                                <div class="chart">
+                                <canvas
+                                    id="newChart"
+                                    height="300"
+                                ></canvas>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 {{-- Dashboard Data End --}}
             </div>
 
@@ -209,6 +225,7 @@
         <script type="module">
             const ctx = document.getElementById('myChart');
             const ctx2 = document.getElementById('chart-line');
+            const ctx3 = document.getElementById('newChart');
 
             const gradient1 = ctx.getContext('2d').createLinearGradient(15, 0, 0, 150);
             gradient1.addColorStop(0, '#ff667c');
@@ -277,6 +294,44 @@
                             gradient2,
                             gradient3,
                             gradient4
+                            // "#FF6B6B", // warna untuk data 1
+                            // "#4D96FF", // warna untuk data 2
+                            // "#6BCB77"  // warna untuk data 3
+                        ],
+                        hoverOffset: 4
+                        // borderColor: [
+                        //     "#FF6B6B",   // warna border untuk data 1
+                        //     "#4D96FF",   // warna border untuk data 2
+                        //     "#6BCB77"    // warna border untuk data 3
+                        // ],
+                        // borderWidth: 1
+                    }]
+                },
+                options: {
+                    // cutoutPercentage: 50,
+                    // animation: {
+                    //     animateScale: true
+                    // }
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    // scales: {
+                    //     y: {
+                    //     beginAtZero: true
+                    //     }
+                    // }
+                }
+            });
+
+            new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: ['3 Bulan', '6 Bulan'],
+                    datasets: [{
+                        label: 'Jumlah',
+                        data: [10, 20],
+                        backgroundColor: [
+                            gradient1,
+                            gradient2
                             // "#FF6B6B", // warna untuk data 1
                             // "#4D96FF", // warna untuk data 2
                             // "#6BCB77"  // warna untuk data 3

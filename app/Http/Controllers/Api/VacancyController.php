@@ -97,7 +97,21 @@ class VacancyController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $vacancy = Vacancy::findOrFail($id);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data lowongan tidak ditemukan',
+                'vacancy' => [],
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data lowongan ditemukan',
+            'vacancy' => $vacancy,
+        ], 200);
     }
 
     /**

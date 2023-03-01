@@ -53,9 +53,11 @@
         <script type="module">
             //Deelete Data Function
         $(document).ready(function() {
-            $('.button-delete').On('click', function(){
+            $('.button-delete').on('click', function(){
                 const buttonId = $(this).attr('id');
-            }
+
+                window.utils.useDeleteButton(buttonId);
+            })
         });
         </script>
     @endpush

@@ -92,9 +92,9 @@
                             </td>
                             <td class="text-sm">{{ $company->name }}</td>
                             <td class="text-sm">
-                                {{ $student->internDates()->where('company_id', $company->id)->first()?->start_date }}</td>
+                                {{ \Carbon\Carbon::parse($student->internDates()->where('company_id', $company->id)->first()?->start_date)->format('d-m-Y') }}</td>
                             <td class="text-sm">
-                                {{ $student->internDates()->where('company_id', $company->id)->first()?->end_date }}</td>
+                                {{ \Carbon\Carbon::parse($student->internDates()->where('company_id', $company->id)->first()?->end_date)->format('d-m-Y') }}</td>
                             <td class="text-sm text-center">
                                 {{ $student->internDates()->where('company_id', $company->id)->first()?->extend }}</td>
                         </tr>

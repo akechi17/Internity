@@ -57,7 +57,7 @@
             $('.button-delete').on('click', function(){
                 const buttonId = $(this).attr('id');
 
-                window.utils.useDeleteButton(buttonId);
+                utils.useDeleteButton({buttonId: buttonId});
             })
         });
         </script>

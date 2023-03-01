@@ -20,8 +20,8 @@ class DepartmentController extends Controller
         $isManager = auth()->user()->hasRole('manager');
 
         $departments = Department::where('school_id', $schoolId);
-        if (! $isManager) {
-            $departments = $departments->where('id', auth()->user()->departments()->first()->id);
+        if (! $isManager && ! $isAdmin) {
+            $departments = $departments->where('id', auth()->user()->departments()?->first()->id);
         }
         if ($search != null) {
             $departments = $departments->where('name', 'like', '%' . $search . '%');

@@ -5,12 +5,13 @@
                 <h6 class="text-uppercase">{{ $pageName }}</h6>
 
                 {{-- Table Function --}}
-                <div class="header-function d-flex align-items-center @if($routeCreate) justify-content-between @else justify-content-end @endif">
+                <div
+                    class="header-function d-flex align-items-center @if ($routeCreate) justify-content-between @else justify-content-end @endif">
                     <!-- Add data Start -->
                     @if ($routeCreate)
-                    <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
-                        TAMBAH DATA
-                    </a>
+                        <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
+                            TAMBAH DATA
+                        </a>
                     @endif
                     <!-- Add data End -->
 
@@ -26,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            
+
 
             {{-- Table --}}
             <div class="card-body px-0 pt-0 pb-2">

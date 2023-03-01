@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Nette\Utils\Random;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Vacancy>
@@ -16,15 +17,35 @@ class VacancyFactory extends Factory
      */
     public function definition()
     {
-        $skills = ['HTML', 'CSS', 'JavaScript', 'BootStrap', 'Laravel', 'ReactJs', 'VueJs', 'AngularJs', 'NodeJs', 'PHP', 'Python', 'Java', 'C++', 'C#', 'C', 'Ruby', 'Swift', 'Kotlin', 'Go', 'Rust', 'Dart', 'SQL', 'NoSQL', 'MongoDB', 'MySQL', 'PostgreSQL', 'Oracle', 'SQLite', 'Firebase', 'AWS', 'Azure', 'GCP', 'Docker', 'Kubernetes', 'Git', 'GitHub', 'GitLab', 'BitBucket', 'Jira', 'Confluence', 'Trello', 'Slack', 'Discord', 'Zoom', 'Google Meet', 'Microsoft Teams', 'Skype', 'WebRTC', 'WebSockets', 'REST', 'GraphQL', 'JSON', 'XML', 'YAML', 'CSV', 'Excel', 'Word', 'PowerPoint', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Lightroom', 'Audition', 'Figma', 'Adobe XD', 'Sketch', 'InVision', 'Zeplin', 'Marvel', 'Miro', 'Notion', 'Trello', 'Asana', 'Jira', 'Confluence', 'Slack', 'Discord', 'Zoom', 'Google Meet', 'Microsoft Teams', 'Skype', 'WebRTC', 'WebSockets', 'REST', 'GraphQL', 'JSON', 'XML', 'YAML', 'CSV', 'Excel', 'Word', 'PowerPoint', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Lightroom', 'Audition', 'Figma', 'Adobe XD', 'Sketch', 'InVision', 'Zeplin', 'Marvel', 'Miro', 'Notion', 'Trello', 'Asana', 'Jira', 'Confluence', 'Slack', 'Discord', 'Zoom', 'Google Meet', 'Microsoft Teams', 'Skype', 'WebRTC', 'WebSockets', 'REST', 'GraphQL', 'JSON', 'XML', 'YAML', 'CSV', 'Excel', 'Word', 'PowerPoint', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Lightroom', 'Audition', 'Figma', 'Adobe XD', 'Sketch'];
+        $skills = [
+            'webdev' => ['HTML', 'CSS', 'JavaScript', 'PHP', 'Laravel', 'Vue', 'React', 'Angular', 'Node', 'Express', 'MongoDB', 'MySQL', 'PostgreSQL', 'Redis', 'REST', 'Bootstrap', 'Python'],
+            'appdev' => ['Java', 'Kotlin', 'Swift', 'Objective-C', 'Android', 'iOS', 'React Native', 'Flutter', 'Xamarin', 'Ionic', 'Cordova', 'PhoneGap', 'C#', 'C++', 'C', 'Go', 'Rust', 'Dart', 'Flutter'],
+            'networking' => ['Mikrotik', 'Cisco', 'Juniper', 'Linux', 'Windows Server', 'VMWare'],
+            'sysadmin' => ['Linux', 'Windows Server', 'VMWare', 'Docker', 'Kubernetes', 'AWS', 'Azure', 'Google Cloud', 'Digital Ocean', 'Vultr', 'Linode'],
+            'graphicdesign' => ['Adobe Photoshop','Adobe Illustrator', 'Adobe After Effects', 'Corel Draw', 'Adobe Lightroom', 'Adobe Premiere Pro', 'Adobe InDesign', 'Adobe XD', 'Figma', 'Sketch', 'Blender', 'GIMP', 'Inkscape', 'Krita', 'Paint.NET', 'Pixlr', 'Affinity Designer', 'Affinity Photo'],
+            'machinelearning' => ['Python', 'R', 'TensorFlow', 'Keras', 'PyTorch', 'Scikit-learn', 'NLTK', 'OpenCV', 'Pandas', 'NumPy', 'Matplotlib', 'SciPy', 'Scrapy', 'Jupyter Notebook', 'Amazon SageMaker', 'IBM Watson Studio'],
+            'database' => ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'SQLite', 'MariaDB', 'Oracle Database', 'Cassandra', 'CouchDB', 'Firebase', 'SQL Server'],
+        ];
+
+        $jobTitle = [
+            'webdev' => ['Web Developer', 'Full Stack Developer'],
+            'appdev' => ['Android Developer', 'iOS Developer', 'Mobile Developer'],
+            'networking' => ['Network Engineer', 'Network Administrator'],
+            'sysadmin' => ['System Administrator', 'System Engineer'],
+            'graphicdesign' => ['Graphic Designer', 'UI/UX Designer'],
+            'machinelearning' => ['Machine Learning Engineer', 'Data Scientist'],
+            'database' => ['Database Administrator', 'Database Engineer', 'Database Designer', 'Database Architect'],
+        ];
+
+        $selected = array_rand($skills);
 
         return [
-            'name' => fake()->jobTitle(),
+            'name' => fake()->randomElement($jobTitle[$selected]),
             'category' => fake()->randomElement(['IT', 'Marketing', 'Finance', 'Human Resources', 'Automotive', 'Construction', 'Education', 'Engineering', 'Healthcare', 'Hospitality', 'Manufacturing', 'Media', 'Retail', 'Technology', 'Telecommunications', 'Transportation']),
             'description' => fake()->paragraph(),
             'slots' => fake()->numberBetween(1, 5),
             'status' => 1,
-            'skills' => implode(', ', fake()->randomElements($skills, fake()->numberBetween(3, 6))),
+            'skills' => implode(', ', fake()->randomElements($skills[$selected], fake()->numberBetween(3, 5))),
         ];
     }
 }

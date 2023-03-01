@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/vacancies', [VacancyController::class, 'index']);
     Route::get('/vacancies/recommended', [VacancyController::class, 'recommended']);
+    Route::get('/vacancies/{id}', [VacancyController::class, 'show']);
 
     Route::resource('appliances', ApplianceController::class)->only([
         'index', 'store', 'destroy'

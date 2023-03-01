@@ -17,7 +17,15 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $skills = ['HTML', 'CSS', 'JavaScript', 'BootStrap', 'Laravel', 'ReactJs', 'VueJs', 'AngularJs', 'NodeJs', 'PHP', 'Python', 'Java', 'C++', 'C#', 'C', 'Ruby', 'Swift', 'Kotlin', 'Go', 'Rust', 'Dart', 'SQL', 'NoSQL', 'MongoDB', 'MySQL', 'PostgreSQL', 'Oracle', 'SQLite', 'Firebase', 'AWS', 'Azure', 'GCP', 'Docker', 'Kubernetes', 'Git', 'GitHub', 'GitLab', 'BitBucket', 'Jira', 'Confluence', 'Trello', 'Slack', 'Discord', 'Zoom', 'Google Meet', 'Microsoft Teams', 'Skype', 'WebRTC', 'WebSockets', 'REST', 'GraphQL', 'JSON', 'XML', 'YAML', 'CSV', 'Excel', 'Word', 'PowerPoint', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Lightroom', 'Audition', 'Figma', 'Adobe XD', 'Sketch', 'InVision', 'Zeplin', 'Marvel', 'Miro', 'Notion', 'Trello', 'Asana', 'Jira', 'Confluence', 'Slack', 'Discord', 'Zoom', 'Google Meet', 'Microsoft Teams', 'Skype', 'WebRTC', 'WebSockets', 'REST', 'GraphQL', 'JSON', 'XML', 'YAML', 'CSV', 'Excel', 'Word', 'PowerPoint', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Lightroom', 'Audition', 'Figma', 'Adobe XD', 'Sketch', 'InVision', 'Zeplin', 'Marvel', 'Miro', 'Notion', 'Trello', 'Asana', 'Jira', 'Confluence', 'Slack', 'Discord', 'Zoom', 'Google Meet', 'Microsoft Teams', 'Skype', 'WebRTC', 'WebSockets', 'REST', 'GraphQL', 'JSON', 'XML', 'YAML', 'CSV', 'Excel', 'Word', 'PowerPoint', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Lightroom', 'Audition', 'Figma', 'Adobe XD', 'Sketch'];
+        $skills = [
+            'webdev' => ['HTML', 'CSS', 'JavaScript', 'PHP', 'Laravel', 'Vue', 'React', 'Angular', 'Node', 'Express', 'MongoDB', 'MySQL', 'PostgreSQL', 'Redis', 'REST', 'Python'],
+            'appdev' => ['Java', 'Kotlin', 'Swift', 'Objective-C', 'Android', 'iOS', 'React Native', 'Flutter', 'Xamarin', 'Ionic', 'Cordova', 'PhoneGap', 'C#', 'C++', 'C', 'Go', 'Rust', 'Dart', 'Flutter'],
+            'networking' => ['Mikrotik', 'Cisco', 'Juniper', 'Linux', 'Windows Server', 'VMWare'],
+            'sysadmin' => ['Linux', 'Windows Server', 'VMWare', 'Docker', 'Kubernetes', 'AWS', 'Azure', 'Google Cloud', 'Digital Ocean', 'Vultr', 'Linode'],
+            'graphicdesign' => ['Adobe Photoshop','Adobe Illustrator', 'Adobe After Effects', 'Corel Draw', 'Adobe Lightroom', 'Adobe Premiere Pro', 'Adobe InDesign', 'Adobe XD', 'Figma', 'Sketch', 'Blender', 'GIMP', 'Inkscape', 'Krita', 'Paint.NET', 'Pixlr', 'Affinity Designer', 'Affinity Photo'],
+            'machinelearning' => ['Python', 'R', 'TensorFlow', 'Keras', 'PyTorch', 'Scikit-learn', 'NLTK', 'OpenCV', 'Pandas', 'NumPy', 'Matplotlib', 'SciPy', 'Scrapy', 'Jupyter Notebook', 'Amazon SageMaker', 'IBM Watson Studio'],
+            'database' => ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'SQLite', 'MariaDB', 'Oracle Database', 'Cassandra', 'CouchDB', 'Firebase', 'SQL Server'],
+        ];
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
@@ -30,7 +38,8 @@ class UserFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'date_of_birth' => fake()->dateTimeBetween('-18 years', '-16 years')->format('Y-m-d'),
             'status' => 1,
-            'skills' => implode(', ', fake()->randomElements($skills, fake()->numberBetween(2, 5))),
+            'skills' => implode(', ', fake()->randomElements($skills[array_rand($skills)], fake()->numberBetween(3, 5))),
+
             'password_by_admin' => 1,
         ];
     }

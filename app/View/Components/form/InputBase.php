@@ -24,7 +24,9 @@ class InputBase extends Component
 
     public $disabled;
 
-    public function __construct($type, $id, $name, $value = null, $label = null, $disabled = false)
+    public $placeholder;
+
+    public function __construct($type, $id, $name, $value = null, $label = null, $disabled = false, $placeholder = null)
     {
         $this->type = $type;
         $this->id = $id;
@@ -32,6 +34,7 @@ class InputBase extends Component
         $this->name = $name;
         $this->value = $value;
         $this->disabled = $disabled;
+        $this->placeholder = $placeholder;
     }
 
     /**

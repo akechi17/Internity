@@ -38,14 +38,14 @@
                         <form action="{{ route('appliances.accept', encrypt($data->id)) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <button id="button-{{ $data->id }}" class="btn btn-info text-xs"
+                            <button id="button-{{ $data->id }}" class="btn btn-success text-xs"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Terima" type="submit"><i
                                 class="bi bi-check-lg"></i></button>
                         </form>
                         <form action="{{ route('appliances.reject', encrypt($data->id)) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <button id="button-{{ $data->id }}" class="btn btn-info text-xs"
+                            <button id="button-{{ $data->id }}" class="btn btn-danger text-xs"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tolak" type="submit"><i
                                 class="bi bi-x-lg"></i></button>
                         </form>
@@ -53,9 +53,33 @@
                     <td class="text-sm text-center">{{ $data->created_at->format('d-m-Y') }}</td>
                     <td class="text-sm text-center">{{ $data->user->name }}</td>
                     <td class="text-sm text-center">{{ $data->user->departments()->first()->name }}</td>
-                    <td class="text-sm text-center">{{ $data->user->skills }}</td>
-                    <td class="text-sm">{{ $data->user->resume }}</td>
-                    <td class="text-sm text-center">{{ $data->status }}</td>
+                    <td class="text-sm">
+                        <ul>
+                            @if ($data->skills)
+                                @foreach (explode(",", $data->user->skills) as $skill)
+                                    <li>{{ $skill }}</li>
+                                @endforeach
+                            @endif
+                        </ul>
+                    </td>
+                    <td class="text-sm text-center">
+                        @if($data->user->resume)
+                            <a href="{{ url('storage/' . $data->user->resume) }}" target="_blank" class="btn btn-info text-xs"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lihat CV"><i
+                                class="bi bi-file-earmark-text"></i></a>
+                        @else
+                            <span class="badge badge-sm bg-gradient-danger">Tidak ada</span>
+                        @endif
+                    </td>
+                    <td class="text-sm text-center">
+                        @if ($data->status == 'accepted')
+                            <span class="badge badge-sm bg-gradient-success">Diterima</span>
+                        @elseif ($data->status == 'rejected')
+                            <span class="badge badge-sm bg-gradient-danger">Ditolak</span>
+                        @elseif($data->status == 'pending')
+                            <span class="badge badge-sm bg-gradient-warning">Menunggu</span>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </x-slot:tbody>

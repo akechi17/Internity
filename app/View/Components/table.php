@@ -6,19 +6,20 @@ use Illuminate\View\Component;
 
 class table extends Component
 {
-    public $routeCreate, $pageName, $pagination, $tableData;
+    public $routeCreate, $pageName, $pagination, $tableData, $permissionCreate;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($pageName, $pagination, $tableData, $routeCreate = null )
+    public function __construct($pageName, $pagination, $tableData, $routeCreate = null, $permissionCreate = null)
     {
         //
         $this->routeCreate = $routeCreate;
         $this->pageName = $pageName;
         $this->pagination = $pagination;
         $this->tableData = $tableData;
+        $this->permissionCreate = $permissionCreate;
     }
 
     /**

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('department_id')->constrained('departments')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
-            $table->string('category');
+            $table->string('category')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('address')->nullable();

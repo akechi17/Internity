@@ -268,6 +268,9 @@ class ApplianceController extends Controller
             ]);
             $user = User::findOrFail($appliance->user_id);
             $user->companies()->attach($appliance->vacancy->company_id);
+            $user->internDates()->create([
+                'company_id' => $appliance->vacancy->company_id,
+            ]);
 
             $context = [
                 'status' => true,
@@ -296,6 +299,9 @@ class ApplianceController extends Controller
             $user = User::findOrFail($appliance->user_id);
             if ($user->companies()->where('company_id', $appliance->vacancy->company_id)->exists()) {
                 $user->companies()->detach($appliance->vacancy->company_id);
+            }
+            if ($user->internDates()->where('company_id', $appliance->vacancy->company_id)->exists()) {
+                $user->internDates()->where('company_id', $appliance->vacancy->company_id)->delete();
             }
             $context = [
                 'status' => true,

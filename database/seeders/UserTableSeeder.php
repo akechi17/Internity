@@ -73,6 +73,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Student',
             'email' => 'student@test.dev',
             'password' => bcrypt('123qweasd'),
+            'resume' => 'resumes/CV_Hermawan.pdf'
         ]);
         $user->assignRole('student');
         $user->schools()->attach($school->id);
@@ -104,6 +105,7 @@ class UserTableSeeder extends Seeder
             'bio' => 'I am a student',
             'avatar' => 'avatars/placeholder.jpg',
             'skills' => 'PHP, Laravel, VueJS, MySQL, HTML, CSS, JavaScript, Bootstrap',
+            'resume' => 'resumes/CV_Hermawan.pdf'
         ]);
         $user->assignRole('student');
         $user->schools()->attach($school->id);
@@ -124,7 +126,7 @@ class UserTableSeeder extends Seeder
 
         $courses = Course::all();
         foreach ($courses as $course) {
-            User::factory()->count(5)->create()->each(function ($user) use ($course) {
+            User::factory()->count(5)->create(['resume' => 'resumes/CV_Hermawan.pdf'])->each(function ($user) use ($course) {
                 $user->assignRole('student');
                 $user->schools()->attach($course->department->school_id);
                 $user->departments()->attach($course->department_id);

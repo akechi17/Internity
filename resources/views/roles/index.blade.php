@@ -25,7 +25,7 @@
         <x-slot:tbody>
             @foreach ($roles as $data)
                 <tr>
-                    <td class="text-center"> 
+                    <td class="text-center">
                         <a href="{{ route('roles.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>

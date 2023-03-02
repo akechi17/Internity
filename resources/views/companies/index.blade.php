@@ -5,7 +5,7 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table routeCreate="{{ route('companies.create') }}" pageName="Perusahaan" :pagination="$companies" :tableData="$companies">
+    <x-table routeCreate="{{ route('companies.create') }}" pageName="Perusahaan" permissionCreate="company-create" :pagination="$companies" :tableData="$companies">
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
@@ -35,33 +35,25 @@
             @foreach ($companies as $data)
                 <tr>
                     <td class="text-center">
-                        <a href="{{ route('companies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
-                                class="bi bi-pencil-square"></i></a>
-
-                        <form action="{{ route('companies.destroy', encrypt($data->id)) }}" method="POST" class="m-0">
-                            @csrf
-                            @method('DELETE')
-                            <button id="button-{{ $data->id }}" class="button-delete btn btn-info text-xs"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
-                                    class="bi bi-trash"></i></button>
-                        </form>
-
-                        <a href="{{ route('vacancies.index', ['company' => encrypt($data->id)]) }}"
-                            class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Lowongan"><i class="bi bi-person-workspace"></i></a>
-                        
-                        {{-- 
-                        <a href="{{ route('companies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
-                                class="bi bi-pencil-square"></i></a>
-                        <a href="{{ route('companies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i
-                                class="bi bi-trash"></i></a> 
-                        <a href="{{ route('vacancies.index', ['company' => encrypt($data->id)]) }}"
-                            class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Lowongan"><i class="bi bi-person-workspace"></i></a>
-                        --}}
+                        @can('vacancy-list')
+                            <a href="{{ route('vacancies.index', ['company' => encrypt($data->id)]) }}"
+                                class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="Lowongan"><i class="bi bi-person-workspace"></i></a>
+                        @endcan
+                        @can('company-edit')
+                            <a href="{{ route('companies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
+                                    class="bi bi-pencil-square"></i></a>
+                        @endcan
+                        @can('company-delete')
+                            <form action="{{ route('companies.destroy', encrypt($data->id)) }}" method="POST" class="m-0">
+                                @csrf
+                                @method('DELETE')
+                                <button id="button-{{ $data->id }}" class="button-delete btn btn-danger text-xs"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
+                                        class="bi bi-trash"></i></button>
+                            </form>
+                        @endcan
                     </td>
                     <td class="text-sm">{{ $data->name }}</td>
                     <td class="text-sm">{{ $data->category }}</td>

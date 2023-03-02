@@ -111,7 +111,7 @@ class CourseController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'description' => 'string|max:255',
+            'description' => 'nullable|string|max:255',
             'status' => 'nullable|boolean',
             'department_id' => 'required|exists:departments,id',
         ]);
@@ -170,7 +170,7 @@ class CourseController extends Controller
         $id = decrypt($id);
         $request->validate([
             'name' => 'required|unique:courses,name,' . $id,
-            'description' => 'string|max:255',
+            'description' => 'nullable|string|max:255',
             'status' => 'nullable|boolean',
         ]);
 

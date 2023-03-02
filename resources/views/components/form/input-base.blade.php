@@ -5,7 +5,8 @@
     @endif
 
     <input type="{{ $type }}" class="form-control" id="{{ $id }}" name="{{ $name }}"
-        value="{{ $value ?? '' }}" @if($disabled) style="pointer-events: none;" @endif />
+        value="{{ $value ?? '' }}" @if($disabled) style="pointer-events: none;" @endif
+        placeholder="ex: {{ $placeholder }}" />
 
     @error($name)
         <x-validation :message="$message" />

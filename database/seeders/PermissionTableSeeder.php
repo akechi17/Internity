@@ -92,6 +92,12 @@ class PermissionTableSeeder extends Seeder
             'presence-status-create',
             'presence-status-edit',
             'presence-status-delete',
+
+            'appliance-list',
+            'appliance-create',
+            'appliance-edit',
+            'appliance-delete',
+            'appliance-approve'
         ];
 
         foreach ($permissions as $permission) {

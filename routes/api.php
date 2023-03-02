@@ -42,6 +42,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('appliances', ApplianceController::class)->only([
         'index', 'store', 'destroy'
     ]);
-
     Route::get('/appliances/accepted', [ApplianceController::class, 'accepted']);
+    Route::put('/appliances/{id}/edit-date', [ApplianceController::class, 'editDate']);
 });

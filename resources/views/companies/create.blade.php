@@ -73,12 +73,12 @@
 @section('dashboard-content')
     <x-form.form formTitle="Tambah Perusahaan" formMethod="POST" formAction="{{ route('companies.store') }}">
         <x-slot:formBody>
-            <x-form.input-base label="Nama" id="input-name" type="text" name="name" />
-            <x-form.input-base label="Jenis Usaha" id="input-category" type="text" name="category" />
-            <x-form.input-base label="Contact Person" id="input-contact" type="text" name="contact_person" />
-            <x-form.input-base label="Nomor Telepon" id="input-phone" type="text" name="phone" />
-            <x-form.input-base label="Email" id="input-email" type="email" name="email" />
-            <x-form.input-base label="Alamat" id="input-address" type="text" name="address" />
+            <x-form.input-base label="Nama" id="input-name" type="text" name="name" placeholder="PT Usaha Maju"/>
+            <x-form.input-base label="Jenis Usaha" id="input-category" type="text" name="category" placeholder="IT Consulting"/>
+            <x-form.input-base label="Contact Person" id="input-contact" type="text" name="contact_person" placeholder="Bapak John Doe"/>
+            <x-form.input-base label="Nomor Telepon" id="input-phone" type="text" name="phone" placeholder="081234567890"/>
+            <x-form.input-base label="Email" id="input-email" type="email" name="email" placeholder="johndoe@gmail.com"/>
+            <x-form.input-base label="Alamat" id="input-address" type="text" name="address" placeholder="Jalan Baru No. 50 RT 02 RW 03, Jakarta Selatan, DKI Jakarta"/>
             <x-form.select label="Kompetensi Keahlian" id="input-department" name="department_id">
                 @if (count($departments) == 1)
                     <option selected value="{{ $departments[0]->id }}">{{ $departments[0]->name }}</option>

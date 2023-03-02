@@ -6,13 +6,15 @@
 
                 {{-- Table Function --}}
                 <div
-                    class="header-function d-flex align-items-center @if ($routeCreate) justify-content-between @else justify-content-end @endif">
+                    class="header-function d-flex align-items-center @can($permissionCreate) @if ($routeCreate) justify-content-between @else justify-content-end @endif @endcan">
                     <!-- Add data Start -->
-                    @if ($routeCreate)
-                        <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
-                            TAMBAH DATA
-                        </a>
-                    @endif
+                    @can($permissionCreate)
+                        @if ($routeCreate)
+                            <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
+                                TAMBAH DATA
+                            </a>
+                        @endif
+                    @endcan
                     <!-- Add data End -->
 
                     <div class="card-header p-0">

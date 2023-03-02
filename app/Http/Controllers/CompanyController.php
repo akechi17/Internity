@@ -117,7 +117,7 @@ class CompanyController extends Controller
         $isTeacher = auth()->user()->hasRole('teacher');
 
         $departments = $isTeacher
-            ? auth()->user()->departments()
+            ? auth()->user()->departments()->get()
             : Department::all();
 
         return view('companies.create', compact('departments'));
@@ -133,11 +133,11 @@ class CompanyController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'category' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'contact_person' => 'required',
+            'category' => 'nullable',
+            'address' => 'nullable',
+            'phone' => 'nullable',
+            'email' => 'nullable',
+            'contact_person' => 'nullable',
             'department_id' => 'required|exists:departments,id',
         ]);
 
@@ -181,7 +181,7 @@ class CompanyController extends Controller
         $isTeacher = auth()->user()->hasRole('teacher');
 
         $departments = $isTeacher
-            ? auth()->user()->departments()
+            ? auth()->user()->departments()->get()
             : Department::all();
 
         return view('companies.edit', compact('company', 'departments'));

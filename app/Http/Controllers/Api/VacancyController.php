@@ -52,6 +52,7 @@ class VacancyController extends Controller
 
                 $vacancies = array_merge($vacancies, $vacancy->toArray());
             }
+            $vacancies = collect($vacancies)->unique('id')->values()->all();
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,

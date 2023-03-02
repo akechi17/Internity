@@ -43,7 +43,7 @@
                     <td class="text-sm text-center">{{ $user->name }}</td>
                     <td class="text-sm text-center">{{ $user->email }}</td>
                     <td class="text-sm text-center">{{ $user->roles()->first()->name }}</td>
-                    <td class="text-sm text-center">{{ $user->last_login }}</td>
+                    <td class="text-sm text-center">{{ $user->last_login?->format('d-m-Y H:i:s') }}</td>
                     <td class="text-sm text-center">{{ $user->last_login_ip }}</td>
                 </tr>
             @endforeach

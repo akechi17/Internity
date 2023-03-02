@@ -35,12 +35,20 @@
             @foreach ($appliances as $data)
                 <tr>
                     <td class="text-center">
-                        <a href="{{ route('appliances.index', ['vacancy' => encrypt($data->id)]) }}" class="btn btn-info text-xs"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pendaftar"><i
-                                class="bi bi-people"></i></a>
-                        <a href="{{ route('vacancies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
-                                class="bi bi-pencil-square"></i></a>
+                        <form action="{{ route('appliances.accept', encrypt($data->id)) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <button id="button-{{ $data->id }}" class="btn btn-info text-xs"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Terima" type="submit"><i
+                                class="bi bi-check-lg"></i></button>
+                        </form>
+                        <form action="{{ route('appliances.reject', encrypt($data->id)) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <button id="button-{{ $data->id }}" class="btn btn-info text-xs"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tolak" type="submit"><i
+                                class="bi bi-x-lg"></i></button>
+                        </form>
                     </td>
                     <td class="text-sm text-center">{{ $data->created_at->format('d-m-Y') }}</td>
                     <td class="text-sm text-center">{{ $data->user->name }}</td>

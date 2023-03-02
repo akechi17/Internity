@@ -13,33 +13,33 @@ class StudentController extends Controller
         $isManager = auth()->user()->hasRole('manager');
         $isTeacher = auth()->user()->hasRole('teacher');
 
-        $users = User::whereRelation('roles', 'name', 'student')
-            ->when($search, function ($query, $search) {
-                return $query->where('name', 'like', '%' . $search . '%')
+        $users = User::whereRelation('roles', 'name', 'student');
+            if ($search) {
+                $users = $users->where('name', 'like', '%' . $search . '%')
                     ->orWhere('email', 'like', '%' . $search . '%');
-            })
-            ->when($status, function ($query, $status) {
-                return $query->where('status', $status);
-            })
-            ->when($school, function ($query, $school) {
-                return $query->whereHas('schools', function($query) use ($school) {
+            }
+            if ($status) {
+                $users = $users->where('status', $status);
+            }
+            if ($school) {
+                $users = $users->whereHas('schools', function($query) use ($school) {
                     $query->where('school_id', $school);
                 });
-            })
-            ->when($department, function ($query, $department) {
-                return $query->whereHas('departments', function($query) use ($department) {
+            }
+            if ($department) {
+                $users = $users->whereHas('departments', function($query) use ($department) {
                     $query->where('department_id', $department);
                 });
-            })
-            ->when($isManager, function ($query) {
-                return $query->whereHas('schools', function($query) {
+            }
+            if ($isManager) {
+                $users = $users->whereHas('schools', function($query) {
                     $query->where('school_id', auth()->user()->schools()->first()->id);
                 });
-            })
-            ->when($isTeacher, function ($query) {
-                return $query->teacher(auth()->user()->departments()->first()->id);
-            })
-            ->when($sort, function ($query, $sort) {
+            }
+            if ($isTeacher) {
+                $users = $users->teacher(auth()->user()->departments()->first()->id);
+            }
+            if ($sort) {
                 if ($sort[0] == '-') {
                     $sort = substr($sort, 1);
                     $sortType = 'desc';
@@ -47,9 +47,9 @@ class StudentController extends Controller
                     $sortType = 'asc';
                 }
 
-                return $query->orderBy($sort, $sortType);
-            })
-            ->paginate(10);
+                $users = $users->orderBy($sort, $sortType);
+            }
+            $users = $users->paginate(10);
 
         if ($users->count() > 0) {
             $context = [
@@ -122,7 +122,7 @@ class StudentController extends Controller
                 ->first();
         } else {
             $user = User::whereRelation('roles', 'name', 'student')
-                ->where('id', $id)
+                        ->where('id', $id)
                 ->first();
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Vacancy;
 use App\Models\Appliance;
 use Illuminate\Http\Request;
@@ -244,6 +245,61 @@ class ApplianceController extends Controller
             $context = [
                 'status' => true,
                 'message' => 'Data berhasil dihapus',
+                'data' => $appliance,
+            ];
+        } catch (\Exception $e) {
+            $context = [
+                'status' => false,
+                'message' => 'Data tidak ditemukan',
+                'data' => null,
+            ];
+        }
+
+        return back()->with($context);
+    }
+
+    public function accept($id)
+    {
+        $id = decrypt($id);
+        try {
+            $appliance = Appliance::findOrFail($id);
+            $appliance->update([
+                'status' => 'accepted',
+            ]);
+            $user = User::findOrFail($appliance->user_id);
+            $user->companies()->attach($appliance->vacancy->company_id);
+
+            $context = [
+                'status' => true,
+                'message' => 'Data berhasil diperbarui',
+                'data' => $appliance,
+            ];
+        } catch (\Exception $e) {
+            $context = [
+                'status' => false,
+                'message' => 'Data tidak ditemukan',
+                'data' => null,
+            ];
+        }
+
+        return back()->with($context);
+    }
+
+    public function reject($id)
+    {
+        $id = decrypt($id);
+        try {
+            $appliance = Appliance::findOrFail($id);
+            $appliance->update([
+                'status' => 'rejected',
+            ]);
+            $user = User::findOrFail($appliance->user_id);
+            if ($user->companies()->where('company_id', $appliance->vacancy->company_id)->exists()) {
+                $user->companies()->detach($appliance->vacancy->company_id);
+            }
+            $context = [
+                'status' => true,
+                'message' => 'Data berhasil diperbarui',
                 'data' => $appliance,
             ];
         } catch (\Exception $e) {

@@ -67,6 +67,8 @@ Route::middleware(['auth'])->group( function () {
     Route::put('students/update/{id}', [StudentController::class, 'update'])->name('students.update');
 
     Route::resource('/appliances', ApplianceController::class);
+    Route::put('appliances/{id}/accept', [ApplianceController::class, 'accept'])->name('appliances.accept');
+    Route::put('appliances/{id}/reject', [ApplianceController::class, 'reject'])->name('appliances.reject');
 
     Route::get('presence-statuses/search', [PresenceStatusController::class, 'search'])->name('presence-statuses.search');
     Route::resource('presence-statuses', PresenceStatusController::class);

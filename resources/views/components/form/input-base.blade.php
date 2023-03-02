@@ -5,7 +5,8 @@
     @endif
 
     <input type="{{ $type }}" class="form-control" id="{{ $id }}" name="{{ $name }}"
-        value="{{ $value ?? '' }}" placeholder="ex: {{ $placeholder ?? '' }}"
+        value="{{ $value ?? '' }}"
+        @if($placeholder) placeholder="ex: {{ $placeholder ?? '' }}" @endif
         @if($disabled) style="pointer-events: none; background-color: #e9ecef;" @endif
         @if($readonly) readonly style="background-color: #e9ecef; pointer-events: none;" @endif
 

@@ -137,9 +137,8 @@ class DepartmentController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'description' => 'max:255',
-            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'status' => 'boolean',
+            'description' => 'nullable|max:255',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'school_id' => 'required|exists:schools,id'
         ]);
 
@@ -147,7 +146,6 @@ class DepartmentController extends Controller
                 $department = Department::create([
                     'name' => $request->name,
                     'description' => $request->description,
-                    'status' => $request->status,
                     'school_id' => $request->school_id,
                 ]);
 
@@ -161,9 +159,9 @@ class DepartmentController extends Controller
                     ]);
                 }
 
-                return redirect()->route('departments.index', ['school_id' => encrypt($request->school_id)])->with('success', 'Data jurusan berhasil ditambahkan');
+                return redirect()->route('departments.index', ['school' => encrypt($request->school_id)])->with('success', 'Data jurusan berhasil ditambahkan');
             } catch (\Exception $e) {
-                return redirect()->route('departments.index', ['school_id' => encrypt($request->school_id)])->with('error', 'Data jurusan gagal ditambahkan');
+                return redirect()->route('departments.index', ['school' => encrypt($request->school_id)])->with('error', 'Data jurusan gagal ditambahkan');
             }
     }
 
@@ -196,12 +194,8 @@ class DepartmentController extends Controller
         $id = decrypt($id);
         try {
             $department = Department::find($id);
-            $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
-            $schools = $isAdmin
-                ? School::pluck('name', 'id')
-                : School::where('id', auth()->user()->schools()->first()->id)->pluck('name', 'id');
 
-            return view('departments.edit', compact('department', 'schools'));
+            return view('departments.edit', compact('department'));
         } catch (\Exception $e) {
             return back()->with('error', 'Data jurusan tidak ditemukan');
         }
@@ -218,10 +212,8 @@ class DepartmentController extends Controller
         $id = decrypt($id);
         $this->validate($request, [
             'name' => 'required|max:255',
-            'description' => 'max:255',
-            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'status' => 'boolean',
-            'school_id' => 'required|exists:schools,id'
+            'description' => 'nullable|max:255',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         try {
@@ -229,8 +221,6 @@ class DepartmentController extends Controller
             $department->update([
                 'name' => $request->name,
                 'description' => $request->description,
-                'status' => $request->status,
-                'school_id' => $request->school_id,
             ]);
 
             if ($request->hasFile('logo')) {
@@ -243,9 +233,9 @@ class DepartmentController extends Controller
                 ]);
             }
 
-            return redirect()->route('departments.index', ['school_id' => encrypt($request->school_id)])->with('success', 'Data jurusan berhasil diubah');
+            return redirect()->route('departments.index', ['school' => encrypt($request->school_id)])->with('success', 'Data jurusan berhasil diubah');
         } catch (\Exception $e) {
-            return redirect()->route('departments.index', ['school_id' => encrypt($request->school_id)])->with('error', 'Data jurusan gagal diubah');
+            return redirect()->route('departments.index', ['school' => encrypt($request->school_id)])->with('error', 'Data jurusan gagal diubah');
         }
     }
 

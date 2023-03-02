@@ -8,8 +8,8 @@
 @section('dashboard-content')
     <x-form.form formTitle="Tambah User" formMethod="POST" formAction="{{ route('users.store') }}">
         <x-slot:formBody>
-            <x-form.input-base label="Nama" id="input-name" type="text" name="name" />
-            <x-form.input-base label="Email" id="input-email" type="email" name="email" />
+            <x-form.input-base label="Nama" id="input-name" type="text" name="name" placeholder="John Doe"/>
+            <x-form.input-base label="Email" id="input-email" type="email" name="email" placeholder="johndoe@gmail.com"/>
             <x-form.input-password label="Password" id="input-password" name="password" />
             <x-form.input-password label="Ulangi Password" id="input-confirm-password" name="confirm-password" />
             <x-form.select label="Role" id="input-role" name="role_id">

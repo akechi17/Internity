@@ -125,6 +125,7 @@ class UserController extends Controller
     public function create()
     {
         $isManager = auth()->user()->hasRole('manager');
+        $isTeacher = auth()->user()->hasRole('teacher');
 
         if ($isManager) {
             $roles = Role::where('name', '!=', 'admin')->where('name', '!=', 'super-admin')->pluck('name', 'id');
@@ -135,7 +136,13 @@ class UserController extends Controller
                 ->join('schools', 'departments.school_id', '=', 'schools.id')
                 ->where('schools.id', $schoolId)
                 ->pluck('courses.name', 'courses.id');
-
+        } elseif ($isTeacher) {
+            $roles = Role::where('name', 'student')->orWhere('name', 'teacher')->pluck('name', 'id');
+            $schoolId = auth()->user()->schools()->first()->id;
+            $schools = School::find($schoolId)->pluck('name', 'id');
+            $departmentId = auth()->user()->departments()->first()->id;
+            $departments = Department::where('id', $departmentId)->pluck('name', 'id');
+            $courses = Course::where('department_id', $departmentId)->pluck('name', 'id');
         } else {
             $roles = auth()->user()->hasRole('super-admin')
                 ? Role::pluck('name', 'id')

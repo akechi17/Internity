@@ -268,6 +268,9 @@ class ApplianceController extends Controller
             ]);
             $user = User::findOrFail($appliance->user_id);
             $user->companies()->attach($appliance->vacancy->company_id);
+            $user->internDates()->create([
+                'company_id' => $appliance->vacancy->company_id,
+            ]);
 
             $context = [
                 'status' => true,

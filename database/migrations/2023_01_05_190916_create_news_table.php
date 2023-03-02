@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique()->nullable();
             $table->text('content')->fulltext();
-            $table->boolean('status')->default(1);
             $table->string('image')->nullable();
+            $table->boolean('status')->default(1);
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->morphs('newsable');
             $table->timestamps();

@@ -5,7 +5,8 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table routeCreate="{{ route('appliances.create', ['vacancies' => encrypt($vacancy->id)]) }}" pageName="Pendaftar {{ $vacancy->name }}" permissionCreate="appliance-create" :pagination="$appliances" :tableData="$appliances">
+    <x-table routeCreate="{{ route('appliances.create', ['vacancies' => encrypt($vacancy->id)]) }}"
+        pageName="Pendaftar {{ $vacancy->name }}" permissionCreate="appliance-create" :pagination="$appliances" :tableData="$appliances">
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
@@ -38,16 +39,16 @@
                         <form action="{{ route('appliances.accept', encrypt($data->id)) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <button id="button-{{ $data->id }}" class="btn btn-success text-xs"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Terima" type="submit"><i
-                                class="bi bi-check-lg"></i></button>
+                            <button id="button-accept-{{ $data->id }}" class="btn button-appliances btn-success text-xs"
+                                data-status='accept' data-bs-toggle="tooltip" data-bs-placement="bottom" title="Terima"
+                                type="button"><i class="bi bi-check-lg"></i></button>
                         </form>
                         <form action="{{ route('appliances.reject', encrypt($data->id)) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <button id="button-{{ $data->id }}" class="btn btn-danger text-xs"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tolak" type="submit"><i
-                                class="bi bi-x-lg"></i></button>
+                            <button id="button-reject-{{ $data->id }}" class="btn button-appliances btn-danger text-xs"
+                                data-status='reject' data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tolak"
+                                type="button"><i class="bi bi-x-lg"></i></button>
                         </form>
                     </td>
                     <td class="text-sm text-center">{{ $data->created_at->format('d-m-Y') }}</td>
@@ -56,17 +57,17 @@
                     <td class="text-sm">
                         <ul>
                             @if ($data->skills)
-                                @foreach (explode(",", $data->user->skills) as $skill)
+                                @foreach (explode(',', $data->user->skills) as $skill)
                                     <li>{{ $skill }}</li>
                                 @endforeach
                             @endif
                         </ul>
                     </td>
                     <td class="text-sm text-center">
-                        @if($data->user->resume)
-                            <a href="{{ url('storage/' . $data->user->resume) }}" target="_blank" class="btn btn-info text-xs"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lihat CV"><i
-                                class="bi bi-file-earmark-text"></i></a>
+                        @if ($data->user->resume)
+                            <a href="{{ url('storage/' . $data->user->resume) }}" target="_blank"
+                                class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="Lihat CV"><i class="bi bi-file-earmark-text"></i></a>
                         @else
                             <span class="badge badge-sm bg-gradient-danger">Tidak ada</span>
                         @endif
@@ -87,3 +88,16 @@
         </x-slot:tbody>
     </x-table>
 @endsection
+
+@once
+    @push('scripts')
+        <script type="module">
+            $('.button-appliances').on('click', function(){
+                const buttonId = $(this).attr('id');
+                const status = $(this).data('status');
+
+                utils.useStatusButton({buttonId: buttonId, status: status})
+            })
+        </script>
+    @endpush
+@endonce

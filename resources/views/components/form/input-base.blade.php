@@ -5,8 +5,9 @@
     @endif
 
     <input type="{{ $type }}" class="form-control" id="{{ $id }}" name="{{ $name }}"
-        value="{{ $value ?? '' }}" @if($disabled) style="pointer-events: none;" @endif
-        placeholder="ex: {{ $placeholder }}" />
+        value="{{ $value ?? '' }}" @if($disabled) style="pointer-events: none; background-color: #e9ecef;" @endif
+        {{ $attributes->get('required') ? 'required' : '' }} {{ $attributes->get('readonly') ? 'readonly' : '' }}
+        {{ $attributes->get('disabled') ? 'disabled' : '' }} {{ $attributes->get('placeholder') ? 'placeholder=' . $attributes->get('placeholder') : '' }} />
 
     @error($name)
         <x-validation :message="$message" />

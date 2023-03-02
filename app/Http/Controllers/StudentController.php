@@ -161,9 +161,6 @@ class StudentController extends Controller
             'name' => 'required|string|max:255',
             'skills' => 'nullable|string',
             'course_id' => 'required|exists:courses,id',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date',
-            'extend' => 'nullable|numeric',
         ]);
 
         $user = User::whereRelation('roles', 'name', 'student')
@@ -178,6 +175,12 @@ class StudentController extends Controller
             $user->courses()->sync($request->course_id);
 
             if ($company) {
+                $request->validate([
+                    'start_date' => 'required|date',
+                    'end_date' => 'required|date',
+                    'extend' => 'nullable|integer',
+                ]);
+
                 $user->internDates()->where('company_id', $company)->update([
                     'start_date' => $request->start_date,
                     'end_date' => $request->end_date,

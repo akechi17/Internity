@@ -2,13 +2,13 @@
 
 @section('dashboard-content')
     <x-form.form formTitle="Edit Siswa" formMethod="POST" spoofMethod="PUT"
-        formAction="{{ route('students.update', encrypt($student->id)) }}">
+        formAction="{{ route('students.update', ['id'=>encrypt($student->id), 'company'=> $company ? encrypt($company->id) : null]) }}">
         @error(['name', 'course_id', 'skills', 'company', 'start_date', 'end_date', 'extend'])
             <div class="alert alert-dark text-white help-block">{{ $message }}</div>
         @enderror
         <x-slot:formBody>
-            <x-form.input-base label="Nama" id="input-name" type="text" name="name" value="{{ $student->name }}" />
-            <x-form.select label="Kelas" id="input-course" name="course_id">
+            <x-form.input-base label="Nama" id="input-name" type="text" name="name" required value="{{ $student->name }}" />
+            <x-form.select label="Kelas" id="input-course" required name="course_id">
                 <option selected hidden>Pilih</option>
                 <x-slot:options>
                     @foreach ($courses as $key => $value)

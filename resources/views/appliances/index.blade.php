@@ -38,14 +38,14 @@
                         <form action="{{ route('appliances.accept', encrypt($data->id)) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <button id="button-{{ $data->id }}" class="btn btn-info text-xs"
+                            <button id="button-{{ $data->id }}" class="btn btn-success text-xs"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Terima" type="submit"><i
                                 class="bi bi-check-lg"></i></button>
                         </form>
                         <form action="{{ route('appliances.reject', encrypt($data->id)) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <button id="button-{{ $data->id }}" class="btn btn-info text-xs"
+                            <button id="button-{{ $data->id }}" class="btn btn-danger text-xs"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tolak" type="submit"><i
                                 class="bi bi-x-lg"></i></button>
                         </form>

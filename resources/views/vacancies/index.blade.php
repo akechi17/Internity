@@ -47,7 +47,7 @@
                             <form action="{{ route('vacancies.destroy', encrypt($data->id)) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button id="button-{{ $data->id }}" class="button-delete btn btn-info text-xs"
+                                <button id="button-{{ $data->id }}" class="button-delete btn btn-danger text-xs"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
                                         class="bi bi-trash"></i></button>
                             </form>

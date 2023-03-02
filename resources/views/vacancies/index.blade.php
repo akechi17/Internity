@@ -5,7 +5,8 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table routeCreate="{{ route('vacancies.create', ['company' => encrypt($company)]) }}" pageName="Lowongan" :pagination="$vacancies" :tableData="$vacancies">
+    <x-table routeCreate="{{ route('vacancies.create', ['company' => encrypt($company)]) }}" pageName="Lowongan"
+        :pagination="$vacancies" :tableData="$vacancies">
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
@@ -29,9 +30,9 @@
             @foreach ($vacancies as $data)
                 <tr>
                     <td class="text-center">
-                        <a href="{{ route('appliances.index', ['vacancy' => encrypt($data->id)]) }}" class="btn btn-info text-xs"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pendaftar"><i
-                                class="bi bi-people"></i></a>
+                        <a href="{{ route('appliances.index', ['vacancy' => encrypt($data->id)]) }}"
+                            class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="Pendaftar"><i class="bi bi-people"></i></a>
                         <a href="{{ route('vacancies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
@@ -57,7 +58,13 @@
                     </td>
                     <td class="text-sm text-center">{{ $data->name }}</td>
                     <td class="text-sm text-center">{{ $data->category }}</td>
-                    <td class="text-sm">{{ $data->description }}</td>
+                    <td class="text-sm">
+                        <input type="hidden" id="rich-read-{{ $data->id }}" value="{!! $data->description !!}" />
+                        <div id="blank-toolbar" hidden></div>
+                        <trix-editor contenteditable=false toolbar="blank-toolbar" class="trix-content"
+                            input="rich-read-{{ $data->id }}">
+                        </trix-editor>
+                    </td>
                     <td class="text-sm text-center">{{ $data->slots }}</td>
                 </tr>
             @endforeach

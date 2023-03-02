@@ -300,6 +300,9 @@ class ApplianceController extends Controller
             if ($user->companies()->where('company_id', $appliance->vacancy->company_id)->exists()) {
                 $user->companies()->detach($appliance->vacancy->company_id);
             }
+            if ($user->internDates()->where('company_id', $appliance->vacancy->company_id)->exists()) {
+                $user->internDates()->where('company_id', $appliance->vacancy->company_id)->delete();
+            }
             $context = [
                 'status' => true,
                 'message' => 'Data berhasil diperbarui',

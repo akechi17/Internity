@@ -16,13 +16,19 @@ class CompanyController extends Controller
         $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
         $isManager = auth()->user()->hasRole('manager');
         $isTeacher = auth()->user()->hasRole('teacher');
+        $isMentor = auth()->user()->hasRole('mentor');
 
-        $school ??= auth()->user()->schools()->first()->id;
-        $department = $isTeacher
-            ? auth()->user()->departments()->first()->id
-            : $department;
+        if (! $isMentor) {
+            $school ??= auth()->user()?->schools()?->first()?->id;
+            $department = $isTeacher
+                ? auth()->user()->departments()->first()->id
+                : $department;
+        }
 
         $companies = Company::query();
+        if ($isMentor) {
+            $companies = $companies->where('id', auth()->user()->companies()->first()->id);
+        }
         if ($department) {
             $companies->where('department_id', $department);
         }

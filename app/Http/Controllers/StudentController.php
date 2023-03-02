@@ -12,6 +12,7 @@ class StudentController extends Controller
     {
         $isManager = auth()->user()->hasRole('manager');
         $isTeacher = auth()->user()->hasRole('teacher');
+        $isMentor = auth()->user()->hasRole('mentor');
 
         $users = User::whereRelation('roles', 'name', 'student');
             if ($search) {
@@ -38,6 +39,9 @@ class StudentController extends Controller
             }
             if ($isTeacher) {
                 $users = $users->teacher(auth()->user()->departments()->first()->id);
+            }
+            if ($isMentor) {
+                $users = $users->mentor(auth()->user()->companies()->first()->id);
             }
             if ($sort) {
                 if ($sort[0] == '-') {

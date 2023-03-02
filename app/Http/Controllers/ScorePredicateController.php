@@ -13,13 +13,17 @@ class ScorePredicateController extends Controller
     public function getData($schoolId, $search=null, $sort=null)
     {
         $isAdmin = auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin');
+        $isMentor = auth()->user()->hasRole('mentor');
 
-        $schoolId  = ! $isAdmin ? auth()->user()->schools()->first()->id : $schoolId;
+        if (! $isMentor) {
+            $schoolId  = ! $isAdmin ? auth()->user()->schools()->first()->id : $schoolId;
+        } else {
+            $schoolId = auth()->user()->companies()->first()->department->school_id;
+        }
+
 
         $scorePredicates = ScorePredicate::whereHas('school', function ($query) use ($schoolId, $isAdmin) {
-            return $isAdmin
-            ? $query->where('id', $schoolId)
-            : $query->where('id', auth()->user()->schools()->first()->id);
+            return $query->where('id', $schoolId);
             })
             ->when($search, function ($query, $search) {
                 return $query->search($search);

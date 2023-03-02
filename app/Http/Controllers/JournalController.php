@@ -203,4 +203,25 @@ class JournalController extends Controller
 
         return view('journals.index', $context);
     }
+
+    public function approve($id)
+    {
+        $journal = Journal::find(decrypt($id));
+        if ($journal) {
+            $journal->update(['is_approved' => true]);
+            $context = [
+                'status' => true,
+                'message' => 'Data jurnal berhasil diubah',
+                'journal' => $journal,
+            ];
+        } else {
+            $context = [
+                'status' => false,
+                'message' => 'Data jurnal tidak ditemukan',
+                'journal' => null,
+            ];
+        }
+
+        return back()->with($context);
+    }
 }

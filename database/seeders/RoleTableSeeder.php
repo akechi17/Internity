@@ -74,7 +74,10 @@ class RoleTableSeeder extends Seeder
         $permissions = Permission::where('name', 'like', '%vacancy%')
             ->orWhere('name', 'room-list')
             ->orWhere('name', 'room-edit')
-            ->orWhere('name', 'like', '%score%')
+            ->orWhere('name', 'score-list')
+            ->orWhere('name', 'score-edit')
+            ->orWhere('name', 'score-create')
+            ->orWhere('name', 'score-delete')
             ->orWhere('name', 'like', '%appliance%')
             ->orWhere('name', 'score-predicate-list')
             ->orWhere('name', 'presence-list')
@@ -82,7 +85,7 @@ class RoleTableSeeder extends Seeder
             ->orWhere('name', 'company-list')
             ->orWhere('name', 'company-edit')
             ->orWhere('name', 'journal-list')
-            ->orWhere('name', 'journal-edit')
+            ->orWhere('name', 'journal-approve')
             ->orWhere('name', 'student-list')
             ->pluck('id', 'id');
         $role->syncPermissions($permissions);

@@ -76,6 +76,7 @@ Route::middleware(['auth'])->group( function () {
     Route::resource('score-predicates', ScorePredicateController::class);
 
     Route::resource('journals', JournalController::class);
+    Route::put('journals/{id}/approve', [JournalController::class, 'approve'])->name('journals.approve');
 
     Route::resource('presences', PresenceController::class);
 });

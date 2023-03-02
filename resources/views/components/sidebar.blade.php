@@ -1,3 +1,8 @@
+{{-- @php
+    dd($menus);
+@endphp --}}
+
+
 <!-- Sidenav Start -->
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-white"
     id="sidenav-main">
@@ -19,15 +24,36 @@
         <ul class="navbar-nav">
             <!-- Nav-Dashboard Start-->
             @foreach ($menus as $item)
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{ url($item->url) }}">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center text-white">
-                            <iconify-icon icon="{{ $item->icon }}"></iconify-icon>
+                @if ($item->children()->count() == 0)
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url($item->url) }}">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center text-white">
+                                <iconify-icon icon="{{ $item->icon }}"></iconify-icon>
+                            </div>
+                            <span class="nav-link-text ms-1">{{ $item->name }}</span>
+                        </a>
+                    </li>
+                @endif
+
+                @if ($item->children()->count() > 0)
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Dropdown button
+                            </button>
+                            <ul class="dropdown-menu">
+                                @foreach ($item->children as $submenu)
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ url($submenu->url) }}">{{ $submenu->name }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
-                        <span class="nav-link-text ms-1">{{ $item->name }}</span>
-                    </a>
-                </li>
+                    </li>
+                @endif
             @endforeach
 
             <li class="nav-item">

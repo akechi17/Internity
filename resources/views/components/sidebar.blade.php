@@ -41,7 +41,11 @@
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                Dropdown button
+                                <div
+                                    class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center text-white">
+                                    <iconify-icon icon="{{ $item->icon }}"></iconify-icon>
+                                </div>
+                                <span class="nav-link-text ms-1"">{{ $item->name }}</span>
                             </button>
                             <ul class="dropdown-menu">
                                 @foreach ($item->children as $submenu)

@@ -5,7 +5,7 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table routeCreate="{{ route('appliances.create', ['vacancies' => encrypt($vacancy->id)]) }}" pageName="Pendaftar {{ $vacancy->name }}" :pagination="$appliances" :tableData="$appliances">
+    <x-table routeCreate="{{ route('appliances.create', ['vacancies' => encrypt($vacancy->id)]) }}" pageName="Pendaftar {{ $vacancy->name }}" permissionCreate="appliance-create" :pagination="$appliances" :tableData="$appliances">
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
@@ -72,13 +72,15 @@
                         @endif
                     </td>
                     <td class="text-sm text-center">
-                        @if ($data->status == 'accepted')
-                            <span class="badge badge-sm bg-gradient-success">Diterima</span>
-                        @elseif ($data->status == 'rejected')
-                            <span class="badge badge-sm bg-gradient-danger">Ditolak</span>
-                        @elseif($data->status == 'pending')
-                            <span class="badge badge-sm bg-gradient-warning">Menunggu</span>
-                        @endif
+                        @can('appliance-approve')
+                            @if ($data->status == 'accepted')
+                                <span class="badge badge-sm bg-gradient-success">Diterima</span>
+                            @elseif ($data->status == 'rejected')
+                                <span class="badge badge-sm bg-gradient-danger">Ditolak</span>
+                            @elseif($data->status == 'pending')
+                                <span class="badge badge-sm bg-gradient-warning">Menunggu</span>
+                            @endif
+                        @endcan
                     </td>
                 </tr>
             @endforeach

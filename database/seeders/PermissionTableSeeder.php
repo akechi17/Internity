@@ -94,7 +94,6 @@ class PermissionTableSeeder extends Seeder
             'presence-status-delete',
 
             'appliance-list',
-            'appliance-create',
             'appliance-edit',
             'appliance-delete',
             'appliance-approve'

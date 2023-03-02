@@ -36,7 +36,7 @@
                         <form action="{{ route('presence-statuses.destroy', encrypt($data->id)) }}" method="POST" class="m-0">
                             @csrf
                             @method('DELETE')
-                            <button id="button-{{ $data->id }}" class="button-delete btn btn-info text-xs ms-1"
+                            <button id="button-{{ $data->id }}" class="button-delete btn btn-danger text-xs ms-1"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
                                     class="bi bi-trash"></i></button>
                         </form>

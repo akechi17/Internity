@@ -52,12 +52,12 @@
 @once
     @push('scripts')
         <script type="module">
-            //Deelete Data Function
+            //Delete Data Function
         $(document).ready(function() {
             $('.button-delete').on('click', function(){
                 const buttonId = $(this).attr('id');
 
-                window.utils.useDeleteButton(buttonId);
+                utils.useDeleteButton({buttonId: buttonId});
             })
         });
         </script>

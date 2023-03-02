@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'database' => ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'SQLite', 'MariaDB', 'Oracle Database', 'Cassandra', 'CouchDB', 'Firebase', 'SQL Server'],
         ];
         return [
-            'name' => fake()->name(),
+            'name' => explode('M.', explode('S.', fake()->name())[0])[0],
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => bcrypt('123qweasd'), // password

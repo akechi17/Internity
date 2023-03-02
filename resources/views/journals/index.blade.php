@@ -39,7 +39,7 @@
                             @method('PUT')
                             {{-- <input type="hidden" name="is_approved" value="{{ $data->is_approved ? 0 : 1 }}"> --}}
                             <button type="submit" class="btn btn-info text-xs"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah Status">
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah Status" onclick="approved()">
                                 <i class="bi bi-clipboard-check"></i></button>
                         </form>
                     </td>
@@ -56,3 +56,32 @@
         </x-slot:tbody>
     </x-table>
 @endsection
+
+<script>
+    function hapus() {
+        swal({
+            title: "Apakah Anda yakin?",
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "Batal",
+                    value: null,
+                    visible: true,
+                    className: "btn btn-primary",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "Setujui",
+                    value: true,
+                    visible: true,
+                    className: "btn btn-success",
+                    closeModal: true,
+                },
+            },
+        }).then((value) => {
+            if (value) {
+                trigger
+            }
+        });
+    }
+</script>

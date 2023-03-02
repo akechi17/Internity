@@ -67,6 +67,10 @@
                     </tr>
                 @else
                     @foreach ($student->companies()->get() as $company)
+                        @php
+                            $startDate = $student->internDates()->where('company_id', $company->id)->first()?->start_date;
+                            $endDate = $student->internDates()->where('company_id', $company->id)->first()?->end_date;
+                        @endphp
                         <tr>
                             <td class="text-center">
                                 <a href="{{ route('presences.index', encrypt($student->id)) }}" class="btn btn-info text-xs"
@@ -92,9 +96,18 @@
                             </td>
                             <td class="text-sm">{{ $company->name }}</td>
                             <td class="text-sm">
-                                {{ \Carbon\Carbon::parse($student->internDates()->where('company_id', $company->id)->first()?->start_date)->format('d-m-Y') }}</td>
+                                @if ($startDate)
+                                    {{ \Carbon\Carbon::parse($startDate)->format('d-m-Y') }}
+                                @else
+                                    <p class="badge badge-sm bg-gradient-danger }}">Belum Diisi</p>
+                                @endif
+                            </td>
                             <td class="text-sm">
-                                {{ \Carbon\Carbon::parse($student->internDates()->where('company_id', $company->id)->first()?->end_date)->format('d-m-Y') }}</td>
+                                @if ($endDate)
+                                    {{ \Carbon\Carbon::parse($endDate)->format('d-m-Y') }}
+                                @else
+                                    <p class="badge badge-sm bg-gradient-danger }}">Belum Diisi</p>
+                                @endif
                             <td class="text-sm text-center">
                                 {{ $student->internDates()->where('company_id', $company->id)->first()?->extend }}</td>
                         </tr>

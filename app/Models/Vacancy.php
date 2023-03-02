@@ -18,6 +18,7 @@ class Vacancy extends Model
         'description',
         'status',
         'slots',
+        'skills',
         'company_id',
     ];
 

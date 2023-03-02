@@ -136,7 +136,21 @@ return [
             // 'users' => [
             //     'filterableAttributes'=> ['id', 'name', 'email'],
             // ],
+            'vacancies' => [
+                'filterableAttributes' => ['name', 'category', 'description', 'skills'],
+                'searchableAttributes' => ['name', 'category', 'description', 'skills'],
+                'minWordSizefor1Typo' => 3,
+                'minWordSizefor2Typos' => 4,
+                'typoTolerance' => 'min',
+                'synonyms' => [
+                    'python' => ['py','phyton', 'phiton'],
+                    'linux' => ['linxus', 'linuzus', 'linuks', 'linukz', 'ubuntu', 'debian', 'sysadmin', 'systemadmin', 'systemadminist'],
+                    'mikrotik' => ['mikrotic', 'mikrotikus', 'mikrotikos', 'microtic', 'microtik'],
+                    'javascript' => ['js', 'jscript', 'jscriptus', 'jscriptos', 'jscriptum',],
+                    'docker' => ['dokcer'],
+                ]
+            ]
         ],
-    ],
+    ]
 
 ];

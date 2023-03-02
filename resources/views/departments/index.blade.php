@@ -23,8 +23,8 @@
         <x-slot:tbody>
             @foreach ($departments as $data)
                 <tr>
-                    <td class="text-center">
-                        <a href="{{ route('departments.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
+                    <td class="d-flex justify-content-center">
+                        <a href="{{ route('departments.edit', encrypt($data->id)) }}" class="btn btn-info text-xs me-2"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
                         <form action="{{ route('departments.destroy', encrypt($data->id)) }}" method="POST" class="m-0">
@@ -34,7 +34,7 @@
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
                                     class="bi bi-trash"></i></button>
                         </form>
-                        <a href="{{ route('courses.index', ['department' => encrypt($data->id)]) }}" class="btn btn-info text-xs"
+                        <a href="{{ route('courses.index', ['department' => encrypt($data->id)]) }}" class="btn btn-info text-xs ms-2"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Kelas"><i
                                 class="bi bi-book-half"></i></a>
                     </td>

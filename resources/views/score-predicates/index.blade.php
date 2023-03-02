@@ -32,14 +32,14 @@
         <x-slot:tbody>
             @foreach ($scorePredicates as $data)
                 <tr>
-                    <td class="text-center">
-                        <a href="{{ route('score-predicates.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
+                    <td class="d-flex align-items-center justify-content-center">
+                        <a href="{{ route('score-predicates.edit', encrypt($data->id)) }}" class="btn btn-info text-xs me-1"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
                         <form action="{{ route('score-predicates.destroy', encrypt($data->id)) }}" method="POST" class="m-0">
                             @csrf
                             @method('DELETE')
-                            <button id="button-{{ $data->id }}" class="button-delete btn btn-info text-xs"
+                            <button id="button-{{ $data->id }}" class="button-delete btn btn-info text-xs ms-1"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
                                     class="bi bi-trash"></i></button>
                         </form>

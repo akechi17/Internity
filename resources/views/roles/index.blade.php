@@ -41,7 +41,7 @@
                     <td class="text-sm text-center">{{ $data->name }}</td>
                     <td class="text-sm">{{ $data->permissions->implode('name', ', ') }}</td>
                     <td class="text-center">
-                        <p class="badge badge-sm {{ $data->status ? 'bg-gradient-success' : 'bg-gradient-danger' }}">{{ $data->status ? 'Aktif' : 'Nonaktif' }}</p>
+                        <p class="badge badge-sm {{ $data->status ? 'bg-gradient-success' : 'bg-gradient-danger' }}">{{ $data->status ? 'Aktif' : 'Inaktif' }}</p>
                     </td>
                 </tr>
             @endforeach

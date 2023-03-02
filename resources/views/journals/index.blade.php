@@ -34,13 +34,13 @@
             @foreach ($journals as $data)
                 <tr>
                     <td class="text-center">
-                        <form action="" method="POST">
+                        <form action="" method="POST" id="formApprove">
                             @csrf
                             @method('PUT')
                             {{-- <input type="hidden" name="is_approved" value="{{ $data->is_approved ? 0 : 1 }}"> --}}
-                            <button type="submit" class="btn btn-info text-xs"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah Status" onclick="approved()">
-                                <i class="bi bi-clipboard-check"></i></button>
+                            <button id="approve" class="btn btn-info text-xs"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah Status" type="button"><i
+                                    class="bi bi-clipboard-check"></i></button>
                         </form>
                     </td>
                     <td class="text-sm text-center">{{ $data->date }}</td>
@@ -57,12 +57,16 @@
     </x-table>
 @endsection
 
-<script>
-    function hapus() {
-        swal({
-            title: "Apakah Anda yakin?",
-            icon: "warning",
-            buttons: {
+@push('scripts')
+<script type="module">
+    $(document).ready(function() {
+        $('#approve').on('click', function() {
+            window
+            .swal({
+                title: "Apakah anda yakin?",
+                text: "Anda akan menyetujui tindakan ini",
+                icon: "warning",
+                buttons: {
                 cancel: {
                     text: "Batal",
                     value: null,
@@ -71,17 +75,20 @@
                     closeModal: true,
                 },
                 confirm: {
-                    text: "Setujui",
+                    text: "Setuju",
                     value: true,
                     visible: true,
                     className: "btn btn-success",
                     closeModal: true,
                 },
-            },
-        }).then((value) => {
-            if (value) {
-                trigger
-            }
+                },
+            })
+            .then((value) => {
+                if (value) {
+                    $('#formApprove').trigger('submit');
+                }
+            });
         });
-    }
+    });
 </script>
+@endpush

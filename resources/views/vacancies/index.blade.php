@@ -18,6 +18,9 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Kategori
             </th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+                Keahlian
+            </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-50">
                 Deskripsi
             </th>
@@ -58,6 +61,15 @@
                     </td>
                     <td class="text-sm text-center">{{ $data->name }}</td>
                     <td class="text-sm text-center">{{ $data->category }}</td>
+                    <td class="text-sm">
+                        <ul>
+                            @if ($data->skills)
+                                @foreach (explode(",", $data->skills) as $skill)
+                                    <li>{{ $skill }}</li>
+                                @endforeach
+                            @endif
+                        </ul>
+                    </td>
                     <td class="text-sm">
                         <input type="hidden" id="rich-read-{{ $data->id }}" value="{!! $data->description !!}" />
                         <div id="blank-toolbar" hidden></div>

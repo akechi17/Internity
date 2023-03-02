@@ -11,6 +11,11 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                 Kelola
             </th>
+            @role('superadmin|admin|manager')
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-14">
+                    Jurusan
+                </th>
+            @endrole
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-14">
                 Nama
             </th>
@@ -55,6 +60,9 @@
                             </form>
                         @endcan
                     </td>
+                    @role('superadmin|admin|manager')
+                        <td class="text-sm text-center">{{ $data->department->name }}</td>
+                    @endrole
                     <td class="text-sm">{{ $data->name }}</td>
                     <td class="text-sm">{{ $data->category }}</td>
                     <td class="text-sm">{{ $data->address }}</td>

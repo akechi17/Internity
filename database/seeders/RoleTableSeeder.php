@@ -55,6 +55,7 @@ class RoleTableSeeder extends Seeder
             ->orWhere('name', 'like', '%vacancy%')
             ->orWhere('name', 'like', '%course%')
             ->orWhere('name', 'like', '%room%')
+            ->orWhere('name', 'like', '%user%')
             ->orWhere('name', 'like', '%company%')
             ->orWhere('name', 'score-list')
             ->orWhere('name', 'like', '%news%')

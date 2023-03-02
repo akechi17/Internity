@@ -22,43 +22,49 @@ class UserController extends Controller
 
     public function getData($search=null, $status=null, $school=null, $department=null, $sort=null)
     {
+        $isSuperadmin = auth()->user()->hasRole('super-admin');
         $isManager = auth()->user()->hasRole('manager');
         $isTeacher = auth()->user()->hasRole('teacher');
 
-        $users = User::when($search, function ($query, $search) {
-                return $query->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%');
-            })
-            ->when($status, function ($query, $status) {
-                return $query->where('status', $status);
-            })
-            ->when($school, function ($query, $school) {
-                return $query->whereHas('schools', function($query) use ($school) {
-                    $query->where('school_id', $school);
-                });
-            })
-            ->when($department, function ($query, $department) {
-                return $query->whereHas('departments', function($query) use ($department) {
-                    $query->where('department_id', $department);
-                });
-            })
-            ->when($isManager, function ($query) {
-                return $query->manager(auth()->user()->schools()->first()->id);
-            })
-            ->when($isTeacher, function ($query) {
-                return $query->teacher(auth()->user()->departments()->first()->id);
-            })
-            ->when($sort, function ($query, $sort) {
-                if ($sort[0] == '-') {
-                    $sort = substr($sort, 1);
-                    $sortType = 'desc';
-                } else {
-                    $sortType = 'asc';
-                }
+        $users = User::query();
+        if ($search) {
+            $users->search($search);
+        }
+        if ($status) {
+            $users->where('status', $status);
+        }
+        if ($school) {
+            $users->whereHas('schools', function($query) use ($school) {
+                $query->where('school_id', $school);
+            });
+        }
+        if ($department) {
+            $users->whereHas('departments', function($query) use ($department) {
+                $query->where('department_id', $department);
+            });
+        }
+        if (! $isSuperadmin) {
+            $users->whereHas('roles', function($query) {
+                $query->where('name', '!=', 'super-admin');
+            });
+        }
+        if ($isManager) {
+            $users->manager(auth()->user()->schools()->first()->id);
+        }
+        if ($isTeacher) {
+            $users->teacher(auth()->user()->departments()->first()->id);
+        }
+        if ($sort) {
+            if ($sort[0] == '-') {
+                $sort = substr($sort, 1);
+                $sortType = 'desc';
+            } else {
+                $sortType = 'asc';
+            }
 
-                return $query->orderBy($sort, $sortType);
-            })
-            ->paginate(10);
+            $users->orderBy($sort, $sortType);
+        }
+        $users = $users->paginate(10);
 
         if ($users->count() > 0) {
             $context = [

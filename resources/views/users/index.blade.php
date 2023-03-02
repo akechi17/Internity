@@ -7,19 +7,19 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Kelola
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20">
                 Nama
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Email
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Role
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Last Login
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Last Login IP
             </th>
         </x-slot:thead>
@@ -27,15 +27,15 @@
         <x-slot:tbody>
             @foreach ($users as $user)
                 <tr>
-                    <td class="text-center">
-                        <a href="{{ route('users.edit', encrypt($user->id)) }}" class="btn btn-info text-xs"
+                    <td class="d-flex align-items-center justify-content-center">
+                        <a href="{{ route('users.edit', encrypt($user->id)) }}" class="btn btn-info text-xs me-1"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i></a>
 
-                        <form action="{{ route('users.destroy', encrypt($user->id)) }}" method="POST">
+                        <form action="{{ route('users.destroy', encrypt($user->id)) }}" method="POST" class="m-0">
                             @csrf
                             @method('DELETE')
-                            <button id="button-{{ $user->id }}" class="button-delete btn btn-info text-xs"
+                            <button id="button-{{ $user->id }}" class="button-delete btn btn-info text-xs ms-1"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
                                     class="bi bi-trash"></i></button>
                         </form>

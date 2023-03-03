@@ -4,7 +4,7 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table pageName="Data Monitoring {{ $userName }}" :pagination="$monitors" :tableData="$monitors">
+    <x-table routeCreate="{{ route('monitors.create', ['user'=>request()->query('user'), 'company'=>request()->query('company')]) }}" permissionCreate="monitor-create" pageName="Data Monitoring {{ $userName }}" :pagination="$monitors" :tableData="$monitors">
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
@@ -40,13 +40,27 @@
                                         class="bi bi-check-lg"></i></button>
                             </form>
                         @endcan --}}
+                        @can('monitor-edit')
+                            <a href="{{ route('monitors.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
+                                    class="bi bi-pencil-square"></i></a>
+                        @endcan
+                        @can('news-delete')
+                            <form action="{{ route('monitors.destroy', encrypt($data->id)) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button id="button-{{ $data->id }}" class="button-delete btn btn-danger text-xs"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
+                                        class="bi bi-trash"></i></button>
+                            </form>
+                        @endcan
                     </td>
                     <td class="text-sm text-center">{{ \Carbon\Carbon::parse($data->date)->format('d-m-Y') }}</td>
                     <td class="text-sm text-center">{{ $data->notes }}</td>
-                    <td class="text-sm">{{ $data->suggest }}</td>
+                    <td class="text-sm text-center">{{ $data->suggest }}</td>
                     <td class="text-sm text-center">
                         @if ($data->attachment)
-                            <a href="{{ url('storage/' . $data->attachment) }}" target="_blank"
+                            <a href="{{ url($data->attachment) }}" target="_blank"
                                 class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 title="Lihat Lampiran"><i class="bi bi-file-earmark-text"></i></a>
                         @else

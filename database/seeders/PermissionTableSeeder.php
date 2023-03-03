@@ -96,7 +96,12 @@ class PermissionTableSeeder extends Seeder
             'appliance-list',
             'appliance-edit',
             'appliance-delete',
-            'appliance-approve'
+            'appliance-approve',
+
+            'monitor-list',
+            'monitor-create',
+            'monitor-edit',
+            'monitor-delete',
         ];
 
         foreach ($permissions as $permission) {

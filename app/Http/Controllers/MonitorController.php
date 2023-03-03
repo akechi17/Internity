@@ -55,9 +55,20 @@ class MonitorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $userId = $request->query('user');
+        ! $userId ? abort(400, 'Missing user id') : $userId = decrypt($userId);
+
+        $companyId = $request->query('company');
+        ! $companyId ? abort(400, 'Missing company id') : $companyId = decrypt($companyId);
+
+        $context = [
+            'userId' => $userId,
+            'companyId' => $companyId,
+        ];
+
+        return view('monitors.create', $context);
     }
 
     /**
@@ -68,7 +79,28 @@ class MonitorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'company_id' => 'required|exists:companies,id',
+            'date' => 'required|date',
+            'attachment' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx|max:10000',
+            'notes' => 'nullable|string',
+            'suggest' => 'nullable|string',
+            'match' => 'required|integer|between:1,4',
+        ]);
+
+        $monitor = Monitor::create($request->all());
+
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $fileName = $monitor->id . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(storage_path('app/public/monitors'), $fileName);
+            $monitor->update([
+                'attachment' => 'storage/monitors/' . $fileName,
+            ]);
+        }
+
+        return redirect()->route('monitors.index', ['user' => encrypt($request->user_id), 'company' => encrypt($request->company_id)])->with('success', 'Data monitor berhasil ditambahkan');
     }
 
     /**
@@ -79,7 +111,24 @@ class MonitorController extends Controller
      */
     public function show($id)
     {
-        //
+        $id = decrypt($id);
+        $monitor = Monitor::find($id);
+
+        if ($monitor) {
+            $context = [
+                'status' => true,
+                'message' => 'Data monitor ditemukan',
+                'monitor' => $monitor,
+            ];
+        } else {
+            $context = [
+                'status' => false,
+                'message' => 'Data monitor tidak ditemukan',
+                'monitor' => [],
+            ];
+        }
+
+        return view('monitors.show', $context);
     }
 
     /**
@@ -90,7 +139,24 @@ class MonitorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id = decrypt($id);
+        $monitor = Monitor::find($id);
+
+        if ($monitor) {
+            $context = [
+                'status' => true,
+                'message' => 'Data monitor ditemukan',
+                'monitor' => $monitor,
+            ];
+        } else {
+            $context = [
+                'status' => false,
+                'message' => 'Data monitor tidak ditemukan',
+                'monitor' => [],
+            ];
+        }
+
+        return view('monitors.edit', $context);
     }
 
     /**
@@ -102,7 +168,28 @@ class MonitorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $id = decrypt($id);
+        $request->validate([
+            'date' => 'required|date',
+            'attachment' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx|max:10000',
+            'notes' => 'nullable|string',
+            'suggest' => 'nullable|string',
+            'match' => 'required|integer|between:1,4',
+        ]);
+
+        $monitor = Monitor::find($id);
+        $monitor->update($request->all());
+
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $fileName = $monitor->id . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(storage_path('app/public/monitors'), $fileName);
+            $monitor->update([
+                'attachment' => 'storage/monitors/' . $fileName,
+            ]);
+        }
+
+        return redirect()->route('monitors.index', ['user' => encrypt($monitor->user_id), 'company' => encrypt($monitor->company_id)])->with('success', 'Data monitor berhasil diubah');
     }
 
     /**
@@ -113,6 +200,10 @@ class MonitorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id = decrypt($id);
+        $monitor = Monitor::find($id);
+        $monitor->delete();
+
+        return redirect()->route('monitors.index', ['user' => encrypt($monitor->user_id), 'company' => encrypt($monitor->company_id)])->with('success', 'Data monitor berhasil dihapus');
     }
 }

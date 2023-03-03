@@ -2,6 +2,7 @@
 
 use App\Models\Appliance;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
@@ -79,4 +80,6 @@ Route::middleware(['auth'])->group( function () {
     Route::put('journals/{id}/approve', [JournalController::class, 'approve'])->name('journals.approve');
 
     Route::resource('presences', PresenceController::class);
+
+    Route::resource('news', NewsController::class);
 });

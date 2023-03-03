@@ -1,5 +1,5 @@
 <div>
-    <form action="{{ $formAction }}" method="{{ $formMethod }}" class="form-data">
+    <form action="{{ $formAction }}" method="{{ $formMethod }}" class="form-data" enctype="{{ $enctype ?? '' }}">
         @csrf
         @method($spoofMethod ?? $formMethod)
 

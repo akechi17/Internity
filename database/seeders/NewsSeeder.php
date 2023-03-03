@@ -28,5 +28,15 @@ class NewsSeeder extends Seeder
                 'newsable_id' => $teacher->departments->first()->id,
             ]);
         }
+
+        $manager = User::whereHas('roles', function ($query) {
+            $query->where('name', 'manager');
+        })->first();
+
+        News::factory()->count(3)->create([
+            'user_id' => $manager->id,
+            'newsable_type' => 'App\Models\School',
+            'newsable_id' => $manager->schools->first()->id,
+        ]);
     }
 }

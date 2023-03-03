@@ -14,8 +14,7 @@ class table extends Component
      */
     public function __construct($pageName, $pagination, $tableData, $routeCreate = null, $permissionCreate = null)
     {
-        //
-        $this->routeCreate = $routeCreate;
+        $this->routeCreate = str_replace('&amp;', '&', $routeCreate);
         $this->pageName = $pageName;
         $this->pagination = $pagination;
         $this->tableData = $tableData;

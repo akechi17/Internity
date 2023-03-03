@@ -124,7 +124,7 @@ class UserController extends Controller
         $file = $request->file('resume');
         $filename = $file->getClientOriginalName();
         $path = $file->move(storage_path('app/public/resumes'), $filename);
-        $user->resume = 'resumes/' . $filename;
+        $user->resume = 'storage/resumes/' . $filename;
         $user->save();
         return response()->json([
             'message' => 'CV berhasil diunggah',

@@ -57,7 +57,7 @@ class MenuSeeder extends Seeder
             [
                 'name' => 'Berita Sekolah',
                 'icon' => 'mdi:newspaper',
-                'url' => 'news?category=school',
+                'url' => 'news?category=school&school=' . encrypt($school->id),
                 'status' => 1,
                 'order' => 31,
                 'parent_id' => 4,
@@ -66,7 +66,7 @@ class MenuSeeder extends Seeder
             [
                 'name' => 'Berita Jurusan',
                 'icon' => 'mdi:newspaper',
-                'url' => 'news?category=department',
+                'url' => 'news?category=department&school=' . encrypt($school->id),
                 'status' => 1,
                 'order' => 32,
                 'parent_id' => 4,

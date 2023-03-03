@@ -33,8 +33,10 @@
                                 @csrf
                                 @method('PUT')
                                 {{-- <input type="hidden" name="is_approved" value="{{ $data->is_approved ? 0 : 1 }}"> --}}
-                                <button id="approve" class="btn {{ $data->is_approved ? 'btn-secondary' : 'btn-success' }} text-xs" style="{{ $data->is_approved ? 'pointer-events: none' : '' }}"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah Status" type="button"><i
+                                <button id="button-accept-{{ $data->id }}"
+                                    class="btn button-journals {{ $data->is_approved ? 'btn-secondary' : 'btn-success' }} text-xs"
+                                    style="{{ $data->is_approved ? 'pointer-events: none' : '' }}" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" title="Ubah Status" type="button"><i
                                         class="bi bi-check-lg"></i></button>
                             </form>
                         @endcan
@@ -52,15 +54,18 @@
         </x-slot:tbody>
     </x-table>
     <div style="float:right">
-        <a href="{{ route('students.index', encrypt($data->id)) }}" class="btn bg-gradient-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Siswa">
+        <a href="{{ route('students.index', encrypt($data->id)) }}" class="btn bg-gradient-info text-xs"
+            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Siswa">
             <i class="bi bi-arrow-left"></i></a>
     </div>
 @endsection
 
 @push('scripts')
-<script type="module">
+    <script type="module">
     $(document).ready(function() {
-        $('#approve').on('click', function() {
+        $('.button-journals').on('click', function() {
+            const buttonId = $(this).attr('id');
+
             window
             .swal({
                 title: "Apakah anda yakin?",
@@ -85,7 +90,7 @@
             })
             .then((value) => {
                 if (value) {
-                    $('#formApprove').trigger('submit');
+                    $(`#${buttonId}`).closest("form").trigger('submit');
                 }
             });
         });

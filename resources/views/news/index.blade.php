@@ -1,7 +1,20 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table routeCreate="{{ route('news.create', ['category' => $category, 'school' => encrypt($selectedSchool->id)]) }}" pageName="Berita & Artikel {{ $category == 'school' ? $selectedSchool->name : $selectedDepartment->name }}" permissionCreate="news-create" roleCreate="superadmin|admin|manager" :pagination="$news" :tableData="$news">
+    <x-table routeCreate="{{ route('news.create', ['category' => $category, 'school' => encrypt($selectedSchool->id)]) }}"
+        pageName="Berita & Artikel {{ $category == 'school' ? $selectedSchool->name : $selectedDepartment->name }}"
+        permissionCreate="news-create" roleCreate="superadmin|admin|manager" :pagination="$news" :tableData="$news"
+        filter="true">
+
+        <x-slot:dropdown>
+            <x-dropdown-filter>
+                <x-slot:dropdownItems>
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                </x-slot:dropdownItems>
+            </x-dropdown-filter>
+        </x-slot:dropdown>
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">

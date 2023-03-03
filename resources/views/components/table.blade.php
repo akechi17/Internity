@@ -29,16 +29,13 @@
                     @endif
                     <!-- Add data End -->
 
+                    {{-- Filter Start --}}
+                    @if ($filter)
+                        {{ $dropdown }}
+                    @endif
+                    {{-- Filter end --}}
 
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Filter
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                        </ul>
-                    </div>
+
 
                     <div class="card-header p-0">
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center">

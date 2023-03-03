@@ -6,13 +6,13 @@ use Illuminate\View\Component;
 
 class table extends Component
 {
-    public $routeCreate, $pageName, $pagination, $tableData, $permissionCreate, $roleCreate;
+    public $routeCreate, $pageName, $pagination, $tableData, $permissionCreate, $roleCreate, $filter;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($pageName, $pagination, $tableData, $routeCreate = null, $permissionCreate = null, $roleCreate = null)
+    public function __construct($pageName, $pagination, $tableData, $routeCreate = null, $permissionCreate = null, $roleCreate = null, $filter = null)
     {
         $this->routeCreate = str_replace('&amp;', '&', $routeCreate);
         $this->pageName = $pageName;
@@ -20,6 +20,7 @@ class table extends Component
         $this->tableData = $tableData;
         $this->permissionCreate = $permissionCreate;
         $this->roleCreate = $roleCreate != null ? str_replace(' ', '|', $roleCreate) : null;
+        $this->filter = $filter;
     }
 
     /**

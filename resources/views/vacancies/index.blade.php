@@ -76,4 +76,8 @@
             @endforeach
         </x-slot:tbody>
     </x-table>
+    <div style="float:right">
+        <a href="{{ route('companies.index', encrypt($data->id)) }}" class="btn bg-gradient-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IDUKA">
+            <i class="bi bi-arrow-left"></i></a>
+    </div>
 @endsection

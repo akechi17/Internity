@@ -11,6 +11,7 @@ use App\Models\Vacancy;
 use App\Models\Department;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Nette\Utils\Random;
 
 class UserTableSeeder extends Seeder
 {
@@ -73,7 +74,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Student',
             'email' => 'student@test.dev',
             'password' => bcrypt('123qweasd'),
-            'resume' => 'resumes/CV_Hermawan.pdf'
+            'resume' => 'storage/resumes/CV_Hermawan.pdf'
         ]);
         $user->assignRole('student');
         $user->schools()->attach($school->id);
@@ -86,6 +87,16 @@ class UserTableSeeder extends Seeder
             'company_id' => $company->id,
             'user_id' => $user->id,
         ]);
+        for ($now = now(); $now >= $startDate; $now->subDays(1)) {
+            $user->presences()->create([
+                'company_id' => $company->id,
+                'presence_status_id' => 1,
+                'date' => $now->format('Y-m-d'),
+                'check_in' => $now->subMinutes(rand(0, 60))->format('H:i:s'),
+                'check_out' => $now->addHours(8)->addMinutes(rand(0, 60))->format('H:i:s'),
+                'is_approved' => $now == $startDate ? 0 : 1,
+            ]);
+        }
 
         Appliance::create([
             'user_id' => $user->id,
@@ -105,7 +116,7 @@ class UserTableSeeder extends Seeder
             'bio' => 'I am a student',
             'avatar' => 'avatars/placeholder.jpg',
             'skills' => 'PHP, Laravel, VueJS, MySQL, HTML, CSS, JavaScript, Bootstrap',
-            'resume' => 'resumes/CV_Hermawan.pdf'
+            'resume' => 'storage/resumes/CV_Hermawan.pdf'
         ]);
         $user->assignRole('student');
         $user->schools()->attach($school->id);
@@ -118,6 +129,16 @@ class UserTableSeeder extends Seeder
             'company_id' => $company->id,
             'user_id' => $user->id,
         ]);
+        for ($now = now(); $now >= $startDate; $now->subDays(1)) {
+            $user->presences()->create([
+                'company_id' => $company->id,
+                'presence_status_id' => 1,
+                'date' => $now->format('Y-m-d'),
+                'check_in' => $now->subMinutes(rand(0, 60))->format('H:i:s'),
+                'check_out' => $now->addHours(8)->addMinutes(rand(0, 60))->format('H:i:s'),
+                'is_approved' => $now == $startDate ? 0 : 1,
+            ]);
+        }
 
         Appliance::create([
             'user_id' => $user->id,
@@ -126,7 +147,7 @@ class UserTableSeeder extends Seeder
 
         $courses = Course::all();
         foreach ($courses as $course) {
-            User::factory()->count(5)->create(['resume' => 'resumes/CV_Hermawan.pdf'])->each(function ($user) use ($course) {
+            User::factory()->count(5)->create(['resume' => 'storage/resumes/CV_Hermawan.pdf'])->each(function ($user) use ($course) {
                 $user->assignRole('student');
                 $user->schools()->attach($course->department->school_id);
                 $user->departments()->attach($course->department_id);

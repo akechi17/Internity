@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Presence;
+use Illuminate\Http\Request;
 use App\Http\Requests\StorePresenceRequest;
 use App\Http\Requests\UpdatePresenceRequest;
 
@@ -13,9 +14,14 @@ class PresenceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $userId = $request->query('user');
+        ! $userId ? abort(400, 'Missing user id') : $userId = decrypt($userId);
+
+        $presences = Presence::where('user_id', $userId)->get();
+
+        return view('presences.index', compact('presences'));
     }
 
     /**

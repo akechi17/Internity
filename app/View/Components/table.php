@@ -19,7 +19,7 @@ class table extends Component
         $this->pagination = $pagination;
         $this->tableData = $tableData;
         $this->permissionCreate = $permissionCreate;
-        $this->roleCreate = str_replace(' ', '|', $roleCreate);
+        $this->roleCreate = $roleCreate != null ? str_replace(' ', '|', $roleCreate) : null;
     }
 
     /**

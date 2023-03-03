@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table routeCreate="{{ route('news.create', ['category' => $category, 'school' => encrypt($selectedSchool->id)]) }}" pageName="Berita & Artikel {{ $category == 'school' ? $selectedSchool->name : $selectedDepartment->name }}" permissionCreate="news-create" :pagination="$news" :tableData="$news">
+    <x-table routeCreate="{{ route('news.create', ['category' => $category, 'school' => encrypt($selectedSchool->id)]) }}" pageName="Berita & Artikel {{ $category == 'school' ? $selectedSchool->name : $selectedDepartment->name }}" permissionCreate="news-create" roleCreate="super-admin admin manager" :pagination="$news" :tableData="$news">
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
@@ -28,20 +28,22 @@
             @foreach ($news as $data)
                 <tr>
                     <td class="text-center">
-                        @can('news-edit')
-                            <a href="{{ route('news.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
-                                    class="bi bi-pencil-square"></i></a>
-                        @endcan
-                        @can('news-delete')
-                            <form action="{{ route('news.destroy', encrypt($data->id)) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button id="button-{{ $data->id }}" class="button-delete btn btn-danger text-xs"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
-                                        class="bi bi-trash"></i></button>
-                            </form>
-                        @endcan
+                        @role('super-admin|admin|manager')
+                            @can('news-edit')
+                                <a href="{{ route('news.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
+                                        class="bi bi-pencil-square"></i></a>
+                            @endcan
+                            @can('news-delete')
+                                <form action="{{ route('news.destroy', encrypt($data->id)) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button id="button-{{ $data->id }}" class="button-delete btn btn-danger text-xs"
+                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" type="button"><i
+                                            class="bi bi-trash"></i></button>
+                                </form>
+                            @endcan
+                        @endrole
                     </td>
                     <td class="text-sm text-center">{{ $data->title }}</td>
                     <td class="text-sm text-center">

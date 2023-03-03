@@ -80,6 +80,7 @@ Route::middleware(['auth'])->group( function () {
     Route::put('journals/{id}/approve', [JournalController::class, 'approve'])->name('journals.approve');
 
     Route::resource('presences', PresenceController::class);
+    Route::put('presences/{id}/approve', [PresenceController::class, 'approve'])->name('presences.approve');
 
     Route::resource('news', NewsController::class);
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Presence;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePresenceRequest;
@@ -19,9 +20,34 @@ class PresenceController extends Controller
         $userId = $request->query('user');
         ! $userId ? abort(400, 'Missing user id') : $userId = decrypt($userId);
 
-        $presences = Presence::where('user_id', $userId)->get();
+        $presences = Presence::where('user_id', $userId)->paginate(35);
+        $presences->withPath('/presences')->withQueryString();
 
-        return view('presences.index', compact('presences'));
+        if ($presences->count() > 0) {
+            $context = [
+                'status' => true,
+                'message' => 'Data kehadiran ditemukan',
+                'presences' => $presences,
+                'pagination' => $presences->links()->render(),
+                'userName' => User::find($userId)->name,
+                // 'search' => $search,
+                // 'statusData' => $status,
+                // 'sort' => $sort,
+            ];
+        } else {
+            $context = [
+                'status' => false,
+                'message' => 'Data jurnal tidak ditemukan',
+                'presences' => [],
+                'pagination' => $presences->links()->render(),
+                'userName' => User::find($userId)->name,
+                // 'search' => $search,
+                // 'statusData' => $status,
+                // 'sort' => $sort,
+            ];
+        }
+
+        return view('presences.index', $context);
     }
 
     /**
@@ -82,11 +108,26 @@ class PresenceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Presence  $presence
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Presence $presence)
+    public function destroy($id)
     {
-        //
+        $id = decrypt($id);
+        $presence = Presence::find($id);
+        $presence->delete();
+
+        return redirect()->back()->with('success', 'Data kehadiran berhasil dihapus');
+    }
+
+    public function approve($id)
+    {
+        $id = decrypt($id);
+        $presence = Presence::find($id);
+        $presence->update([
+            'is_approved' => true,
+        ]);
+
+        return redirect()->back()->with('success', 'Data kehadiran berhasil disetujui');
     }
 }

@@ -9,6 +9,7 @@
         @if($placeholder) placeholder="ex: {{ $placeholder ?? '' }}" @endif
         @if($disabled) style="pointer-events: none; background-color: #e9ecef;" @endif
         @if($readonly) readonly style="background-color: #e9ecef; pointer-events: none;" @endif
+        @if($required) required @endif>
 
 
     @error($name)

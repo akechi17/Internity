@@ -2,16 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Appliance;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\School;
 use App\Models\Company;
+use App\Models\Journal;
 use App\Models\Vacancy;
+use Nette\Utils\Random;
+use App\Models\Appliance;
 use App\Models\Department;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Nette\Utils\Random;
 
 class UserTableSeeder extends Seeder
 {
@@ -88,13 +89,22 @@ class UserTableSeeder extends Seeder
             'user_id' => $user->id,
         ]);
         for ($now = now(); $now >= $startDate; $now->subDays(1)) {
+            $check_in = now()->subMinutes(rand(0, 60))->format('H:i:s');
+            $check_out = now()->addHours(8)->addMinutes(rand(0, 60))->format('H:i:s');
             $user->presences()->create([
                 'company_id' => $company->id,
                 'presence_status_id' => 1,
                 'date' => $now->format('Y-m-d'),
-                'check_in' => $now->subMinutes(rand(0, 60))->format('H:i:s'),
-                'check_out' => $now->addHours(8)->addMinutes(rand(0, 60))->format('H:i:s'),
-                'is_approved' => $now == $startDate ? 0 : 1,
+                'check_in' => $check_in,
+                'check_out' => $check_out,
+                'is_approved' => date_diff($now, $startDate)->days <= 23  ? 1 : 0,
+            ]);
+
+            Journal::factory()->count(1)->create([
+                'user_id' => $user->id,
+                'company_id' => $company->id,
+                'date' => $now->format('Y-m-d'),
+                'is_approved' => date_diff($now, $startDate)->days <= 23  ? 1 : 0,
             ]);
         }
 
@@ -130,13 +140,22 @@ class UserTableSeeder extends Seeder
             'user_id' => $user->id,
         ]);
         for ($now = now(); $now >= $startDate; $now->subDays(1)) {
+            $check_in = now()->subMinutes(rand(0, 60))->format('H:i:s');
+            $check_out = now()->addHours(8)->addMinutes(rand(0, 60))->format('H:i:s');
             $user->presences()->create([
                 'company_id' => $company->id,
                 'presence_status_id' => 1,
                 'date' => $now->format('Y-m-d'),
-                'check_in' => $now->subMinutes(rand(0, 60))->format('H:i:s'),
-                'check_out' => $now->addHours(8)->addMinutes(rand(0, 60))->format('H:i:s'),
-                'is_approved' => $now == $startDate ? 0 : 1,
+                'check_in' => $check_in,
+                'check_out' => $check_out,
+                'is_approved' => date_diff($now, $startDate)->days <= 23  ? 1 : 0,
+            ]);
+
+            Journal::factory()->count(1)->create([
+                'user_id' => $user->id,
+                'company_id' => $company->id,
+                'date' => $now->format('Y-m-d'),
+                'is_approved' => date_diff($now, $startDate)->days <= 23  ? 1 : 0,
             ]);
         }
 

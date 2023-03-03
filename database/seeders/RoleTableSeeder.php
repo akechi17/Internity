@@ -82,6 +82,7 @@ class RoleTableSeeder extends Seeder
             ->orWhere('name', 'score-predicate-list')
             ->orWhere('name', 'presence-list')
             ->orWhere('name', 'presence-edit')
+            ->orWhere('name', 'presence-approve')
             ->orWhere('name', 'company-list')
             ->orWhere('name', 'company-edit')
             ->orWhere('name', 'journal-list')

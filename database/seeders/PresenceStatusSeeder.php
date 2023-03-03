@@ -18,32 +18,27 @@ class PresenceStatusSeeder extends Seeder
         $presenceStatuses = [
             [
                 'school_id' => 1,
-                'name' => 'presence',
+                'name' => 'Hadir',
                 'color' => '#00FF00',
             ],
             [
                 'school_id' => 1,
-                'name' => 'late',
-                'color' => '#FFA500',
-            ],
-            [
-                'school_id' => 1,
-                'name' => 'absence',
+                'name' => 'Alpa',
                 'color' => '#FF0000',
             ],
             [
                 'school_id' => 1,
-                'name' => 'excused',
+                'name' => 'Izin',
                 'color' => '#0000FF',
             ],
             [
                 'school_id' => 1,
-                'name' => 'sick',
+                'name' => 'Sakit',
                 'color' => '#FF00FF',
             ],
             [
                 'school_id' => 1,
-                'name' => 'holiday',
+                'name' => 'Libur',
                 'color' => '#00FFFF',
             ]
         ];

@@ -8,7 +8,7 @@
                 <div
                     class="header-function d-flex align-items-center @can($permissionCreate) @if ($routeCreate) justify-content-between @else justify-content-end @endif @endcan">
                     <!-- Add data Start -->
-                    @if($roleCreate != null)
+                    @if ($roleCreate != null)
                         @role($roleCreate)
                             @can($permissionCreate)
                                 @if ($routeCreate)
@@ -28,6 +28,17 @@
                         @endcan
                     @endif
                     <!-- Add data End -->
+
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Filter
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                        </ul>
+                    </div>
 
                     <div class="card-header p-0">
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center">

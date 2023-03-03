@@ -8,7 +8,7 @@
     <x-table pageName="Data Magang Siswa" route="{{ route('users.create') }}" :pagination="$students" :tableData="$students">
 
         <x-slot:thead>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Kelola
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
@@ -79,6 +79,9 @@
                                 <a href="{{ route('journals.index', ['user' => encrypt($student->id), 'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jurnal">
                                         <i class="bi bi-journal-bookmark-fill"></i></a>
+                                <a href="{{ route('monitors.index', ['user' => encrypt($student->id), 'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Monitoring">
+                                        <i class="bi bi-list-check"></i></a>
                                 <a href="{{ route('students.edit', ['id'=>encrypt($student->id),'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit">
                                         <i class="bi bi-pencil-square"></i></a>

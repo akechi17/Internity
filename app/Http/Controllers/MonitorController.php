@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Monitor;
 use Illuminate\Http\Request;
 
 class MonitorController extends Controller
@@ -11,9 +13,41 @@ class MonitorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $userId = $request->query('user');
+        ! $userId ? abort(400, 'Missing user id') : $userId = decrypt($userId);
+
+        $companyId = $request->query('company');
+        ! $companyId ? abort(400, 'Missing company id') : $companyId = decrypt($companyId);
+
+        $monitors = Monitor::where('user_id', $userId)->where('company_id', $companyId)->orderBy('date', 'desc')->paginate(35);
+
+        if ($monitors->count() > 0) {
+            $context = [
+                'status' => true,
+                'message' => 'Data monitor ditemukan',
+                'monitors' => $monitors,
+                'pagination' => $monitors->links()->render(),
+                'userName' => User::find($userId)->name,
+                // 'search' => $search,
+                // 'statusData' => $status,
+                // 'sort' => $sort,
+            ];
+        } else {
+            $context = [
+                'status' => false,
+                'message' => 'Data monitor tidak ditemukan',
+                'monitors' => [],
+                'pagination' => $monitors->links()->render(),
+                'userName' => User::find($userId)->name,
+                // 'search' => $search,
+                // 'statusData' => $status,
+                // 'sort' => $sort,
+            ];
+        }
+
+        return view('monitors.index', $context);
     }
 
     /**

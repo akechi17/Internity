@@ -9,6 +9,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\PresenceController;
@@ -81,6 +82,8 @@ Route::middleware(['auth'])->group( function () {
 
     Route::resource('presences', PresenceController::class);
     Route::put('presences/{id}/approve', [PresenceController::class, 'approve'])->name('presences.approve');
+
+    Route::resource('monitors', MonitorController::class);
 
     Route::resource('news', NewsController::class);
 });

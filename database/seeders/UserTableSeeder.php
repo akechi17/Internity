@@ -88,6 +88,11 @@ class UserTableSeeder extends Seeder
             'company_id' => $company->id,
             'user_id' => $user->id,
         ]);
+        $user->monitors()->create([
+            'company_id' => $company->id,
+            'date' => now()->format('Y-m-d'),
+            'match' => 4,
+        ]);
         for ($now = now(); $now >= $startDate; $now->subDays(1)) {
             $check_in = now()->subMinutes(rand(0, 60))->format('H:i:s');
             $check_out = now()->addHours(8)->addMinutes(rand(0, 60))->format('H:i:s');
@@ -99,7 +104,6 @@ class UserTableSeeder extends Seeder
                 'check_out' => $check_out,
                 'is_approved' => date_diff($now, $startDate)->days <= 23  ? 1 : 0,
             ]);
-
             Journal::factory()->count(1)->create([
                 'user_id' => $user->id,
                 'company_id' => $company->id,
@@ -138,6 +142,11 @@ class UserTableSeeder extends Seeder
             'end_date' => $endDate,
             'company_id' => $company->id,
             'user_id' => $user->id,
+        ]);
+        $user->monitors()->create([
+            'company_id' => $company->id,
+            'date' => now()->format('Y-m-d'),
+            'match' => 3,
         ]);
         for ($now = now(); $now >= $startDate; $now->subDays(1)) {
             $check_in = now()->subMinutes(rand(0, 60))->format('H:i:s');

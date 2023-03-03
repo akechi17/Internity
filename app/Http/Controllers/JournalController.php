@@ -201,7 +201,7 @@ class JournalController extends Controller
             ];
         }
 
-        return view('journals.index', $context);
+        return back()->with($context);
     }
 
     public function approve($id)

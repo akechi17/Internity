@@ -58,6 +58,11 @@ class Company extends Model
         return $this->hasMany(InternDate::class);
     }
 
+    public function monitors()
+    {
+        return $this->hasMany(Monitor::class);
+    }
+
     public function scopeActive()
     {
         return $this->where('status', 1);

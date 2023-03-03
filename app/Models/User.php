@@ -104,6 +104,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(InternDate::class);
     }
 
+    public function monitors()
+    {
+        return $this->hasMany(Monitor::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', 1);

@@ -9,9 +9,9 @@ use App\Http\Requests\UpdateJournalRequest;
 
 class JournalController extends Controller
 {
-    public function getData($userId, $search = null, $status = null, $sort = null, $paginate = true)
+    public function getData($userId, $companyId, $search = null, $status = null, $sort = null, $paginate = true)
     {
-        $journals = Journal::where('user_id', $userId);
+        $journals = Journal::where('user_id', $userId)->where('company_id', $companyId);
         if ($search) {
             $journals = $journals->search($search);
         }
@@ -68,11 +68,14 @@ class JournalController extends Controller
         $userId = $request->query('user');
         !$userId ? abort(404) : $userId = decrypt($userId);
 
+        $companyId = $request->query('company');
+        ! $companyId ? abort(404) : $companyId = decrypt($companyId);
+
         $search = $request->query('search');
         $status = $request->query('status');
         $sort = $request->query('sort');
 
-        $context = $this->getData($userId, $search, $status, $sort);
+        $context = $this->getData($userId,$companyId, $search, $status, $sort);
         return view('journals.index', $context);
     }
 

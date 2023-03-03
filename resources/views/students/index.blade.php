@@ -73,10 +73,10 @@
                         @endphp
                         <tr>
                             <td class="text-center">
-                                <a href="{{ route('presences.index', ['user' => encrypt($student->id)]) }}" class="btn btn-info text-xs"
+                                <a href="{{ route('presences.index', ['user' => encrypt($student->id), 'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Presensi">
                                         <i class="bi bi-calendar-check"></i></a>
-                                <a href="{{ route('journals.index', ['user' => encrypt($student->id)]) }}" class="btn btn-info text-xs"
+                                <a href="{{ route('journals.index', ['user' => encrypt($student->id), 'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jurnal">
                                         <i class="bi bi-journal-bookmark-fill"></i></a>
                                 <a href="{{ route('students.edit', ['id'=>encrypt($student->id),'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"

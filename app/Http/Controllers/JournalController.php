@@ -161,23 +161,20 @@ class JournalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $journal = Journal::find(decrypt($id));
-        if ($journal) {
-            $journal->update($request->all());
-            $context = [
-                'status' => true,
-                'message' => 'Data jurnal berhasil diubah',
-                'journal' => $journal,
-            ];
-        } else {
-            $context = [
-                'status' => false,
-                'message' => 'Data jurnal tidak ditemukan',
-                'journal' => null,
-            ];
-        }
+        $request->validate([
+            'date' => 'required|date',
+            'work_type' => 'required|string',
+            'description' => 'required|string',
+        ]);
 
-        return view('journals.edit', $context);
+        $journal = Journal::find(decrypt($id));
+        $journal->update([
+            'date' => $request->date,
+            'work_type' => $request->work_type,
+            'description' => $request->description,
+        ]);
+
+        return redirect()->route('journals.index', ['user' => encrypt($journal->user_id), 'company' => encrypt($journal->company_id)])->with('success', 'Data jurnal berhasil diubah');
     }
 
     /**

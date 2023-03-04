@@ -28,11 +28,14 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-14">
                 Contact Person
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-23">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Email
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-16">
                 Phone
+            </th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-7">
+                Rating
             </th>
         </x-slot:thead>
 
@@ -69,6 +72,15 @@
                     <td class="text-sm">{{ $data->contact_person }}</td>
                     <td class="text-sm">{{ $data->email }}</td>
                     <td class="text-sm">{{ $data->phone }}</td>
+                    @php
+                        $rating = number_format($data->reviews()?->avg('rating'), 1);
+                    @endphp
+                    <td class="text-sm text-center">
+                        @for($i = 0; $i < $rating; $i++)
+                            <i class="bi bi-star-fill text-warning" style="font-size: 0.7rem;"></i>
+                        @endfor
+                        <span class="text-sm text-secondary" style="display: block;">{{ $rating }}</span>
+                    </td>
                 </tr>
             @endforeach
         </x-slot:tbody>

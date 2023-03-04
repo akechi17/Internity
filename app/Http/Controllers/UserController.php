@@ -171,8 +171,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
-
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -204,6 +202,9 @@ class UserController extends Controller
                 $user->schools()->attach($request->school_id);
                 $user->departments()->attach($request->department_id);
                 $user->courses()->attach($request->course_id);
+            }
+            if ($request->company_id) {
+                $user->companies()->attach($request->company_id);
             }
 
             return redirect()->route('users.index')
@@ -245,6 +246,9 @@ class UserController extends Controller
             $user = User::find($id);
             $isManager = auth()->user()->hasRole('manager');
 
+            $isManager = auth()->user()->hasRole('manager');
+            $isTeacher = auth()->user()->hasRole('teacher');
+
             if ($isManager) {
                 $roles = Role::where('name', '!=', 'admin')->where('name', '!=', 'super-admin')->pluck('name', 'id');
                 $schoolId = auth()->user()->schools()->first()->id;
@@ -254,17 +258,30 @@ class UserController extends Controller
                     ->join('schools', 'departments.school_id', '=', 'schools.id')
                     ->where('schools.id', $schoolId)
                     ->pluck('courses.name', 'courses.id');
+                $companies = Company::join('departments', 'companies.department_id', '=', 'departments.id')
+                    ->join('schools', 'departments.school_id', '=', 'schools.id')
+                    ->where('schools.id', $schoolId)
+                    ->get();
+            } elseif ($isTeacher) {
+                $roles = Role::where('name', 'student')->orWhere('name', 'teacher')->orWhere('name', 'mentor')->pluck('name', 'id');
+                $schoolId = auth()->user()->schools()->first()->id;
+                $schools = School::find($schoolId)->pluck('name', 'id');
+                $departmentId = auth()->user()->departments()->first()->id;
+                $departments = Department::where('id', $departmentId)->pluck('name', 'id');
+                $courses = Course::where('department_id', $departmentId)->pluck('name', 'id');
+                $companies = Company::where('department_id', $departmentId)->get();
             } else {
                 $roles = auth()->user()->hasRole('super-admin')
-                ? Role::pluck('name', 'id')
-                : Role::where('name', '!=', 'super-admin')->pluck('name', 'id');
+                    ? Role::pluck('name', 'id')
+                    : Role::where('name', '!=', 'super-admin')->pluck('name', 'id');
 
                 $schools = School::pluck('name', 'id');
                 $departments = Department::pluck('name', 'id');
                 $courses = Course::pluck('name', 'id');
+                $companies = Company::all();
             }
 
-            return view('users.edit', compact('user', 'schools', 'departments', 'courses', 'roles'));
+            return view('users.edit', compact('user', 'schools', 'departments', 'courses', 'roles', 'companies'));
         } catch (\Exception $e) {
             return redirect()->route('users.index')
                 ->with('error', 'User tidak ditemukan');
@@ -288,15 +305,11 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
             'role_id' => 'required|exists:roles,id',
-            'school_id' => 'exists:schools,id',
-            'department_id' => 'exists:departments,id',
-            'course_id' => 'exists:courses,id',
+            'school_id' => 'nullable|exists:schools,id',
+            'department_id' => 'nullable|exists:departments,id',
+            'course_id' => 'nullable|exists:courses,id',
+            'company_id' => 'nullable|exists:companies,id',
             'status' => 'boolean',
-            'bio' => 'string|max:255',
-            'address' => 'string|max:255',
-            'phone' => 'string',
-            'date_of_birth' => 'date',
-            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         try {
@@ -305,23 +318,9 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
                 'status' => $request->status,
-                'bio' => $request->bio,
-                'address' => $request->address,
-                'phone' => $request->phone,
-                'date_of_birth' => $request->date_of_birth,
-                'skills' => $request->skills,
             ]);
             $user->syncRoles($request->role_id);
 
-            if ($request->hasFile('avatar')) {
-                $image = $request->file('avatar');
-                $name = $request->name . time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = storage_path('app/public/avatars');
-                $image->move($destinationPath, $name);
-                $user->update([
-                    'avatar' => $destinationPath . '/' . $name,
-                ]);
-            }
             if ($request->school_id) {
                 $user->schools()->sync($request->school_id);
             }
@@ -330,6 +329,9 @@ class UserController extends Controller
             }
             if ($request->course_id) {
                 $user->courses()->sync($request->course_id);
+            }
+            if ($request->company_id) {
+                $user->companies()->sync($request->company_id);
             }
 
             return redirect()->route('users.index')

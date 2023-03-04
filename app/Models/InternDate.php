@@ -15,6 +15,7 @@ class InternDate extends Model
         'start_date',
         'end_date',
         'extend',
+        'finished',
     ];
 
     public function company()

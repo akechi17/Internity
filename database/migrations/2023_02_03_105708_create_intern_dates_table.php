@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->integer('extend')->default(0);
+            $table->boolean('finished')->default(0);
             $table->timestamps();
         });
     }

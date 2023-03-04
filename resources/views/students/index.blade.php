@@ -29,8 +29,11 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
                 Tanggal Selesai
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                 Lama Perpanjangan
+            </th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
+                Status
             </th>
         </x-slot:thead>
 
@@ -121,6 +124,11 @@
                                 @endif
                             <td class="text-sm text-center">
                                 {{ $student->internDates()->where('company_id', $company->id)->first()?->extend }}</td>
+                            <td class="text-sm text-center">
+                                <span class="badge badge-sm bg-gradient-{{ $student->internDates()->where('company_id', $company->id)->first()?->finished ? 'success' : 'warning' }}">
+                                    {{ $student->internDates()->where('company_id', $company->id)->first()?->finished ? 'Selesai' : 'Magang' }}
+                                </span>
+                            </td>
                         </tr>
                     @endforeach
                 @endif

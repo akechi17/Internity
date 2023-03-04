@@ -48,6 +48,11 @@ class School extends Model
         return $this->morphOne(Code::class, 'codeable');
     }
 
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
+    }
+
     public function scorePredicates()
     {
         return $this->hasMany(ScorePredicate::class);

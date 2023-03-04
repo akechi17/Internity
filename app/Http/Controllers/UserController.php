@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\School;
+use App\Models\Company;
 use App\Models\Department;
 use Illuminate\Http\Request;
 
@@ -136,13 +137,18 @@ class UserController extends Controller
                 ->join('schools', 'departments.school_id', '=', 'schools.id')
                 ->where('schools.id', $schoolId)
                 ->pluck('courses.name', 'courses.id');
+            $companies = Company::join('departments', 'companies.department_id', '=', 'departments.id')
+                ->join('schools', 'departments.school_id', '=', 'schools.id')
+                ->where('schools.id', $schoolId)
+                ->get();
         } elseif ($isTeacher) {
-            $roles = Role::where('name', 'student')->orWhere('name', 'teacher')->pluck('name', 'id');
+            $roles = Role::where('name', 'student')->orWhere('name', 'teacher')->orWhere('name', 'mentor')->pluck('name', 'id');
             $schoolId = auth()->user()->schools()->first()->id;
             $schools = School::find($schoolId)->pluck('name', 'id');
             $departmentId = auth()->user()->departments()->first()->id;
             $departments = Department::where('id', $departmentId)->pluck('name', 'id');
             $courses = Course::where('department_id', $departmentId)->pluck('name', 'id');
+            $companies = Company::where('department_id', $departmentId)->get();
         } else {
             $roles = auth()->user()->hasRole('super-admin')
                 ? Role::pluck('name', 'id')
@@ -151,9 +157,10 @@ class UserController extends Controller
             $schools = School::pluck('name', 'id');
             $departments = Department::pluck('name', 'id');
             $courses = Course::pluck('name', 'id');
+            $companies = Company::all();
         }
 
-        return view('users.create', compact('schools', 'departments', 'courses', 'roles'));
+        return view('users.create', compact('schools', 'departments', 'courses', 'roles', 'companies'));
     }
 
     /**
@@ -164,16 +171,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
+        dd($request);
 
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|same:confirm-password',
             'role_id' => 'required|exists:roles,id',
-            'school_id' => 'exists:schools,id',
-            'department_id' => 'exists:departments,id',
-            'course_id' => 'exists:courses,id',
+            'school_id' => 'nullable|exists:schools,id',
+            'department_id' => 'nullable|exists:departments,id',
+            'course_id' => 'nullable|exists:courses,id',
+            'company_id' => 'nullable|exists:companies,id',
             'status' => 'boolean'
         ]);
 

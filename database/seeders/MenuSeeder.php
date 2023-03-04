@@ -26,7 +26,6 @@ class MenuSeeder extends Seeder
                 'status' => 1,
                 'order' => 1,
                 'parent_id' => null,
-                'permission_id' => Permission::where('name', 'dashboard')->first()->id,
             ],
             [
                 'name' => 'Siswa',

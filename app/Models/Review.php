@@ -8,4 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'title',
+        'body',
+        'rating',
+        'reviewable_id',
+        'reviewable_type'
+    ];
+
+    public function reviewable()
+    {
+        return $this->morphTo();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -363,14 +363,20 @@ class UserController extends Controller
     public function updateStatus(Request $request)
     {
         $id = decrypt($request->id);
+
+
         try {
-            $user = User::find($id);
+            $user = User::findOrFail($id);
 
             if ($user->status == 1) {
-                $user->status = 0;
+                $user->update([
+                    'status' => 0,
+                ]);
                 $state = 'dinonaktifkan';
             } else {
-                $user->status = 1;
+                $user->update([
+                    'status' => 1,
+                ]);
                 $state = 'diaktifkan';
             }
 

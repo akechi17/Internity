@@ -1,7 +1,13 @@
+{{-- @php
+    dd($users);
+@endphp --}}
+
+
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table routeCreate="{{ route('users.create') }}" permissionCreate="user-create" pageName="user" :pagination="$users" :tableData="$users">
+    <x-table routeCreate="{{ route('users.create') }}" permissionCreate="user-create" pageName="user" :pagination="$users"
+        :tableData="$users">
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
@@ -38,9 +44,11 @@
                             <form action="{{ route('users.updateStatus', encrypt($user->id)) }}" method="POST" class="m-0">
                                 @csrf
                                 @method('PUT')
-                                <button id="button-{{ $user->id }}" class="button-status btn btn-{{ $user->status ? 'danger' : 'success' }} text-xs ms-1"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $user->status ? 'Nonaktifkan' : 'Aktifkan' }}" type="submit"><i
-                                        class="bi bi-{{ $user->status ? 'x-circle' : 'check-circle' }}"></i></button>
+                                <button id="button-{{ $user->id }}"
+                                    class="button-status btn btn-{{ $user->status == 1 ? 'danger' : 'success' }} text-xs ms-1"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="{{ $user->status == 1 ? 'Nonaktifkan' : 'Aktifkan' }}" type="submit"><i
+                                        class="bi bi-{{ $user->status == 1 ? 'x-circle' : 'check-circle' }}"></i></button>
                             </form>
                         @endcan
                         @can('user-delete')
@@ -60,7 +68,7 @@
                     <td class="text-sm text-center">{{ $user->last_login_ip }}</td>
                     <td class="text-sm text-center">
                         <span
-                            class="badge badge-sm bg-gradient-{{ $user->status ? 'success' : 'danger' }}">{{ $user->status ? 'Aktif' : 'Nonaktif' }}</span>
+                            class="badge badge-sm bg-gradient-{{ $user->status == 1 ? 'success' : 'danger' }}">{{ $user->status == 1 ? 'Aktif' : 'Nonaktif' }}</span>
                     </td>
                 </tr>
             @endforeach

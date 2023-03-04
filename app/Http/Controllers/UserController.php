@@ -189,12 +189,12 @@ class UserController extends Controller
                 $user->schools()->attach($request->school_id);
             }
             if ($request->department_id) {
-                $user->departments()->attach($request->school_id);
+                $user->schools()->attach($request->school_id);
                 $user->departments()->attach($request->department_id);
             }
             if ($request->course_id) {
-                $user->courses()->attach($request->school_id);
-                $user->courses()->attach($request->department_id);
+                $user->schools()->attach($request->school_id);
+                $user->departments()->attach($request->department_id);
                 $user->courses()->attach($request->course_id);
             }
 

@@ -5,11 +5,11 @@
     <x-form.form formTitle="Edit User" formMethod="POST" spoofMethod="PUT"
         formAction="{{ route('users.update', encrypt($user->id)) }}">
         <x-slot:formBody>
-            <x-form.input-base label="Nama" id="input-name" type="text" name="name" value="{{ $user->name }}" />
-            <x-form.input-base label="Email" id="input-email" type="email" name="email" value="{{ $user->email }}" />
-            <x-form.input-password label="Password" id="input-password" name="password" />
-            <x-form.input-password label="Ulangi Password" id="input-confirm-password" name="confirm-password" />
-            <x-form.select label="Role" id="input-role" name="role_id">
+            <x-form.input-base label="Nama *" id="input-name" type="text" name="name" value="{{ $user->name }}" />
+            <x-form.input-base label="Email *" id="input-email" type="email" name="email" value="{{ $user->email }}" />
+            <x-form.input-password label="Password *" id="input-password" name="password" />
+            <x-form.input-password label="Ulangi Password *" id="input-confirm-password" name="confirm-password" />
+            <x-form.select label="Role *" id="input-role" name="role_id">
                 <option selected hidden>Pilih</option>
                 <x-slot:options>
                     @foreach ($roles as $key => $value)
@@ -21,7 +21,7 @@
 
             <input type="hidden" value="1" name="school_id">
 
-            <x-form.select label="Departemen" id="input-department" name="department_id">
+            <x-form.select label="Kompetensi Keahlian" id="input-department" name="department_id">
                 <option selected hidden>Pilih</option>
                 <x-slot:options>
                     @foreach ($departments as $key => $value)
@@ -38,6 +38,17 @@
                     @foreach ($courses as $key => $value)
                         <option value="{{ $key }}" {{ $user->courses()->first()?->id == $key ? 'selected' : '' }}>
                             {{ $value }}</option>
+                    @endforeach
+                </x-slot:options>
+            </x-form.select>
+
+            <x-form.select label="IDUKA" id="input-companies" name="company_id">
+                <option selected hidden>Pilih</option>
+                <x-slot:options>
+                    @foreach ($companies as $company)
+                        <option value="{{ $company->id }}"
+                            {{ $user->companies()->first()?->id == $company->id ? 'selected' : '' }}>
+                            {{ $company->name }} - {{ $company->department->name }}</option>
                     @endforeach
                 </x-slot:options>
             </x-form.select>

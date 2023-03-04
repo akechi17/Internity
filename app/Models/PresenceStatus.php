@@ -14,7 +14,8 @@ class PresenceStatus extends Model
         'description',
         'color',
         'icon',
-        'status'
+        'status',
+        'school_id'
     ];
 
     public function presences()

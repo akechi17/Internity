@@ -107,15 +107,19 @@ class PresenceStatusController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'description' => 'nullable|string',
             'color' => 'required',
+            'school_id' => 'required|exists:schools,id'
         ]);
 
         $presenceStatus = PresenceStatus::create([
             'name' => $request->name,
+            'description' => $request->description,
             'color' => $request->color,
+            'school_id' => $request->school_id,
         ]);
 
-        return redirect('presence-statuses.index')->with('success', 'Data status kehadiran berhasil ditambahkan');
+        return redirect()->route('presence-statuses.index', ['school' => encrypt($request->school_id)])->with('success', 'Data status kehadiran berhasil ditambahkan');
     }
 
     /**
@@ -149,6 +153,7 @@ class PresenceStatusController extends Controller
      */
     public function edit($id)
     {
+        $id = decrypt($id);
         $presenceStatus = PresenceStatus::find($id);
 
         if ($presenceStatus) {
@@ -160,7 +165,7 @@ class PresenceStatusController extends Controller
 
             return view('presence-statuses.edit', $context);
         } else {
-            return redirect('presence-statuses.index')->with('error', 'Data status kehadiran tidak ditemukan');
+            return redirect()->back()->with('error', 'Data status kehadiran tidak ditemukan');
         }
     }
 
@@ -173,21 +178,25 @@ class PresenceStatusController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $id = decrypt($id);
         $presenceStatus = PresenceStatus::find($id);
 
         if ($presenceStatus) {
             $this->validate($request, [
                 'name' => 'required',
+                'description' => 'nullable|string',
                 'color' => 'required',
             ]);
 
-            $presenceStatus->name = $request->name;
-            $presenceStatus->color = $request->color;
-            $presenceStatus->save();
+            $presenceStatus->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'color' => $request->color,
+            ]);
 
-            return redirect('presence-statuses.index')->with('success', 'Data status kehadiran berhasil diubah');
+            return redirect()->route('presence-statuses.index', ['school' => encrypt($presenceStatus->school_id)])->with('success', 'Data status kehadiran berhasil diubah');
         } else {
-            return redirect('presence-statuses.index')->with('error', 'Data status kehadiran tidak ditemukan');
+            return redirect()->back()->with('error', 'Data status kehadiran tidak ditemukan');
         }
     }
 
@@ -199,14 +208,15 @@ class PresenceStatusController extends Controller
      */
     public function destroy($id)
     {
+        $id = decrypt($id);
         $presenceStatus = PresenceStatus::find($id);
 
         if ($presenceStatus) {
             $presenceStatus->delete();
 
-            return redirect('presence-statuses.index')->with('success', 'Data status kehadiran berhasil dihapus');
+            return redirect()->back()->with('success', 'Data status kehadiran berhasil dihapus');
         } else {
-            return redirect('presence-statuses.index')->with('error', 'Data status kehadiran tidak ditemukan');
+            return redirect()->back()->with('error', 'Data status kehadiran tidak ditemukan');
         }
     }
 }

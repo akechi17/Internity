@@ -13,7 +13,7 @@
             <x-form.input-password label="Password *" id="input-password" name="password" />
             <x-form.input-password label="Ulangi Password *" id="input-confirm-password" name="confirm-password" />
             <x-form.select label="Role *" id="input-role" name="role_id">
-                <option selected hidden>Pilih</option>
+                <option selected hidden value="">Pilih</option>
                 <x-slot:options>
                     @foreach ($roles as $key => $value)
                         <option value="{{ $key }}">{{ $value }}</option>
@@ -22,7 +22,7 @@
             </x-form.select>
 
             <x-form.select label="Sekolah" id="input-school" name="school_id">
-                <option selected hidden>Pilih</option>
+                <option selected hidden value="">Pilih</option>
                 <x-slot:options>
                     @foreach ($schools as $key => $value)
                         <option value="{{ $key }}">{{ $value }}</option>
@@ -31,7 +31,7 @@
             </x-form.select>
 
             <x-form.select label="Departemen" id="input-department" name="department_id">
-                <option selected hidden>Pilih</option>
+                <option selected hidden value="">Pilih</option>
                 <x-slot:options>
                     @foreach ($departments as $key => $value)
                         <option value="{{ $key }}">{{ $value }}</option>
@@ -40,7 +40,7 @@
             </x-form.select>
 
             <x-form.select label="Kelas" id="input-courses" name="course_id">
-                <option selected hidden>Pilih</option>
+                <option selected hidden value="">Pilih</option>
                 <x-slot:options>
                     @foreach ($courses as $key => $value)
                         <option value="{{ $key }}">{{ $value }}</option>
@@ -49,7 +49,7 @@
             </x-form.select>
 
             <x-form.select label="IDUKA" id="input-companies" name="company_id">
-                <option selected hidden>Pilih</option>
+                <option selected hidden value="">Pilih</option>
                 <x-slot:options>
                     @foreach ($companies as $company)
                         <option value="{{ $company->id }}">{{ $company->name }} - {{ $company->department->name }}</option>

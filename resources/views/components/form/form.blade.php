@@ -13,7 +13,13 @@
 
         <div class="footer">
             <a href="{{ url()->previous() }}" class="btn form-button btn-secondary">Kembali</a>
-            <button type="submit" class="btn btn-primary">Kirim</button>
+            @if($roleEdit == null)
+                <button type="submit" class="btn form-button btn-primary">Simpan</button>
+            @else
+                @role($roleEdit)
+                    <button type="submit" class="btn form-button btn-primary">Simpan</button>
+                @endrole
+            @endif
         </div>
     </form>
 </div>

@@ -21,13 +21,16 @@ class Form extends Component
 
     public $enctype;
 
-    public function __construct($formAction, $formMethod, $formTitle, $spoofMethod = null, $enctype = null)
+    public $roleEdit;
+
+    public function __construct($formAction, $formMethod, $formTitle, $spoofMethod = null, $enctype = null, $roleEdit = null)
     {
         $this->formAction = $formAction;
         $this->formMethod = $formMethod;
         $this->formTitle = $formTitle;
         $this->spoofMethod = $spoofMethod;
         $this->enctype = $enctype;
+        $this->roleEdit = str_replace(' ', '|', $roleEdit);
     }
 
     /**

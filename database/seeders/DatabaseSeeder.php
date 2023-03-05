@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             NewsSeeder::class,
             JournalSeeder::class,
+            QuestionSeeder::class,
         ]);
     }
 }

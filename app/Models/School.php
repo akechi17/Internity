@@ -58,6 +58,11 @@ class School extends Model
         return $this->hasMany(ScorePredicate::class);
     }
 
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', 1);

@@ -14,6 +14,7 @@ use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\PresenceController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ApplianceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\VerificationController;
@@ -91,4 +92,9 @@ Route::middleware(['auth'])->group( function () {
 
     // Route::resource('reviews', ReviewController::class);
     Route::get('reviews/companies', [ReviewController::class, 'companyIndex'])->name('reviews.companies.index');
+
+    Route::resource('questions', QuestionController::class);
+
+    Route::get('reviews/users', [ReviewController::class, 'userEdit'])->name('reviews.users.edit');
+    Route::put('reviews/users', [ReviewController::class, 'userUpdate'])->name('reviews.users.update');
 });

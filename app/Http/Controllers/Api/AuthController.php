@@ -2,13 +2,48 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Code;
 use App\Models\User;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:8|confirmed',
+            'course_code' => 'required|exists:codes,code',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'status' => true,
+        ]);
+
+        $code = Code::where('code', $request->course_code)->first();
+        $course = Course::find($code->codeable_id);
+        $department = $course->department;
+        $school = $department->school;
+
+        $user->assignRole('student');
+        $user->schools()->attach($school->id);
+        $user->departments()->attach($department->id);
+        $user->courses()->attach($course->id);
+
+        return response()->json([
+            'message' => "Selamat datang $user->name",
+            'access_token' => $user->createToken('auth_token')->plainTextToken,
+            'token_type' => 'Bearer',
+        ]);
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');

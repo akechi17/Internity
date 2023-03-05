@@ -9,7 +9,17 @@
                     class="header-function d-flex align-items-center @can($permissionCreate) @if ($routeCreate) justify-content-between @else justify-content-end @endif @endcan">
                     <!-- Add data Start -->
                     @if ($roleCreate != null)
-                        @role($roleCreate)
+                        @if (! $showButton)
+                            @role($roleCreate)
+                                @can($permissionCreate)
+                                    @if ($routeCreate)
+                                        <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
+                                            TAMBAH DATA
+                                        </a>
+                                    @endif
+                                @endcan
+                            @endrole
+                        @else
                             @can($permissionCreate)
                                 @if ($routeCreate)
                                     <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
@@ -17,7 +27,7 @@
                                     </a>
                                 @endif
                             @endcan
-                        @endrole
+                        @endif
                     @else
                         @can($permissionCreate)
                             @if ($routeCreate)

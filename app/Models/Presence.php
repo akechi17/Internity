@@ -21,6 +21,10 @@ class Presence extends Model
         'description',
     ];
 
+    protected $with = [
+        'presenceStatus',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

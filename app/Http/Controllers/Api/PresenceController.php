@@ -169,4 +169,35 @@ class PresenceController extends Controller
             ], 500);
         }
     }
+
+    public function todayActivity(Request $request)
+    {
+        $company = $request->query('company');
+        if (! $company) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Company ID is required',
+            ], 400);
+        }
+
+        try {
+            $user = auth()->user();
+
+            $presence = $user->presences()->where('company_id', $company)->whereDate('date', Carbon::now())->first();
+            $journal = $user->journals()->where('company_id', $company)->whereDate('date', Carbon::now())->first();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Presence retrieved successfully',
+                'presence' => $presence,
+                'journal' => $journal,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error while getting presence',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

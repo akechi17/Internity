@@ -170,8 +170,8 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->whereHas('roles', function ($query) {
                         $query->where('name', 'student');
                     })
-                    ->orWhereHas('companies', function ($query) use ($department_id) {
-                        $query->where('department_id', $department_id);
+                    ->whereHas('departments', function ($query) use ($department_id) {
+                        $query->where('id', $department_id);
                     });
     }
 

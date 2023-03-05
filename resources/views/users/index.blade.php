@@ -10,16 +10,16 @@
         :tableData="$users">
 
         <x-slot:thead>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                 Kelola
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-25">
                 Nama
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Email
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                 Role
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">

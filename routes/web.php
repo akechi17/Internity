@@ -17,6 +17,7 @@ use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\PresenceController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ApplianceController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\PresenceStatusController;
@@ -43,9 +44,7 @@ Route::post('email/resend', [VerificationController::class, 'resend'])->middlewa
 
 // Route::middleware(['verified.email', 'auth'])->group( function () {
 Route::middleware(['auth'])->group( function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::put('roles/{id}/updateStatus', [RoleController::class, 'updateStatus'])->name('roles.updateStatus');
     Route::resource('/roles', RoleController::class);

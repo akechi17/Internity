@@ -86,7 +86,7 @@
                                                 Siswa
                                             </h6>
                                             <h5 class="font-weight-bolder mb-0">
-                                                300
+                                                {{ $students }}
                                                 <!-- <span class="text-success text-sm font-weight-bolder">+55%</span> -->
                                             </h5>
                                         </div>
@@ -113,7 +113,7 @@
                                                 IDUKA
                                             </h6>
                                             <h5 class="font-weight-bolder mb-0">
-                                                70
+                                                {{ $companies }}
                                                 <!-- <span class="text-success text-sm font-weight-bolder">+3%</span> -->
                                             </h5>
                                         </div>
@@ -140,7 +140,7 @@
                                                 Lowongan Magang
                                             </h6>
                                             <h5 class="font-weight-bolder mb-0">
-                                                700
+                                                {{ $vacancies }}
                                                 <!-- <span class="text-danger text-sm font-weight-bolder">-2%</span> -->
                                             </h5>
                                         </div>
@@ -194,7 +194,8 @@
                     {{-- Relevansi End --}}
 
                     {{-- Waktu Magang Start --}}
-                    <div class="col-lg-6 pt-4">
+                    {{-- Fullsize --}}
+                    <div class="col-lg-12 pt-4">
                             <div class="card z-index-2">
                             <div class="card-header pb-0">
                                 <h6>Waktu Magang</h6>
@@ -226,6 +227,12 @@
 @once
     @push('scripts')
         <script type="module">
+            let studentStatus = {!! json_encode($studentStatus, JSON_HEX_TAG) !!};
+            let monitors = {!! json_encode($monitors, JSON_HEX_TAG) !!};
+            let internDurations = {!! json_encode($internDurations, JSON_HEX_TAG) !!};
+
+            console.log(internDurations);
+
             const ctx = document.getElementById('myChart');
             const ctx2 = document.getElementById('chart-line');
             const ctx3 = document.getElementById('newChart');
@@ -252,7 +259,7 @@
                     labels: ['Belum Magang', 'Sedang Magang', 'Selesai Magang'],
                     datasets: [{
                         label: 'Jumlah',
-                        data: [20, 20, 20],
+                        data: [studentStatus['not_intern'], studentStatus['intern'], studentStatus['finished']],
                         backgroundColor: [
                             gradient1,
                             gradient2,
@@ -287,7 +294,7 @@
                     labels: ['Sangat Relevan', 'Relevan', 'Kurang Relevan', 'Tidak Relevan'],
                     datasets: [{
                         label: 'Jumlah',
-                        data: [20, 10, 7, 5],
+                        data: [monitors['4'], monitors['3'], monitors['2'], monitors['1']],
                         backgroundColor: [
                             gradient1,
                             gradient2,
@@ -320,29 +327,19 @@
             new Chart(ctx3, {
                 type: 'bar',
                 data: {
-                    labels: ['3 Bulan', '6 Bulan'],
                     datasets: [{
-                        label: 'Jumlah',
-                        data: [10, 20],
-                        backgroundColor: [
-                            "#ea0606",
-                            "#2152ff"
-                            // "#FF6B6B", // warna untuk data 1
-                            // "#4D96FF", // warna untuk data 2
-                            // "#6BCB77"  // warna untuk data 3
-                        ],
-                        hoverOffset: 4
-                        // borderColor: [
-                        //     "#FF6B6B",   // warna border untuk data 1
-                        //     "#4D96FF",   // warna border untuk data 2
-                        //     "#6BCB77"    // warna border untuk data 3
-                        // ],
-                        // borderWidth: 1
+                        data: internDurations,
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            display: false
+                        },
+                    }
                     // scales: {
                     //     y: {
                     //     beginAtZero: true

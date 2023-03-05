@@ -18,6 +18,21 @@ class InternDate extends Model
         'finished',
     ];
 
+    protected $appends = [
+        'duration',
+    ];
+
+    public function getDurationAttribute()
+    {
+        // Get duration in month
+        $start = new \DateTime($this->start_date);
+        $end = new \DateTime($this->end_date);
+        $interval = $start->diff($end);
+        $duration = $interval->format('%m');
+
+        return $duration;
+    }
+
     public function company()
     {
         return $this->belongsTo(Company::class);

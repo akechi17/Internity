@@ -63,6 +63,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'resume_url',
         'in_internship',
         'in_processed',
+        'in_pending',
     ];
 
     public function getAvatarUrlAttribute()
@@ -78,6 +79,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getInInternshipAttribute()
     {
         return $this->internDates()->where('finished', 0)->count() > 0 ? true : false;
+    }
+
+    public function getInPendingAttribute()
+    {
+        return $this->appliances()->where('status', 'pending')->count() > 0 ? true : false;
     }
 
     public function getInProcessedAttribute()

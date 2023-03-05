@@ -365,8 +365,6 @@ class UserController extends Controller
     public function updateStatus(Request $request)
     {
         $id = decrypt($request->id);
-
-
         try {
             $user = User::findOrFail($id);
 

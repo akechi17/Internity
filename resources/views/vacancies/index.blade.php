@@ -27,6 +27,9 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                 Kuota
             </th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
+                Pendaftar
+            </th>
         </x-slot:thead>
 
         <x-slot:tbody>
@@ -72,6 +75,7 @@
                         </trix-editor>
                     </td>
                     <td class="text-sm text-center">{{ $data->slots }}</td>
+                    <td class="text-sm text-center">{{ $data->applied }}</td>
                 </tr>
             @endforeach
         </x-slot:tbody>

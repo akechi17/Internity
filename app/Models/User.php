@@ -62,6 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'avatar_url',
         'resume_url',
         'in_internship',
+        'in_processed',
     ];
 
     public function getAvatarUrlAttribute()
@@ -77,6 +78,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getInInternshipAttribute()
     {
         return $this->internDates()->where('finished', 0)->count() > 0 ? true : false;
+    }
+
+    public function getInProcessedAttribute()
+    {
+        return $this->appliances()->where('status', 'processed')->count() > 0 ? true : false;
     }
 
     public function schools()
@@ -107,6 +113,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function internDates()
     {
         return $this->hasMany(InternDate::class);
+    }
+
+    public function appliances()
+    {
+        return $this->hasMany(Appliance::class);
     }
 
     public function monitors()

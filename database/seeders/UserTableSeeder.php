@@ -82,41 +82,11 @@ class UserTableSeeder extends Seeder
         $user->schools()->attach($school->id);
         $user->departments()->attach($department->id);
         $user->courses()->attach($course->id);
-        $user->companies()->attach($company->id);
-        $user->internDates()->create([
-            'start_date' => $startDate,
-            'end_date' => $endDate,
-            'company_id' => $company->id,
-            'user_id' => $user->id,
-        ]);
-        $user->monitors()->create([
-            'company_id' => $company->id,
-            'date' => now()->format('Y-m-d'),
-            'match' => 4,
-        ]);
-        for ($now = now(); $now >= $startDate; $now->subDays(1)) {
-            $check_in = now()->subMinutes(rand(0, 60))->format('H:i:s');
-            $check_out = now()->addHours(8)->addMinutes(rand(0, 60))->format('H:i:s');
-            $user->presences()->create([
-                'company_id' => $company->id,
-                'presence_status_id' => 1,
-                'date' => $now->format('Y-m-d'),
-                'check_in' => $check_in,
-                'check_out' => $check_out,
-                'is_approved' => date_diff($now, $startDate)->days <= 23  ? 1 : 0,
-            ]);
-            Journal::factory()->count(1)->create([
-                'user_id' => $user->id,
-                'company_id' => $company->id,
-                'date' => $now->format('Y-m-d'),
-                'is_approved' => date_diff($now, $startDate)->days <= 23  ? 1 : 0,
-            ]);
-        }
 
         Appliance::create([
             'user_id' => $user->id,
             'vacancy_id' => $vacancy->id,
-            'status' => 'accepted',        ]);
+            'status' => 'pending',        ]);
 
         $company = Company::where('department_id', $department->id)->orderBy('id', 'desc')->first();
         $vacancy = Vacancy::where('company_id', $company->id)->first();

@@ -7,7 +7,9 @@ use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\JournalController;
 use App\Http\Controllers\Api\VacancyController;
+use App\Http\Controllers\Api\PresenceController;
 use App\Http\Controllers\Api\ApplianceController;
+use App\Http\Controllers\Api\PresenceStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,4 +51,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/appliances/{id}/edit-date', [ApplianceController::class, 'editDate']);
 
     Route::resource('journals', JournalController::class)->except(['create', 'edit']);
+
+    Route::resource('presences', PresenceController::class)->except(['create', 'edit']);
+
+    Route::get('/presence-statuses', [PresenceStatusController::class, 'index']);
+    Route::get('/presence-statuses/{id}', [PresenceStatusController::class, 'show']);
 });

@@ -31,6 +31,11 @@ class Course extends Model
         return $this->morphMany(News::class, 'newsable');
     }
 
+    public function code()
+    {
+        return $this->morphOne(Code::class, 'codeable');
+    }
+
     public function scopeSearch($query, $search)
     {
         return $query->where('name', 'like', '%' . $search . '%');

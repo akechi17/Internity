@@ -117,6 +117,9 @@ class CourseController extends Controller
         ]);
 
         $course = Course::create($request->all());
+        $course->code()->create([
+            'code' => substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyz', ceil(6/strlen($x)) )),1,6),
+        ]);
 
         return redirect()->route('courses.index', ['department' => encrypt($course->department_id)])
             ->with('success', 'Kelas berhasil ditambahkan');

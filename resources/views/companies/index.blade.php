@@ -36,7 +36,7 @@
             </th>
             @role('superadmin|admin|manager|teacher|student')
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
-                    Status
+                    Rating
                 </th>
             @endrole
         </x-slot:thead>

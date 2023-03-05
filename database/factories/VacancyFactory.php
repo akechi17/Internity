@@ -42,7 +42,7 @@ class VacancyFactory extends Factory
         return [
             'name' => fake()->randomElement($jobTitle[$selected]),
             'category' => fake()->randomElement(['IT', 'Marketing', 'Finance', 'Human Resources', 'Automotive', 'Construction', 'Education', 'Engineering', 'Healthcare', 'Hospitality', 'Manufacturing', 'Media', 'Retail', 'Technology', 'Telecommunications', 'Transportation']),
-            'description' => fake()->paragraph(),
+            'description' => fake()->realText(),
             'slots' => fake()->numberBetween(2, 5),
             'status' => 1,
             'skills' => implode(', ', fake()->randomElements($skills[$selected], fake()->numberBetween(3, 5))),

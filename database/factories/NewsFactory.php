@@ -18,7 +18,7 @@ class NewsFactory extends Factory
     {
         return [
             'title' => fake()->sentence(),
-            'content' => fake()->text(),
+            'content' => fake()->realText(),
             'status' => 1,
             'image' => fake()->imageUrl(),
         ];

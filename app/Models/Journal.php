@@ -33,6 +33,20 @@ class Journal extends Model
         'is_approved' => 'boolean',
     ];
 
+    protected $appends = [
+        'filled',
+    ];
+
+    /**
+     * Get the filled attribute.
+     *
+     * @return bool
+     */
+    public function getFilledAttribute(): bool
+    {
+        return $this->work_type !== null && $this->description !== null;
+    }
+
     /**
      * Get the user that owns the Journal
      *

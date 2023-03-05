@@ -28,6 +28,15 @@ class Company extends Model
         'created_at' => 'desc',
     ];
 
+    protected $appends = [
+        'logo_url',
+    ];
+
+    public function getLogoUrlAttribute()
+    {
+        return $this->logo ? url($this->logo) : null;
+    }
+
     public function school()
     {
         return $this->belongsTo(School::class);

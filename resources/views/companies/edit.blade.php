@@ -29,7 +29,7 @@
             </x-form.select>
             {{-- image --}}
             <x-form.input-base label="Logo" id="input-logo" type="file" name="logo" placeholder="Logo Perusahaan" value="{{ $company->logo }}"/>
-            <img src="{{ url($company->logo) }}" alt="Logo Perusahaan" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+            <img src="{{ $company->logo_url }}" alt="Logo Perusahaan" class="img-fluid" style="max-width: 200px; max-height: 200px;">
         </x-slot:formBody>
     </x-form.form>
 @endsection

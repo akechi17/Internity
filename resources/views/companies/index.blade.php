@@ -34,9 +34,11 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-16">
                 Phone
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-7">
-                Rating
-            </th>
+            @role('superadmin|admin|manager|teacher|student')
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
+                    Status
+                </th>
+            @endrole
         </x-slot:thead>
 
         <x-slot:tbody>
@@ -48,6 +50,13 @@
                                 class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 title="Lowongan"><i class="bi bi-person-workspace"></i></a>
                         @endcan
+                        @role('superadmin|admin|manager|teacher')
+                            @can('review-list')
+                                <a href="{{ route('reviews.companies.index', ['company' => encrypt($data->id)]) }}"
+                                    class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Review"><i class="bi bi-chat-left-text"></i></a>
+                            @endcan
+                        @endrole
                         @can('company-edit')
                             <a href="{{ route('companies.edit', encrypt($data->id)) }}" class="btn btn-info text-xs"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
@@ -75,12 +84,14 @@
                     @php
                         $rating = number_format($data->reviews()?->avg('rating'), 1);
                     @endphp
-                    <td class="text-sm text-center">
-                        @for($i = 0; $i < $rating; $i++)
-                            <i class="bi bi-star-fill text-warning" style="font-size: 0.7rem;"></i>
-                        @endfor
-                        <span class="text-sm text-secondary" style="display: block;">{{ $rating }}</span>
-                    </td>
+                    @role('superadmin|admin|manager|teacher|student')
+                        <td class="text-sm text-center">
+                            @for($i = 0; $i < $rating; $i++)
+                                <i class="bi bi-star-fill text-warning" style="font-size: 0.7rem;"></i>
+                            @endfor
+                            <span class="text-sm text-secondary" style="display: block;">{{ $rating }}</span>
+                        </td>
+                    @endrole
                 </tr>
             @endforeach
         </x-slot:tbody>

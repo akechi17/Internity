@@ -45,6 +45,8 @@ class RoleTableSeeder extends Seeder
             ->orWhere('name', 'like', '%journal%')
             ->orWhere('name', 'like', '%student%')
             ->orWhere('name', 'like', '%monitor%')
+            ->orWhere('name', 'like', '%appliance%')
+            ->orWhere('name', 'like', '%review%')
             ->pluck('id', 'id');
         $role->syncPermissions($permissions);
 
@@ -67,6 +69,7 @@ class RoleTableSeeder extends Seeder
             ->orWhere('name', 'student-list')
             ->orWhere('name', 'like', '%news%')
             ->orWhere('name', 'like', '%monitor%')
+            ->orWhere('name', 'like', '%review%')
             ->pluck('id', 'id');
         $role->syncPermissions($permissions);
 

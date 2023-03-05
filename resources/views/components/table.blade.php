@@ -43,7 +43,7 @@
                                 <span class="input-group-text text-body">
                                     <i class="bi bi-search"></i>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Type here..." />
+                                <input type="text" class="form-control search" placeholder="Cari..." name="search">
                             </div>
                         </div>
                     </div>
@@ -81,4 +81,6 @@
             })
         </script>
     @endpush
+
+
 @endonce

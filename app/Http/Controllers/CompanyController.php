@@ -93,9 +93,16 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $context = $this->getData();
+        $school = 1;
+        $department = $request->query('department');
+        $search = $request->query('search');
+        $status = $request->query('status');
+        $sort = $request->query('sort');
+
+        $sort = $sort ? $sort : '-created_at';
+        $context = $this->getData($school, $department, $search, $status, $sort);
 
         return view('companies.index', $context);
     }

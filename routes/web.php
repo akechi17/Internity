@@ -6,6 +6,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JournalController;
@@ -71,6 +72,7 @@ Route::middleware(['auth'])->group( function () {
     Route::resource('/appliances', ApplianceController::class);
     Route::put('appliances/{id}/accept', [ApplianceController::class, 'accept'])->name('appliances.accept');
     Route::put('appliances/{id}/reject', [ApplianceController::class, 'reject'])->name('appliances.reject');
+    Route::put('appliances/{id}/process', [ApplianceController::class, 'process'])->name('appliances.process');
 
     Route::get('presence-statuses/search', [PresenceStatusController::class, 'search'])->name('presence-statuses.search');
     Route::resource('presence-statuses', PresenceStatusController::class);
@@ -86,4 +88,7 @@ Route::middleware(['auth'])->group( function () {
     Route::resource('monitors', MonitorController::class);
 
     Route::resource('news', NewsController::class);
+
+    // Route::resource('reviews', ReviewController::class);
+    Route::get('reviews/companies', [ReviewController::class, 'companyIndex'])->name('reviews.companies.index');
 });

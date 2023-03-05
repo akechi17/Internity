@@ -102,6 +102,11 @@ class PermissionTableSeeder extends Seeder
             'monitor-create',
             'monitor-edit',
             'monitor-delete',
+
+            'review-list',
+            'review-create',
+            'review-edit',
+            'review-delete',
         ];
 
         foreach ($permissions as $permission) {

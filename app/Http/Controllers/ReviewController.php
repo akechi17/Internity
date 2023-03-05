@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
+use App\Models\Company;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
 
@@ -82,5 +84,20 @@ class ReviewController extends Controller
     public function destroy(Review $review)
     {
         //
+    }
+
+    public function companyIndex(Request $request)
+    {
+        $companyId = $request->query('company');
+        ! $companyId ? abort(404) : $companyId = decrypt($companyId);
+        $reviews = Review::where('reviewable_id', $companyId)
+            ->where('reviewable_type', 'App\Models\Company')
+            ->with('user')
+            ->paginate(10);
+
+        $reviews->withPath(route('reviews.companies.index', ['company' => encrypt($companyId)]));
+
+        $companyName = Company::where('id', $companyId)->first('name')->name;
+        return view('reviews.companies.index', compact('reviews', 'companyName'));
     }
 }

@@ -31,6 +31,20 @@
                 <x-form.input-base label="Tanggal Selesai" id="input-end-date" type="date" name="end_date"
                     value="{{ $student->internDates()->where('company_id', $company->id)->first()?->end_date; }}" />
                 <x-form.input-base label="Lama Perpanjang (bulan)" id="input-extend" type="numeric" name="extend" value="{{ $student->internDates()->where('company_id', $company->id)->first()?->extend; }}" />
+                <x-form.radio label="Status" name="finished">
+                    <x-slot:checkboxItem>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="0" id="input-status-1" name="finished"
+                                {{ $student->internDates()->where('company_id', $company->id)->first()?->finished == 0 ? 'checked' : '' }}>
+                            <label class="form-check-label" for="input-status-1">Magang</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="1" id="input-status-2" name="finished"
+                                {{ $student->internDates()->where('company_id', $company->id)->first()?->finished == 1 ? 'checked' : '' }}>
+                            <label class="form-check-label" for="input-status-2">Selesai</label>
+                        </div>
+                    </x-slot:checkboxItem>
+                </x-form.radio>
             @else
                 <x-form.input-base disabled label="Tanggal Mulai" id="input-start-date" type="date" name="start_date"
                     value="" />

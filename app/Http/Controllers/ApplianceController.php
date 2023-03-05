@@ -258,6 +258,30 @@ class ApplianceController extends Controller
         return back()->with($context);
     }
 
+    public function process($id)
+    {
+        $id = decrypt($id);
+        try {
+            $appliance = Appliance::findOrFail($id);
+            $appliance->update([
+                'status' => 'processed',
+            ]);
+            $context = [
+                'status' => true,
+                'message' => 'Data berhasil diperbarui',
+                'data' => $appliance,
+            ];
+        } catch (\Exception $e) {
+            $context = [
+                'status' => false,
+                'message' => 'Data tidak ditemukan',
+                'data' => null,
+            ];
+        }
+
+        return back()->with($context);
+    }
+
     public function accept($id)
     {
         $id = decrypt($id);

@@ -61,6 +61,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'avatar_url',
         'resume_url',
+        'in_internship',
     ];
 
     public function getAvatarUrlAttribute()
@@ -73,6 +74,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->resume ? asset('storage/' . $this->resume) : null;
     }
 
+    public function getInInternshipAttribute()
+    {
+        return $this->internDates()->where('finished', 0)->count() > 0 ? true : false;
+    }
 
     public function schools()
     {

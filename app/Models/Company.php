@@ -68,6 +68,11 @@ class Company extends Model
         return $this->morphMany(Review::class, 'reviewable');
     }
 
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
+
     public function scopeActive()
     {
         return $this->where('status', 1);

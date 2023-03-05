@@ -23,6 +23,8 @@ class MonitorController extends Controller
 
         $monitors = Monitor::where('user_id', $userId)->where('company_id', $companyId)->orderBy('date', 'desc')->paginate(35);
 
+        $monitors->withPath('/monitors?user=' . encrypt($userId) . '&company=' . encrypt($companyId));
+
         if ($monitors->count() > 0) {
             $context = [
                 'status' => true,

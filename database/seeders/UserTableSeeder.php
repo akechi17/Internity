@@ -216,7 +216,7 @@ class UserTableSeeder extends Seeder
 
         $courses = Course::all();
         foreach ($courses as $course) {
-            User::factory()->count(3)->create(['resume' => 'storage/resumes/CV_Hermawan.pdf'])->each(function ($user) use ($course) {
+            User::factory()->count(2)->create(['resume' => 'storage/resumes/CV_Hermawan.pdf'])->each(function ($user) use ($course) {
                 $user->assignRole('student');
                 $user->schools()->attach($course->department->school_id);
                 $user->departments()->attach($course->department_id);
@@ -252,8 +252,8 @@ class UserTableSeeder extends Seeder
                     'status' => 'accepted',
                 ]);
 
-                $startDate = now()->subDays(rand(240, 300));
-                $endDate = now()->subDays(rand(30, 60));
+                $startDate = now()->subDays(rand(100, 200));
+                $endDate = now()->subDays(rand(5,10));
 
                 $user->internDates()->create([
                     'start_date' => $startDate,

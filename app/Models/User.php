@@ -136,6 +136,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphMany(Review::class, 'reviewable');
     }
 
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', 1);

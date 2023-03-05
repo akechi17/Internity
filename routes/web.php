@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SchoolController;
@@ -97,4 +98,6 @@ Route::middleware(['auth'])->group( function () {
 
     Route::get('reviews/users', [ReviewController::class, 'userEdit'])->name('reviews.users.edit');
     Route::put('reviews/users', [ReviewController::class, 'userUpdate'])->name('reviews.users.update');
+
+    Route::resource('scores', ScoreController::class);
 });

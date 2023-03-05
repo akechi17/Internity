@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             NewsSeeder::class,
             JournalSeeder::class,
             QuestionSeeder::class,
+            ScoreSeeder::class,
         ]);
     }
 }

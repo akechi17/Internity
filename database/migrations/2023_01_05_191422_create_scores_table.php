@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
-            $table->float('score', 8, 2);
+            $table->integer('score')->min(0)->max(100);
             $table->timestamps();
         });
     }

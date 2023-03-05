@@ -101,7 +101,7 @@
                                 <a href="{{ route('reviews.users.edit', ['user' => encrypt($student->id), 'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Review">
                                         <i class="bi bi-chat-left-text"></i></a>
-                                <a href="{{ route('students.edit', encrypt($student->id)) }}" class="btn btn-info text-xs"
+                                <a href="{{ route('scores.index', ['user' => encrypt($student->id), 'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Nilai">
                                         <i class="bi bi-award"></i></a>
                                 <a href="{{ route('students.edit', ['id'=>encrypt($student->id),'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"

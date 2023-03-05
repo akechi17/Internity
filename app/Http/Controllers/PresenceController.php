@@ -40,7 +40,7 @@ class PresenceController extends Controller
         } else {
             $context = [
                 'status' => false,
-                'message' => 'Data jurnal tidak ditemukan',
+                'message' => 'Data kehadiran tidak ditemukan',
                 'presences' => [],
                 'pagination' => $presences->links()->render(),
                 'userName' => User::find($userId)->name,

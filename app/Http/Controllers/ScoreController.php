@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Score;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreScoreRequest;
@@ -25,7 +26,7 @@ class ScoreController extends Controller
         $scores = Score::where('user_id', $userId)->where('company_id', $companyId)->paginate(10);
         $scores->withPath('/scores?user=' . encrypt($userId) . '&company=' . encrypt($companyId));
 
-        $userName = $scores->first()->user->name;
+        $userName = User::find($userId)->name;
 
         if ($scores->count() > 0) {
             $context = [

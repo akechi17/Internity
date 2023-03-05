@@ -51,7 +51,7 @@
         </x-slot:tbody>
     </x-table>
     <div style="float:right">
-        <a href="{{ route('students.index', encrypt($data->id)) }}" class="btn bg-gradient-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Siswa">
+        <a href="{{ route('students.index') }}" class="btn bg-gradient-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Siswa">
             <i class="bi bi-arrow-left"></i></a>
     </div>
 @endsection

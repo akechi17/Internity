@@ -141,18 +141,20 @@ class ReviewController extends Controller
 
     public function userUpdate(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'reviews' => 'required|array',
-            'reviews.*.id' => 'required|exists:reviews,id',
-            'reviews.*.rating' => 'required|numeric|min:1|max:5',
-            'reviews.*.body' => 'nullable|string',
         ]);
 
-        foreach ( $request->reviews as $review ) {
-            Review::find($review['id'])->update([
-                'rating' => $review['rating'],
-                'body' => $review['body'],
+        $ids = $request->reviews['id'];
+        $ratings = $request->reviews['rating'];
+        $bodies = $request->reviews['body'];
+
+        $inputs = array_map(null, $ids, $ratings, $bodies);
+
+        foreach ( $inputs as $input ) {
+            Review::where('id', $input[0])->update([
+                'rating' => $input[1],
+                'body' => $input[2],
             ]);
         }
 

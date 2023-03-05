@@ -20,7 +20,7 @@
                 Nama
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
-                Kategori
+                Bidang Usaha
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-23">
                 Alamat

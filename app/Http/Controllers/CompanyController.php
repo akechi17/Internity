@@ -220,6 +220,7 @@ class CompanyController extends Controller
             'email' => 'required',
             'contact_person' => 'required',
             'department_id' => 'required|exists:departments,id',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $company->update([
@@ -235,6 +236,17 @@ class CompanyController extends Controller
             'country' => $request->country,
             'department_id' => $request->department_id,
         ]);
+
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $filename = $company->id . time() . '.' . $logo->getClientOriginalExtension();
+            $path = storage_path('app/public/companies/');
+            $logo->move($path, $filename);
+
+            $company->update([
+                'logo' => '/storage/companies/' . $filename,
+            ]);
+        }
 
         return redirect()->route('companies.index')->with('success', 'Data perusahaan berhasil diubah');
     }

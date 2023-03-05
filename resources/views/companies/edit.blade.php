@@ -6,7 +6,7 @@
 
 @section('dashboard-content')
     <x-form.form formTitle="Edit Perusahaan" formMethod="POST" spoofMethod="PUT"
-        formAction="{{ route('companies.update', encrypt($company->id)) }}">
+        formAction="{{ route('companies.update', encrypt($company->id)) }}" enctype="multipart/form-data">
         <x-slot:formBody>
             <x-form.input-base label="Nama" id="input-name" type="text" name="name" value="{{ $company->name }}" />
             <x-form.input-base label="Kategori" id="input-category" type="text" name="category" placeholder="Software Housing" value="{{ $company->category }}"/>
@@ -27,6 +27,9 @@
                     @endforeach
                 </x-slot:options>
             </x-form.select>
+            {{-- image --}}
+            <x-form.input-base label="Logo" id="input-logo" type="file" name="logo" placeholder="Logo Perusahaan" value="{{ $company->logo }}"/>
+            <img src="{{ url($company->logo) }}" alt="Logo Perusahaan" class="img-fluid" style="max-width: 200px; max-height: 200px;">
         </x-slot:formBody>
     </x-form.form>
 @endsection

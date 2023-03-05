@@ -109,7 +109,7 @@ class UserController extends Controller
         $file = $request->file('avatar');
         $filename = $file->getClientOriginalName();
         $path = $file->move(storage_path('app/public/avatars'), $filename);
-        $user->avatar = 'avatars/' . $filename;
+        $user->avatar = 'storage/avatars/' . $filename;
         $user->save();
         return response()->json([
             'message' => 'Avatar berhasil diunggah',

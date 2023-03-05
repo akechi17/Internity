@@ -68,12 +68,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getAvatarUrlAttribute()
     {
-        return $this->avatar ? asset('storage/' . $this->avatar) : null;
+        return $this->avatar ? url($this->avatar) : null;
     }
 
     public function getResumeUrlAttribute()
     {
-        return $this->resume ? asset('storage/' . $this->resume) : null;
+        return $this->resume ? url($this->resume) : null;
     }
 
     public function getInInternshipAttribute()

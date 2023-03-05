@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use Carbon\Carbon;
 use App\Models\Vacancy;
 use App\Models\Appliance;
 use Illuminate\Http\Request;
+use App\Models\PresenceStatus;
 use App\Http\Controllers\Controller;
 
 class ApplianceController extends Controller
@@ -72,6 +74,31 @@ class ApplianceController extends Controller
 
         try {
             $user->internDates()->where('company_id', $id)->update($request->all());
+
+            $presencePending = PresenceStatus::where('name', 'Pending')->first('id')->id;
+
+            $startDate = Carbon::parse($request->start_date);
+            $endDate = Carbon::parse($request->end_date);
+
+            for ($i = $startDate; $i <= $endDate; $i->addDay()) {
+                $presence = $user->presences()->where('company_id', $id)->where('date', $i)->first();
+                $journal = $user->journals()->where('company_id', $id)->where('date', $i)->first();
+
+                if (! $presence) {
+                    $user->presences()->create([
+                        'company_id' => $id,
+                        'date' => $i,
+                        'presence_status_id' => $presencePending,
+                    ]);
+                }
+                if (! $journal) {
+                    $user->journals()->create([
+                        'company_id' => $id,
+                        'date' => $i,
+                    ]);
+                }
+            }
+
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error while updating date',

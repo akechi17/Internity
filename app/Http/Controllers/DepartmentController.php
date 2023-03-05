@@ -42,8 +42,7 @@ class DepartmentController extends Controller
             ? $departments->paginate(10)
             : $departments->get();
 
-        $paginate ? $departments->withPath('/departments/'.encrypt($schoolId))->withQueryString() : null;
-
+        $paginate ? $departments->withPath('/departments?school=' . encrypt($schoolId)) : null;
         $schools = $isAdmin
             ? School::pluck('name', 'id')
             : School::where('id', $schoolId)->pluck('name', 'id');

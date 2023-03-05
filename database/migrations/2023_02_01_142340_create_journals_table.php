@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->date('date');
-            $table->string('work_type');
-            $table->text('description');
+            $table->string('work_type')->nullable();
+            $table->text('description')->nullable();
             $table->boolean('is_approved')->default(0);
             $table->timestamps();
         });

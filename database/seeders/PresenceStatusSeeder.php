@@ -40,7 +40,12 @@ class PresenceStatusSeeder extends Seeder
                 'school_id' => 1,
                 'name' => 'Libur',
                 'color' => '#00FFFF',
-            ]
+            ],
+            [
+                'school_id' => 1,
+                'name' => 'Pending',
+                'color' => '#a7a7a7',
+            ],
         ];
 
         foreach ($presenceStatuses as $presenceStatus) {

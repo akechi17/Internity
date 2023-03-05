@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\JournalController;
 use App\Http\Controllers\Api\VacancyController;
 use App\Http\Controllers\Api\ApplianceController;
 
@@ -46,4 +47,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/appliances/accepted', [ApplianceController::class, 'accepted']);
     Route::put('/appliances/{id}/cancel', [ApplianceController::class, 'cancel']);
     Route::put('/appliances/{id}/edit-date', [ApplianceController::class, 'editDate']);
+
+    Route::resource('journals', JournalController::class)->except(['create', 'edit']);
 });

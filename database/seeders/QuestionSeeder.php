@@ -23,7 +23,7 @@ class QuestionSeeder extends Seeder
                 'order' => 1,
             ],
             [
-                'question' => 'Bagaimana peralatan Anda peralatan praktik di '.$school->name.'  sudah sesuai dengan standar perusahaan?',
+                'question' => 'Bagaimana menurut Anda peralatan praktik di '.$school->name.'  sudah sesuai dengan standar perusahaan?',
                 'order' => 2,
             ],
             [

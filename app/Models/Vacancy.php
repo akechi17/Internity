@@ -36,7 +36,7 @@ class Vacancy extends Model
 
     public function getAppliedAttribute()
     {
-        return $this->appliances()->count();
+        return $this->appliances()->where('status', '!=', 'canceled')->count();
     }
 
     public function getInProcessedAttribute()

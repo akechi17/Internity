@@ -68,7 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getAvatarUrlAttribute()
     {
-        return $this->avatar ? url($this->avatar) : null;
+        return $this->avatar ? url($this->avatar) : asset('img/placeholder-profile.png');
     }
 
     public function getResumeUrlAttribute()

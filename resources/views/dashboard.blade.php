@@ -28,8 +28,9 @@
                                 <li class="justify-content-end dropdown pe-2 d-flex align-items-center">
                                     <a href="javascript:;" class="nav-link text-body font-weight-bold px-0"
                                         id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-person-fill me-sm-1"></i>
-                                        <span class="d-sm-inline d-none">User</span>
+                                        <img src="{{ $user->avatar_url }}" class="avatar avatar-sm me-sm-1" alt="user"
+                                            style="width: 30px; height: 30px;">
+                                        <span class="d-sm-inline d-none">{{ $user->name }}</span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
                                         aria-labelledby="dropdownMenuButton">

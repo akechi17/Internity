@@ -99,4 +99,7 @@ Route::middleware(['auth'])->group( function () {
     Route::put('reviews/users', [ReviewController::class, 'userUpdate'])->name('reviews.users.update');
 
     Route::resource('scores', ScoreController::class);
+
+    Route::get('edit-profile', [UserController::class, 'editProfile'])->name('users.editProfile');
+    Route::put('update-profile', [UserController::class, 'updateProfile'])->name('users.updateProfile');
 });

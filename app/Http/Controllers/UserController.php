@@ -385,4 +385,39 @@ class UserController extends Controller
             return back()->with('error', 'Terjadi kesalahan saat mengubah status');
         }
     }
+
+    public function editProfile()
+    {
+        $user = auth()->user();
+        return view('users.edit-profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'gender' => 'required|in:male,female',
+            'bio' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|min:10|max:20',
+            'date_of_birth' => 'nullable|date',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user = User::find($user->id);
+        $user->update($request->all());
+
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filename = $user->id . time() . '_avatar.' . $avatar->getClientOriginalExtension();
+            $avatar->move(storage_path('app/public/avatars'), $filename);
+            $user->update([
+                'avatar' => 'storage/avatars/' . $filename,
+            ]);
+        }
+
+        return back()->with('success', 'Profil berhasil diubah');
+    }
 }

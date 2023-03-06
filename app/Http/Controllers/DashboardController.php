@@ -225,10 +225,9 @@ class DashboardController extends Controller
             });
         }
 
-
         // Sort array by key
         $internDurations = $internDurations->sortKeys();
-        return view('dashboard', compact('user', 'students', 'companies', 'vacancies', 'studentStatus', 'monitors', 'internDurations'));
+        return view('dashboard', compact('user','students', 'companies', 'vacancies', 'studentStatus', 'monitors', 'internDurations'));
     }
 
     /**

@@ -146,7 +146,7 @@ class ApplianceController extends Controller
             $userDept = auth()->user()->departments()->first()->id;
             $vacancyDept = $vacancy->company->department->id;
 
-            if (Appliance::where('user_id', auth()->user()->id)->where('vacancy_id', $request->vacancy_id)->exists()) {
+            if (Appliance::where('user_id', auth()->user()->id)->where('vacancy_id', $request->vacancy_id)->where('status', 'pending')->orWhere('status', 'accepted')->orWhere('status', 'processed')->exists()) {
                 return response()->json([
                     'message' => 'Anda sudah mendaftar pada lowongan ini',
                 ], 403);

@@ -102,7 +102,7 @@ class User extends Authenticatable implements MustVerifyEmail
             $query->where('status', 'accepted');
         })->whereHas('internDates', function ($query) {
             $query->where('finished', false);
-        })->where('id', $this->id)->first()?->companies()->first();
+        })->where('id', $this->id)->first()?->companies()->first()->id;
     }
 
     public function schools()

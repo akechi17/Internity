@@ -76,7 +76,7 @@
                     </td>
                     <td class="text-sm text-center">
                         @if ($data->user->resume)
-                            <a href="{{ url('storage/' . $data->user->resume) }}" target="_blank"
+                            <a href="{{ url($data->user->resume) }}" target="_blank"
                                 class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 title="Lihat CV"><i class="bi bi-file-earmark-text"></i></a>
                         @else

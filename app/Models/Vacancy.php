@@ -28,6 +28,7 @@ class Vacancy extends Model
 
     protected $appends = [
         'applied',
+        'user_appliance',
         'in_processed',
         'in_pending',
     ];
@@ -45,6 +46,11 @@ class Vacancy extends Model
     public function getInPendingAttribute()
     {
         return $this->appliances()->where('status', 'pending')->where('user_id', auth()->id())->count() > 0 ? true : false;
+    }
+
+    public function getUserApplianceAttribute()
+    {
+        return $this->appliances()->where('user_id', auth()->id())->first();
     }
 
     // #[SearchUsingFullText(['skills'])]

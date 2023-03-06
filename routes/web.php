@@ -46,6 +46,9 @@ Route::middleware(['verified.email', 'auth'])->group( function () {
 // Route::middleware(['auth'])->group( function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('change-password', [AuthController::class, 'changePassword'])->name('change-password');
+    Route::put('update-password', [AuthController::class, 'updatePassword'])->name('update-password');
+
     Route::put('roles/{id}/updateStatus', [RoleController::class, 'updateStatus'])->name('roles.updateStatus');
     Route::resource('/roles', RoleController::class);
 

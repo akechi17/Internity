@@ -146,7 +146,7 @@ class ApplianceController extends Controller
             $userDept = auth()->user()->departments()->first()->id;
             $vacancyDept = $vacancy->company->department->id;
 
-            if (Appliance::where('user_id', auth()->user()->id)->where('vacancy_id', $request->vacancy_id)->where('status', 'pending')->orWhere('status', 'accepted')->orWhere('status', 'processed')->exists()) {
+            if (Appliance::where('user_id', auth()->user()->id)->where('vacancy_id', $request->vacancy_id)->whereIn('status', ['pending', 'accepted', 'processed'])->exists()) {
                 return response()->json([
                     'message' => 'Anda sudah mendaftar pada lowongan ini',
                 ], 403);
@@ -155,12 +155,6 @@ class ApplianceController extends Controller
             if ($userDept != $vacancyDept) {
                 return response()->json([
                     'message' => 'Lowongan ini tidak sesuai dengan jurusan anda',
-                ], 403);
-            }
-
-            if ($vacancy->slots <= $vacancy->applied) {
-                return response()->json([
-                    'message' => 'Lowongan ini sudah penuh',
                 ], 403);
             }
 

@@ -128,4 +128,27 @@ class AuthController extends Controller
             ]);
         }
     }
+
+    public function storeFCMToken(Request $request)
+    {
+        $request->validate([
+            'fcm_token' => 'required',
+        ]);
+
+        try {
+            $user = auth()->user();
+            $user->update([
+                'fcm_token' => $request->fcm_token,
+            ]);
+
+            return response()->json([
+                'message' => 'FCM token berhasil disimpan',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => 'Internal Server Error',
+                'message' => 'FCM token gagal disimpan',
+            ], 500);
+        }
+    }
 }

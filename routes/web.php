@@ -46,8 +46,8 @@ Route::post('email/resend', [VerificationController::class, 'resend'])->middlewa
 
 Route::get('end-date-reminder/{day}', [NotificationController::class, 'endDateReminder']);
 
-Route::middleware(['verified.email', 'auth'])->group( function () {
-// Route::middleware(['auth'])->group( function () {
+// Route::middleware(['verified.email', 'auth'])->group( function () {
+Route::middleware(['auth'])->group( function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('change-password', [AuthController::class, 'changePassword'])->name('change-password');

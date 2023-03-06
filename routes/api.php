@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/resumes', [UserController::class, 'uploadResume']);
 
     Route::get('/news', [NewsController::class, 'index']);
+    Route::get('/news/{id}', [NewsController::class, 'show']);
 
     Route::get('/vacancies', [VacancyController::class, 'index']);
     Route::get('/vacancies/recommended', [VacancyController::class, 'recommended']);

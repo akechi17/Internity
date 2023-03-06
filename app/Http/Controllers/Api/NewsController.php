@@ -98,7 +98,25 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $news = News::findOrFail($id);
+
+            $context = [
+                'status' => true,
+                'message' => 'Data berita ditemukan',
+                'news' => $news,
+            ];
+
+            return response()->json($context, 200);
+        } catch (\Exception $e) {
+            $context = [
+                'status' => false,
+                'message' => 'Data berita tidak ditemukan',
+                'news' => [],
+            ];
+
+            return response()->json($context, 204);
+        }
     }
 
     /**

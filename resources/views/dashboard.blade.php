@@ -46,15 +46,15 @@
                                             </a>
                                         </li>
                                         <li class="mb-2">
-                                            <form action="{{ route('logout') }}" method="POST">
-                                                @method('POST')
-                                                @csrf
-                                                <button type="submit" class="dropdown-item border-radius-md">
-                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                        Logout
-                                                    </h6>
-                                                </button>
-                                            </form>
+                                            <a class="dropdown-item border-radius-md" href="{{ route('change-password') }}">
+                                                <div class="d-flex py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="text-sm font-weight-normal mb-1">
+                                                            Ganti Password
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>

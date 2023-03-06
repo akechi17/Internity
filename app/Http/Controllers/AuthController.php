@@ -26,7 +26,6 @@ class AuthController extends Controller
         $user = auth()->user();
         $user = User::find($user->id);
 
-        // condition to check if the password is the same as the old one
         if (Hash::check($request->old_password, $user->password)) {
             $user->password = bcrypt($request->password);
             $user->save();

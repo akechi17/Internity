@@ -64,6 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'in_internship',
         'in_processed',
         'in_pending',
+        'active_company'
     ];
 
     public function getAvatarUrlAttribute()
@@ -82,17 +83,26 @@ class User extends Authenticatable implements MustVerifyEmail
             $query->where('status', 'accepted');
         })->whereHas('internDates', function ($query) {
             $query->where('finished', false);
-        })->count() > 0 ? true : false;
+        })->where('id', $this->id)->count() > 0 ? true : false;
     }
 
     public function getInPendingAttribute()
     {
-        return $this->appliances()->where('status', 'pending')->count() > 0 ? true : false;
+        return $this->appliances()->where('status', 'pending')->where('user_id', $this->id)->count() > 0 ? true : false;
     }
 
     public function getInProcessedAttribute()
     {
-        return $this->appliances()->where('status', 'processed')->count() > 0 ? true : false;
+        return $this->appliances()->where('status', 'processed')->where('user_id', $this->id)->count() > 0 ? true : false;
+    }
+
+    public function getActiveCompanyAttribute()
+    {
+        return $this->whereHas('appliances', function ($query) {
+            $query->where('status', 'accepted');
+        })->whereHas('internDates', function ($query) {
+            $query->where('finished', false);
+        })->where('id', $this->id)->first()?->companies()->first();
     }
 
     public function schools()

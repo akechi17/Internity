@@ -31,6 +31,7 @@ return new class extends Migration
             $table->boolean('password_by_admin')->default(0);
             $table->timestamp('last_login')->nullable();
             $table->ipAddress('last_login_ip')->nullable();
+            $table->string('fcm_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

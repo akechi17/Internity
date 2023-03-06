@@ -126,6 +126,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'fcm_key' => env('FCM_KEY', 'AAAAlYvtNeE:APA91bEXObJazCBJnfrxBKNEgh7xOiZe3ApfFu35KeZbnHKbeYXR9oej8AlgNFKFrRmeyjZeLz36Gu_BoU3EljfW0OxVQ9o0gfKV9nkE3YJQhqna37TwCP65FYUSm9uuyEbZxhh_0MYb'),
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver

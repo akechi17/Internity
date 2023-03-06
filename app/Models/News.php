@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\FCMService;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,6 +32,12 @@ class News extends Model
                 'title' => 'Ada Berita Baru!',
                 'body' => 'Ada berita baru yang ditambahkan oleh ' . $news->user->name . '. Segera cek di sesi berita!',
             ]);
+
+            $users = User::whereNotNull('fcm_token')->get();
+
+            foreach ($users as $user) {
+                FCMService::send($user->fcm_token, [$news->title, $news->body]);
+            }
         });
     }
 

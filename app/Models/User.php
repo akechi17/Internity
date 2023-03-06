@@ -78,7 +78,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getInInternshipAttribute()
     {
-        return $this->internDates()->where('finished', 0)->count() > 0 ? true : false;
+        return $this->whereHas('appliances', function ($query) {
+            $query->where('status', 'accepted');
+        })->whereHas('internDates', function ($query) {
+            $query->where('finished', false);
+        })->count() > 0 ? true : false;
     }
 
     public function getInPendingAttribute()

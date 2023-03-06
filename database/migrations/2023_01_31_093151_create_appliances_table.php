@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('appliances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('vacancy_id');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('vacancy_id')->constrained('vacancies')->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status', ['pending', 'accepted', 'rejected', 'canceled', 'processed']);
             $table->string('message')->nullable();
             $table->timestamps();

@@ -20,6 +20,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ApplianceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\PresenceStatusController;
 use App\Http\Controllers\ScorePredicateController;
@@ -42,6 +43,8 @@ Route::get('/', function () {
 Route::get('email/verify', [VerificationController::class, 'notice'])->middleware('auth')->name('verification.notice');
 Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['auth', 'signed', 'throttle:6,1'])->name('verification.verify');
 Route::post('email/resend', [VerificationController::class, 'resend'])->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
+
+Route::get('end-date-reminder/{day}', [NotificationController::class, 'endDateReminder']);
 
 Route::middleware(['verified.email', 'auth'])->group( function () {
 // Route::middleware(['auth'])->group( function () {

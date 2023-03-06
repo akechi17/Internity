@@ -183,9 +183,10 @@ class PresenceController extends Controller
         try {
             $user = auth()->user();
 
-            $presence = $user->presences()->where('company_id', $company)->whereDate('date', Carbon::now())->first();
-            $journal = $user->journals()->where('company_id', $company)->whereDate('date', Carbon::now())->first();
-
+            $presence = $user->presences()->where('company_id', $company)->whereDate('date', Carbon::now())->whereHas('presenceStatus', function ($query) {
+                $query->where('name', '!=', 'Pending');
+            })->first();
+            $journal = $user->journals()->where('company_id', $company)->whereDate('date', Carbon::now())->whereNull('work_type')->whereNull('description')->first();
             return response()->json([
                 'status' => true,
                 'message' => 'Presence retrieved successfully',

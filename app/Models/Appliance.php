@@ -16,6 +16,31 @@ class Appliance extends Model
         'message',
     ];
 
+    protected static function booted()
+    {
+        static::updated(function ($appliance) {
+            if ($appliance->status == 'accepted') {
+                $notif = Notification::create([
+                    'user_id' => $appliance->user_id,
+                    'title' => 'Lamaran Magang Kamu Diterima!',
+                    'body' => 'Selamat! Lamaran magang kamu untuk lowongan ' . $appliance->vacancy->name . ' di ' . $appliance->vacancy->company->name . ' telah diterima. Silakan hubungi perusahaan untuk lebih lanjut.',
+                ]);
+            } elseif ($appliance->status == 'rejected') {
+                $notif = Notification::create([
+                    'user_id' => $appliance->user_id,
+                    'title' => 'Yahh, lamaran magang kamu ditolak.',
+                    'body' => 'Maaf, lamaran magang kamu untuk lowongan ' . $appliance->vacancy->name . ' di ' . $appliance->vacancy->company->name . ' telah ditolak. Jangan menyerah, coba lagi untuk lowongan lainnya!',
+                ]);
+            } elseif ($appliance->status == 'processed') {
+                $notif = Notification::create([
+                    'user_id' => $appliance->user_id,
+                    'title' => 'Lamaran Magang Kamu Sedang Diproses',
+                    'body' => 'Lamaran magang kamu untuk lowongan ' . $appliance->vacancy->name . ' di ' . $appliance->vacancy->company->name . ' sedang diproses oleh pihak sekolah. Harap sabar menunggu kabar selanjutnya.',
+                ]);
+            }
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

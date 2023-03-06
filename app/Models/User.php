@@ -160,6 +160,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Score::class);
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', 1);

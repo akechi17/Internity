@@ -23,6 +23,17 @@ class News extends Model
         'newsable_type',
     ];
 
+    protected static function booted()
+    {
+        static::created(function ($news) {
+            $news = Notification::create([
+                'user_id' => null,
+                'title' => 'Ada Berita Baru!',
+                'body' => 'Ada berita baru yang ditambahkan oleh ' . $news->user->name . '. Segera cek di sesi berita!',
+            ]);
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

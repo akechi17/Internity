@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\JournalController;
 use App\Http\Controllers\Api\VacancyController;
 use App\Http\Controllers\Api\PresenceController;
 use App\Http\Controllers\Api\ApplianceController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PresenceStatusController;
 
 /*
@@ -59,4 +60,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/presence-statuses', [PresenceStatusController::class, 'index']);
     Route::get('/presence-statuses/{id}', [PresenceStatusController::class, 'show']);
+
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::put('/notifications/mark-as-read', [NotificationController::class, 'markAsRead']);
 });

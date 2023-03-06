@@ -398,7 +398,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'gender' => 'required|in:male,female',
+            'gender' => 'nullable|in:male,female',
             'bio' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
             'phone' => 'nullable|string|min:10|max:20',
@@ -407,7 +407,14 @@ class UserController extends Controller
         ]);
 
         $user = User::find($user->id);
+        $oldEmail = $user->email;
         $user->update($request->all());
+
+        if ($oldEmail != $request->email) {
+            $user->email_verified_at = null;
+            $user->save();
+            // $user->sendEmailVerificationNotification();
+        }
 
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');

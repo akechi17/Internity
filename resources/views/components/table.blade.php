@@ -9,7 +9,7 @@
                     class="header-function d-flex align-items-center @can($permissionCreate) @if ($routeCreate) justify-content-between @else justify-content-end @endif @endcan">
                     <!-- Add data Start -->
                     @if ($roleCreate != null)
-                        @if (! $showButton)
+                        @if (!$showButton)
                             @role($roleCreate)
                                 @can($permissionCreate)
                                     @if ($routeCreate)
@@ -47,7 +47,7 @@
 
 
 
-                    <div class="card-header p-0">
+                    {{-- <div class="card-header p-0">
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                             <div class="input-group">
                                 <span class="input-group-text text-body">
@@ -56,7 +56,7 @@
                                 <input type="text" class="form-control search" placeholder="Cari..." name="search">
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 

@@ -81,3 +81,4 @@ build: {
 this documentation might be confuse some part, if you faced an issue when installing this application don't be hestitate to open an issue or just ask us and this guide can be improved.
 
 Thank you from writer!
+

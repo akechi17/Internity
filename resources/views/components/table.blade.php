@@ -6,36 +6,12 @@
 
                 {{-- Table Function --}}
                 <div
-                    class="header-function d-flex align-items-center @can($permissionCreate) @if ($routeCreate) justify-content-between @else justify-content-end @endif @endcan">
+                    class="header-function d-flex align-items-center  @if ($routeCreate) justify-content-between @else justify-content-end @endif">
                     <!-- Add data Start -->
-                    @if ($roleCreate != null)
-                        @if (!$showButton)
-                            @role($roleCreate)
-                                @can($permissionCreate)
-                                    @if ($routeCreate)
-                                        <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
-                                            TAMBAH DATA
-                                        </a>
-                                    @endif
-                                @endcan
-                            @endrole
-                        @else
-                            @can($permissionCreate)
-                                @if ($routeCreate)
-                                    <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
-                                        TAMBAH DATA
-                                    </a>
-                                @endif
-                            @endcan
-                        @endif
-                    @else
-                        @can($permissionCreate)
-                            @if ($routeCreate)
-                                <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
-                                    TAMBAH DATA
-                                </a>
-                            @endif
-                        @endcan
+                    @if ($routeCreate)
+                        <a href="{{ $routeCreate }}" class="btn bg-gradient-info mb-0">
+                            TAMBAH DATA
+                        </a>
                     @endif
                     <!-- Add data End -->
 
@@ -44,8 +20,6 @@
                         {{ $dropdown }}
                     @endif
                     {{-- Filter end --}}
-
-
 
                     {{-- <div class="card-header p-0">
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -84,10 +58,12 @@
 @once
     @push('scripts')
         <script type="module">
-            $('.button-delete').on('click', function(){
+            $('.button-delete').on('click', function() {
                 const buttonId = $(this).attr('id');
 
-                utils.useDeleteButton({buttonId: buttonId});
+                utils.useDeleteButton({
+                    buttonId: buttonId
+                });
             })
         </script>
     @endpush

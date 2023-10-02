@@ -12,14 +12,12 @@ class table extends Component
      *
      * @return void
      */
-    public function __construct($pageName, $pagination, $tableData, $routeCreate = null, $permissionCreate = null, $roleCreate = null, $filter = null, $showButton = null)
+    public function __construct($pageName, $pagination, $tableData, $routeCreate = null, $filter = null, $showButton = null)
     {
         $this->routeCreate = str_replace('&amp;', '&', $routeCreate);
         $this->pageName = $pageName;
         $this->pagination = $pagination;
         $this->tableData = $tableData;
-        $this->permissionCreate = $permissionCreate;
-        $this->roleCreate = $roleCreate != null ? str_replace(' ', '|', $roleCreate) : null;
         $this->filter = $filter;
         $this->showButton = $showButton;
     }

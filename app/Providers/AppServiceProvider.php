@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Menu;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+
         view()->composer('*', function ($view) {
             if (auth()->check()) {
                 $userPermissions = auth()->user()->getAllPermissions()->pluck('id')->toArray();

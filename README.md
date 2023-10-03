@@ -3,6 +3,12 @@
 
 ## About Internity
 
+A monitoring apps for intern student
+
+
+[Project Document](https://alive-tuesday-bf3.notion.site/Internity-92fca1eb40184937ab9f9f5260114b7c) <br>
+[Figma Design](https://www.figma.com/file/Fb2EnDPJ5InM7UGLGY8z2j/Internity?t=lNqqMfw5j2TLPkHI-6)
+
 ## Api Documentation
 You can access postman documentation here  [Postman Documentation](https://documenter.getpostman.com/view/13187001/2s9YJdUguU)
 

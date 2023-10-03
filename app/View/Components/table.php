@@ -6,7 +6,7 @@ use Illuminate\View\Component;
 
 class table extends Component
 {
-    public $routeCreate, $pageName, $pagination, $tableData, $permissionCreate, $roleCreate, $filter, $showButton;
+    public  $pageName, $pagination, $tableData, $routeCreate, $filter, $showButton;
     /**
      * Create a new component instance.
      *
@@ -14,7 +14,7 @@ class table extends Component
      */
     public function __construct($pageName, $pagination, $tableData, $routeCreate = null, $filter = null, $showButton = null)
     {
-        $this->routeCreate = str_replace('&amp;', '&', $routeCreate);
+        $this->routeCreate = $routeCreate;
         $this->pageName = $pageName;
         $this->pagination = $pagination;
         $this->tableData = $tableData;

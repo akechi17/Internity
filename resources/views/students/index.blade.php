@@ -5,7 +5,7 @@
 @extends('layouts.dashboard')
 
 @section('dashboard-content')
-    <x-table pageName="Data Magang Siswa" route="{{ route('users.create') }}" :pagination="$students" :tableData="$students">
+    <x-table pageName="Data Magang Siswa" routeCreate="{{ route('users.create') }}" :pagination="$students" :tableData="$students">
 
         <x-slot:thead>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
@@ -42,33 +42,38 @@
                 @if (count($student->companies()->get()) == 0)
                     <tr>
                         <td class="text-center">
-                            <a href="{{ route('presences.index', ['user' => encrypt($student->id)]) }}" class="btn btn-secondary text-xs" style="pointer-events: none"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Presensi">
-                                    <i class="bi bi-calendar-check"></i></a>
-                            <a href="{{ route('journals.index', ['user' => encrypt($student->id)]) }}" class="btn btn-secondary text-xs" style="pointer-events: none"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jurnal">
-                                    <i class="bi bi-journal-bookmark-fill"></i></a>
+                            <a href="{{ route('presences.index', ['user' => encrypt($student->id)]) }}"
+                                class="btn btn-secondary text-xs" style="pointer-events: none" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom" title="Presensi">
+                                <i class="bi bi-calendar-check"></i></a>
+                            <a href="{{ route('journals.index', ['user' => encrypt($student->id)]) }}"
+                                class="btn btn-secondary text-xs" style="pointer-events: none" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom" title="Jurnal">
+                                <i class="bi bi-journal-bookmark-fill"></i></a>
                             @can('monitor-list')
-                                <a href="{{ route('monitors.index', ['user' => encrypt($student->id)]) }}" class="btn btn-secondary text-xs" style="pointer-events: none"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Monitoring">
-                                        <i class="bi bi-list-check"></i></a>
+                                <a href="{{ route('monitors.index', ['user' => encrypt($student->id)]) }}"
+                                    class="btn btn-secondary text-xs" style="pointer-events: none" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" title="Monitoring">
+                                    <i class="bi bi-list-check"></i></a>
                             @endcan
-                            <a href="{{ route('students.edit', encrypt($student->id)) }}" class="btn btn-secondary text-xs" style="pointer-events: none"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Review">
-                                    <i class="bi bi-chat-left-text"></i></a>
-                            <a href="{{ route('students.edit', encrypt($student->id)) }}" class="btn btn-secondary text-xs" style="pointer-events: none"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Nilai">
-                                    <i class="bi bi-award"></i></a>
+                            <a href="{{ route('students.edit', encrypt($student->id)) }}" class="btn btn-secondary text-xs"
+                                style="pointer-events: none" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="Review">
+                                <i class="bi bi-chat-left-text"></i></a>
+                            <a href="{{ route('students.edit', encrypt($student->id)) }}" class="btn btn-secondary text-xs"
+                                style="pointer-events: none" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="Nilai">
+                                <i class="bi bi-award"></i></a>
                             <a href="{{ route('students.edit', encrypt($student->id)) }}" class="btn btn-info text-xs"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit">
-                                    <i class="bi bi-pencil-square"></i></a>
+                                <i class="bi bi-pencil-square"></i></a>
                         </td>
                         <td class="text-sm">{{ $student->name }}</td>
                         <td class="text-sm">{{ $student->courses()->first()?->name }}</td>
                         <td class="text-sm">
                             <ul>
                                 @if ($student->skills)
-                                    @foreach (explode(",", $student->skills) as $skill)
+                                    @foreach (explode(',', $student->skills) as $skill)
                                         <li>{{ $skill }}</li>
                                     @endforeach
                                 @endif
@@ -82,31 +87,43 @@
                 @else
                     @foreach ($student->companies()->get() as $company)
                         @php
-                            $startDate = $student->internDates()->where('company_id', $company->id)->first()?->start_date;
-                            $endDate = $student->internDates()->where('company_id', $company->id)->first()?->end_date;
+                            $startDate = $student
+                                ->internDates()
+                                ->where('company_id', $company->id)
+                                ->first()?->start_date;
+                            $endDate = $student
+                                ->internDates()
+                                ->where('company_id', $company->id)
+                                ->first()?->end_date;
                         @endphp
                         <tr>
                             <td class="text-center">
-                                <a href="{{ route('presences.index', ['user' => encrypt($student->id), 'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Presensi">
-                                        <i class="bi bi-calendar-check"></i></a>
-                                <a href="{{ route('journals.index', ['user' => encrypt($student->id), 'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jurnal">
-                                        <i class="bi bi-journal-bookmark-fill"></i></a>
+                                <a href="{{ route('presences.index', ['user' => encrypt($student->id), 'company' => encrypt($company->id)]) }}"
+                                    class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Presensi">
+                                    <i class="bi bi-calendar-check"></i></a>
+                                <a href="{{ route('journals.index', ['user' => encrypt($student->id), 'company' => encrypt($company->id)]) }}"
+                                    class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Jurnal">
+                                    <i class="bi bi-journal-bookmark-fill"></i></a>
                                 @can('monitor-list')
-                                    <a href="{{ route('monitors.index', ['user' => encrypt($student->id), 'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
-                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Monitoring">
-                                            <i class="bi bi-list-check"></i></a>
+                                    <a href="{{ route('monitors.index', ['user' => encrypt($student->id), 'company' => encrypt($company->id)]) }}"
+                                        class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        title="Monitoring">
+                                        <i class="bi bi-list-check"></i></a>
                                 @endcan
-                                <a href="{{ route('reviews.users.edit', ['user' => encrypt($student->id), 'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Review">
-                                        <i class="bi bi-chat-left-text"></i></a>
-                                <a href="{{ route('scores.index', ['user' => encrypt($student->id), 'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Nilai">
-                                        <i class="bi bi-award"></i></a>
-                                <a href="{{ route('students.edit', ['id'=>encrypt($student->id),'company'=>encrypt($company->id)]) }}" class="btn btn-info text-xs"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit">
-                                        <i class="bi bi-pencil-square"></i></a>
+                                <a href="{{ route('reviews.users.edit', ['user' => encrypt($student->id), 'company' => encrypt($company->id)]) }}"
+                                    class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Review">
+                                    <i class="bi bi-chat-left-text"></i></a>
+                                <a href="{{ route('scores.index', ['user' => encrypt($student->id), 'company' => encrypt($company->id)]) }}"
+                                    class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Nilai">
+                                    <i class="bi bi-award"></i></a>
+                                <a href="{{ route('students.edit', ['id' => encrypt($student->id), 'company' => encrypt($company->id)]) }}"
+                                    class="btn btn-info text-xs" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Edit">
+                                    <i class="bi bi-pencil-square"></i></a>
 
                             </td>
                             <td class="text-sm">{{ $student->name }}</td>
@@ -114,7 +131,7 @@
                             <td class="text-sm">
                                 <ul>
                                     @if ($student->skills)
-                                        @foreach (explode(",", $student->skills) as $skill)
+                                        @foreach (explode(',', $student->skills) as $skill)
                                             <li>{{ $skill }}</li>
                                         @endforeach
                                     @endif
@@ -135,10 +152,12 @@
                                     <p class="badge badge-sm bg-gradient-danger }}">Belum Diisi</p>
                                 @endif
                             <td class="text-sm text-center">
-                                {{ $student->internDates()->where('company_id', $company->id)->first()?->extend }} bulan</td>
+                                {{ $student->internDates()->where('company_id', $company->id)->first()?->extend }} bulan
+                            </td>
                             <td class="text-sm text-center">
-                                <span class="badge badge-sm bg-gradient-{{ $student->internDates()->where('company_id', $company->id)->first()?->finished ? 'success' : 'warning' }}">
-                                    {{ $student->internDates()->where('company_id', $company->id)->first()?->finished ? 'Selesai' : 'Magang' }}
+                                <span
+                                    class="badge badge-sm bg-gradient-{{ $student->internDates()->where('company_id', $company->id)->first()?->finished? 'success': 'warning' }}">
+                                    {{ $student->internDates()->where('company_id', $company->id)->first()?->finished? 'Selesai': 'Magang' }}
                                 </span>
                             </td>
                         </tr>

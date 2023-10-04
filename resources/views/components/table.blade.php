@@ -1,3 +1,8 @@
+@php
+    dd($filter);
+@endphp
+
+
 <div class="row">
     <div class="col-12">
         <div class="card mb-4">
@@ -16,7 +21,7 @@
                     <!-- Add data End -->
 
                     {{-- Filter Start --}}
-                    @if ($filter)
+                    @if (!empty($filter))
                         {{ $dropdown }}
                     @endif
                     {{-- Filter end --}}

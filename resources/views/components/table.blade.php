@@ -16,7 +16,7 @@
                     <!-- Add data End -->
 
                     {{-- Filter Start --}}
-                    @if ($filter)
+                    @if (!empty($filter))
                         {{ $dropdown }}
                     @endif
                     {{-- Filter end --}}

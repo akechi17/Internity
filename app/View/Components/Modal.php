@@ -4,17 +4,23 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class validation extends Component
+class Modal extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $message;
-    public function __construct($message)
+
+    public $modalId;
+    public $modalTitle;
+    public $modalLable;
+
+    public function __construct($modalId, $modalTitle, $modalLable)
     {
-        $this->message = $message;
+        $this->modalId = $modalId;
+        $this->modalTitle = $modalTitle;
+        $this->modalLable = $modalLable;
     }
 
     /**
@@ -24,6 +30,6 @@ class validation extends Component
      */
     public function render()
     {
-        return view('components.validation');
+        return view('components.modal');
     }
 }

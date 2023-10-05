@@ -4,20 +4,16 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class alert extends Component
+class Validation extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-
-    public $type;
     public $message;
-
-    public function __construct($type, $message)
+    public function __construct($message)
     {
-        $this->type = $type;
         $this->message = $message;
     }
 
@@ -28,6 +24,6 @@ class alert extends Component
      */
     public function render()
     {
-        return view('components.alert');
+        return view('components.validation');
     }
 }
